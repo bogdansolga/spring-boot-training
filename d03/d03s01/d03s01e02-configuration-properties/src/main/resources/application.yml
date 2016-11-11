@@ -1,0 +1,17 @@
+# a yaml sample configuration properties
+profiling:
+  environment: a modified environment
+  connection:
+    timeout: 5000
+    socket-timeout: 7000
+    ips:
+      - 192.133.211.123
+      - 192.133.211.245
+
+    classOfSomething:
+      -
+        key: value
+        something: everything
+      -
+        key: 2
+        something: anything

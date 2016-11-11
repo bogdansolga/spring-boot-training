@@ -1,0 +1,3 @@
+# the connection timeout for the 'dev' profile
+connection:
+  timeout: 5000

@@ -1,0 +1,40 @@
+# the name of the current app
+spring:
+  application:
+    name: spring-boot-web-demo
+
+  # DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    name: spring_boot
+    password: postgres
+    platform: postgresql
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/spring_boot
+    initialize: false
+
+  # JPA properties - JpaProperties
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: false
+
+  # indent the returned JSON responses
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+
+# logging settings
+logging:
+  level:
+    root: info
+    org.apache: warn
+    org.springframework: warn
+    org.hibernate: warn
+
+  pattern:
+    console: '%clr([%date{HH:mm:ss.SSS}]){faint} %clr(%2p) %clr(%-40.40logger{36}){cyan} %m%n%wex'
