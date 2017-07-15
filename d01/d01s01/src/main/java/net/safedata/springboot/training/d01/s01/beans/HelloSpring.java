@@ -1,4 +1,4 @@
-package net.safedata.springboot.training.d01.s01;
+package net.safedata.springboot.training.d01.s01.beans;
 
 import org.springframework.context.annotation.Bean;
 
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
  */
 public class HelloSpring {
 
-    void displayWelcomeMessage() {
+    public void displayWelcomeMessage() {
         System.out.println("Hello, Spring!");
     }
 }

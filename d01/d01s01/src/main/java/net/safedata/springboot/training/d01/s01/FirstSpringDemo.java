@@ -1,5 +1,7 @@
 package net.safedata.springboot.training.d01.s01;
 
+import net.safedata.springboot.training.d01.s01.beans.HelloSpring;
+import net.safedata.springboot.training.d01.s01.config.DemoConfig;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
