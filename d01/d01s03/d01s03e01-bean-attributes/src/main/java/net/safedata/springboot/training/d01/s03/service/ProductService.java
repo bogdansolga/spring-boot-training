@@ -20,6 +20,7 @@ public class ProductService {
 
     public void displayProducts() {
         System.out.println("Using the '" + identifier + "' service");
-        Optional.ofNullable(productRepository).ifPresent(ProductRepository::displayProducts);
+        Optional.ofNullable(productRepository)
+                .ifPresent(ProductRepository::displayProducts);
     }
 }
