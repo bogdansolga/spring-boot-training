@@ -1,4 +1,4 @@
-package com.safedata.springboot.training.d01.s04.controller;
+package net.safedata.springboot.training.d01.s04.controller;
 
 import net.safedata.springboot.training.d01.s04.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;

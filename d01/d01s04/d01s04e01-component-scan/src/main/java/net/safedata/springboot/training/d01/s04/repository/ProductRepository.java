@@ -1,4 +1,4 @@
-package com.safedata.springboot.training.d01.s04.repository;
+package net.safedata.springboot.training.d01.s04.repository;
 
 import org.springframework.stereotype.Repository;
 

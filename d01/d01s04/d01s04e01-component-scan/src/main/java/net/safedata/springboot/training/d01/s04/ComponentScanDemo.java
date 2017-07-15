@@ -1,4 +1,4 @@
-package com.safedata.springboot.training.d01.s04;
+package net.safedata.springboot.training.d01.s04;
 
 import net.safedata.springboot.training.d01.s04.config.ComponentScanConfig;
 import net.safedata.springboot.training.d01.s04.service.ProductService;
