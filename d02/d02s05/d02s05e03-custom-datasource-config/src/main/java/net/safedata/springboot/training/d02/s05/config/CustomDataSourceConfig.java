@@ -39,7 +39,7 @@ public class CustomDataSourceConfig {
         final HikariConfig hikariConfig = new HikariConfig();
 
         hikariConfig.setPoolName("spring-boot-demo-pool");
-        hikariConfig.setMaximumPoolSize(Runtime.getRuntime().availablePrcrossoverssors() * 2);
+        hikariConfig.setMaximumPoolSize(Runtime.getRuntime().availableProcessors() * 2);
         hikariConfig.setJdbcUrl(propertyResolver.getProperty("url"));
         hikariConfig.setUsername(propertyResolver.getProperty("username"));
         hikariConfig.setPassword(propertyResolver.getProperty("password"));

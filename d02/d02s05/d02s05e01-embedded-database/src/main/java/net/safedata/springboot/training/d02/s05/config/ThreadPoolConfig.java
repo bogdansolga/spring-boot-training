@@ -10,14 +10,14 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 @EnableAsync
 public class ThreadPoolConfig {
 
-    private static final int CORES = Runtime.getRuntime().availablePrcrossoverssors();
+    private static final int AVAILABLE_PROCESSORS = Runtime.getRuntime().availableProcessors();
 
     @Bean
     public ThreadPoolTaskExecutor executor() {
         ThreadPoolTaskExecutor threadPoolExecutor = new ThreadPoolTaskExecutor();
 
-        threadPoolExecutor.setCorePoolSize(CORES);
-        threadPoolExecutor.setMaxPoolSize(CORES * 2);
+        threadPoolExecutor.setCorePoolSize(AVAILABLE_PROCESSORS);
+        threadPoolExecutor.setMaxPoolSize(AVAILABLE_PROCESSORS * 2);
         threadPoolExecutor.setKeepAliveSeconds(10);
 
         return threadPoolExecutor;
@@ -27,7 +27,7 @@ public class ThreadPoolConfig {
     public ThreadPoolTaskScheduler scheduler() {
         ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
 
-        scheduler.setPoolSize(CORES);
+        scheduler.setPoolSize(AVAILABLE_PROCESSORS);
 
         return scheduler;
     }
@@ -36,8 +36,8 @@ public class ThreadPoolConfig {
     public ThreadPoolTaskExecutor theOtherExecutor() {
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
 
-        taskExecutor.setCorePoolSize(CORES * 3);
-        taskExecutor.setMaxPoolSize(CORES * 10);
+        taskExecutor.setCorePoolSize(AVAILABLE_PROCESSORS * 3);
+        taskExecutor.setMaxPoolSize(AVAILABLE_PROCESSORS * 10);
         taskExecutor.setKeepAliveSeconds(10);
 
         return taskExecutor;
