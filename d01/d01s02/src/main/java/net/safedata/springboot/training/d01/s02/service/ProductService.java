@@ -14,10 +14,11 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public void displayProducts() {
-        Optional.ofNullable(productRepository).ifPresent(ProductRepository::displayProducts);
+        Optional.ofNullable(productRepository)
+                .ifPresent(ProductRepository::displayProducts);
     }
 
-    public void setProductRepository(ProductRepository productRepository) {
+    public void setProductRepository(final ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 }
