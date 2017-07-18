@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -60,13 +58,9 @@ public class ProductController {
      */
     @RequestMapping(
             method = RequestMethod.GET,
-            path = "/{id}",
-            produces = {
-                    "application/vnd.crossover.product+json"
-            }
+            path = "/{id}"
     )
-    public ProductDTO getProduct(@PathVariable final int id, final HttpServletRequest request,
-                                 final HttpServletResponse response) {
+    public ProductDTO getProduct(@PathVariable final int id) {
         return productService.get(id);
     }
 
