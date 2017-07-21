@@ -36,7 +36,8 @@ public class RequestMappingController {
     )
     public String requestParamsIntro(@RequestParam(name = "color") String color,
                                      @RequestParam(required = false) String weight) {
-        return "The color is '" + color + "', the weight is '" + Optional.ofNullable(weight).orElse("N/A") + "'";
+        return "The color is '" + color + "', the weight is '" + Optional.ofNullable(weight)
+                                                                         .orElse("N/A") + "'";
     }
 
     @RequestMapping(
