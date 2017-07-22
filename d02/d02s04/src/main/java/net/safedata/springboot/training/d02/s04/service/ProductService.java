@@ -6,6 +6,7 @@ import net.safedata.springboot.training.d02.s04.model.Product;
 import net.safedata.springboot.training.d02.s04.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.Optional;
@@ -61,8 +62,8 @@ public class ProductService {
     }
 
     private void validateRequest(final ProductDTO productDTO) {
-        Optional.ofNullable(productDTO)
-                .orElseThrow(() -> new IllegalArgumentException("Cannot prcrossoverss a null product"));
+        // throws an IllegalArgumentException
+        Assert.notNull(productDTO, "Cannot process a null product");
     }
 
     private Product validateAndGetProduct(final int id) {
