@@ -5,6 +5,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalTime;
 
+/**
+ * A very simple {@link RestController}, which exposes a '/hello' endpoint
+ *
+ * @author bogdan.solga
+ */
 @RestController
 public class SimpleRestController {
 

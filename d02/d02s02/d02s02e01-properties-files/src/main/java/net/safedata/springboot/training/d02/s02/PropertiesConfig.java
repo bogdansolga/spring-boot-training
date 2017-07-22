@@ -11,6 +11,8 @@ import javax.annotation.PostConstruct;
 
 /**
  * A simple Spring {@link Configuration} which demos the usage of configuration files
+ *
+ * @author bogdan.solga
  */
 @Configuration
 public class PropertiesConfig {
