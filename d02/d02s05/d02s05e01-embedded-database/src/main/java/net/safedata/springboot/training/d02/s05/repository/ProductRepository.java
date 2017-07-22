@@ -23,9 +23,12 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
 
     List<Product> findByPrice(final double price);
 
-    @Async("theOtherExecutor")
+    @Async
     Future<Product> findProductById(int id);
 
-    @Query(value = "SELECT product FROM Product product WHERE product.name LIKE :name")
+    @Query(value =  "SELECT product " +
+                    "FROM Product product " +
+                    "WHERE product.name LIKE :name"
+    )
     List<Product> findProductsWhichIncludeName(final @Param(value = "name") String name);
 }
