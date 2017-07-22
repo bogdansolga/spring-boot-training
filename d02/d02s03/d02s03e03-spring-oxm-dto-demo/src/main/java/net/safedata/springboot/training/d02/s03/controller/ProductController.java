@@ -1,10 +1,10 @@
 package net.safedata.springboot.training.d02.s03.controller;
 
 import net.safedata.springboot.training.d02.s03.dto.ProductDTO;
-import net.safedata.springboot.training.d02.s03.model.Product;
 import net.safedata.springboot.training.d02.s03.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,42 +33,25 @@ public class ProductController {
         this.productService = productService;
     }
 
-    /**
-     * Creates a {@link Product} from the referenced {@link ProductDTO}
-     *
-     * @param productDTO the {@link Product} to be created
-     *
-     * @return a {@link ResponseEntity} with the appropriate {@link HttpStatus}
-     */
     @RequestMapping(
             method = RequestMethod.POST,
-            path = ""
+            path = "",
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public ResponseEntity create(@RequestBody @Valid ProductDTO productDTO) {
         productService.create(productDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    /**
-     * Reads the {@link Product} with the specified id
-     *
-     * @param id the id of the requested {@link Product}
-     *
-     * @return the serialized {@link Product}
-     */
     @RequestMapping(
             method = RequestMethod.GET,
-            path = "/{id}"
+            path = "/{id}",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public ProductDTO getProduct(@PathVariable final int id) {
         return productService.get(id);
     }
 
-    /**
-     * Reads all the existing {@link Product}s
-     *
-     * @return the serialized {@link Product}s
-     */
     @RequestMapping(
             method = RequestMethod.GET,
             path = ""
@@ -77,14 +60,6 @@ public class ProductController {
         return productService.getAll();
     }
 
-    /**
-     * Updates the {@link Product} with the specified ID with the details from the referenced {@link Product}
-     *
-     * @param id the ID of the updated {@link Product}
-     * @param productDTO the new {@link Product} details
-     *
-     * @return a {@link ResponseEntity} with the appropriate {@link HttpStatus}
-     */
     @RequestMapping(
             method = RequestMethod.PUT,
             path = "/{id}"
@@ -94,13 +69,6 @@ public class ProductController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    /**
-     * Deletes the {@link Product} with the specified ID
-     *
-     * @param id the ID of the deleted {@link Product}
-     *
-     * @return a {@link ResponseEntity} with the appropriate {@link HttpStatus}
-     */
     @RequestMapping(
             method = RequestMethod.DELETE,
             path = "/{id}"
