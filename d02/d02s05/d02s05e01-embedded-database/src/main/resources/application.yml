@@ -10,7 +10,13 @@ spring:
 
   datasource:
     platform: h2
-    url: jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=FALSE
+
+    # in-memory database
+    url: jdbc:h2:mem:test
+
+    # on disk database
+    #url: jdbc:h2:~/test
+
     username: sa
     password: aVeryComplexPassword
     data: data-h2.sql
