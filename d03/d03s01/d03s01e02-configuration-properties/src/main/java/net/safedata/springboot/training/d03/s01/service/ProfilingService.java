@@ -33,5 +33,6 @@ public class ProfilingService {
         System.out.println("Connection socket timeout - " + connectionSocketTimeout);
 
         System.out.println(profilingConfiguration.getEnvironment());
+        System.out.println(profilingConfiguration.getConnection().getSocketTimeout());
     }
 }

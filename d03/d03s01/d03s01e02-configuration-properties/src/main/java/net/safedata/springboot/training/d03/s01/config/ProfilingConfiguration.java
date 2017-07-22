@@ -16,6 +16,8 @@ public class ProfilingConfiguration {
 
     private String environment;
 
+    private Connection connection;
+
     public String getEnvironment() {
         return environment;
     }
@@ -54,5 +56,13 @@ public class ProfilingConfiguration {
         public void setIps(List<String> ips) {
             this.ips = ips;
         }
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
     }
 }
