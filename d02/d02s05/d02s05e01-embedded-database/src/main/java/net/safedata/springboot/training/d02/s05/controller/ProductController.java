@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
 
 /**
  * A Spring {@link RestController} used to showcase the modeling of a REST controller for CRUD operations
@@ -27,21 +25,13 @@ import java.util.concurrent.Executor;
 )
 public class ProductController {
 
-    private final Executor executor;
     private final ProductService productService;
 
     @Autowired
-    public ProductController(final Executor executor, final ProductService productService) {
-        this.executor = executor; this.productService = productService;
+    public ProductController(final ProductService productService) {
+        this.productService = productService;
     }
 
-    /**
-     * Creates the referenced {@link Product}
-     *
-     * @param product the {@link Product} to be created
-     *
-     * @return a {@link ResponseEntity} with the appropriate {@link HttpStatus}
-     */
     @RequestMapping(
             method = RequestMethod.POST,
             path = ""
@@ -51,32 +41,27 @@ public class ProductController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    /**
-     * Reads the {@link Product} with the specified id
-     *
-     * @param id the id of the requested {@link Product}
-     *
-     * @return the serialized {@link Product}
-     */
     @RequestMapping(
             method = RequestMethod.GET,
             path = "/{id}"
     )
-    public DeferredResult<Product> getProduct(@PathVariable final int id)
-            throws ExecutionException, InterruptedException {
-        final CompletableFuture<Product> futureProduct = CompletableFuture.supplyAsync(() -> productService.get(id), executor);
+    public Product getProduct(@PathVariable final int id) {
+        return productService.get(id);
+    }
+
+    @RequestMapping(
+            method = RequestMethod.GET,
+            path = "/async/{id}"
+    )
+    public DeferredResult<Product> getProductAsync(@PathVariable final int id) {
+        final CompletableFuture<Product> futureProduct = CompletableFuture.supplyAsync(() -> productService.get(id));
 
         final DeferredResult<Product> deferredResult = new DeferredResult<>();
-        deferredResult.setResult(futureProduct.get());
+        deferredResult.setResult(futureProduct.join());
 
         return deferredResult;
     }
 
-    /**
-     * Reads all the existing {@link Product}s
-     *
-     * @return the serialized {@link Product}s
-     */
     @RequestMapping(
             method = RequestMethod.GET,
             path = ""
@@ -85,14 +70,6 @@ public class ProductController {
         return productService.getAll();
     }
 
-    /**
-     * Updates the {@link Product} with the specified ID with the details from the referenced {@link Product}
-     *
-     * @param id the ID of the updated {@link Product}
-     * @param product the new {@link Product} details
-     *
-     * @return a {@link ResponseEntity} with the appropriate {@link HttpStatus}
-     */
     @RequestMapping(
             method = RequestMethod.PUT,
             path = "/{id}"
@@ -102,13 +79,6 @@ public class ProductController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    /**
-     * Deletes the {@link Product} with the specified ID
-     *
-     * @param id the ID of the deleted {@link Product}
-     *
-     * @return a {@link ResponseEntity} with the appropriate {@link HttpStatus}
-     */
     @RequestMapping(
             method = RequestMethod.DELETE,
             path = "/{id}"
