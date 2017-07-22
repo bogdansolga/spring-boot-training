@@ -22,7 +22,7 @@ public class ProductService {
     }
 
     @PreDestroy
-    public void close() {
+    public void closeResources() {
         System.out.println("Closing the used resources, by the PreDestroy annotation...");
     }
 }
