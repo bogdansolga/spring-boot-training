@@ -20,8 +20,12 @@ public class DomainConfig {
 
     @Bean
     public ProductService productService() {
+        /*
         final ProductService productService = new ProductService();
-        productService.setProductRepository(productRepository());
-        return productService;
+        productService.setProductRepository(productRepository());   --> might be omitted / forgotten
+        */
+
+        // recommended wiring mode
+        return new ProductService(productRepository());
     }
 }
