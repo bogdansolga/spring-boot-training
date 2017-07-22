@@ -14,7 +14,7 @@ public class DemoConfig {
 
     @Bean
     public String helloSpringAsString() {
-        return "Hello, Spring!";
+        return "Hello, Spring [as a string]!";
     }
 
     @Bean
