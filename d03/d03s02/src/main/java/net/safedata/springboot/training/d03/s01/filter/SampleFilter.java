@@ -1,4 +1,4 @@
-package net.safedata.springboot.training.d03.s01.config;
+package net.safedata.springboot.training.d03.s01.filter;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

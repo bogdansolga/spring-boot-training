@@ -1,5 +1,6 @@
 package net.safedata.springboot.training.d03.s01.config;
 
+import net.safedata.springboot.training.d03.s01.filter.SampleFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package net.safedata.springboot.training.d03.s01.config;
+package net.safedata.springboot.training.d03.s01.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
