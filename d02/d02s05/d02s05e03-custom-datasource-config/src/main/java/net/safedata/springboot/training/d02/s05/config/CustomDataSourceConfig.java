@@ -18,11 +18,15 @@ import javax.sql.DataSource;
  *     <li>configures the JPA repositories, using the {@link EnableJpaRepositories} annotation</li>
  *     <li>configures a custom {@link DataSource}, using the {@link HikariDataSource} class</li>
  * </ul>
+ *
+ * @author bogdan.solga
  */
 @Configuration
 @EnableJpaRepositories(basePackages = "net.safedata.springboot.training.d02.s05.repository")
 @EnableTransactionManagement
 public class CustomDataSourceConfig {
+
+    private static final int AVAILABLE_PROCESSORS = Runtime.getRuntime().availableProcessors();
 
     // as properties from YAML files cannot be wired using @Value, we need to use a RelaxedPropertyResolver
     // to read the config values
@@ -39,7 +43,7 @@ public class CustomDataSourceConfig {
         final HikariConfig hikariConfig = new HikariConfig();
 
         hikariConfig.setPoolName("spring-boot-demo-pool");
-        hikariConfig.setMaximumPoolSize(Runtime.getRuntime().availableProcessors() * 2);
+        hikariConfig.setMaximumPoolSize(AVAILABLE_PROCESSORS * 2);
         hikariConfig.setJdbcUrl(propertyResolver.getProperty("url"));
         hikariConfig.setUsername(propertyResolver.getProperty("username"));
         hikariConfig.setPassword(propertyResolver.getProperty("password"));
