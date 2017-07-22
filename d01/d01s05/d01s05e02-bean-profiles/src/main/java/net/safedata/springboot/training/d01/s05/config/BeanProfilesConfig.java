@@ -27,12 +27,18 @@ public class BeanProfilesConfig {
     }
 
     @Bean
+    @Profile(Profiles.DEFAULT)
+    public ProductService defaultProductService() {
+        return new ProductService(prodProductRepository());
+    }
+
+    @Bean
     public ProductRepository devProductRepository() {
         return new ProductRepository("H2");
     }
 
     @Bean
     public ProductRepository prodProductRepository() {
-        return new ProductRepository("PostgresQL");
+        return new ProductRepository("PostgreSQL");
     }
 }
