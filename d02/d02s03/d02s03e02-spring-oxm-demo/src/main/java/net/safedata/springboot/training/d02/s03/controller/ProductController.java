@@ -31,13 +31,6 @@ public class ProductController {
         this.productService = productService;
     }
 
-    /**
-     * Creates the referenced {@link Product}
-     *
-     * @param product the {@link Product} to be created
-     *
-     * @return a {@link ResponseEntity} with the appropriate {@link HttpStatus}
-     */
     @RequestMapping(
             method = RequestMethod.POST,
             path = ""
@@ -47,13 +40,6 @@ public class ProductController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    /**
-     * Reads the {@link Product} with the specified id
-     *
-     * @param id the id of the requested {@link Product}
-     *
-     * @return the serialized {@link Product}
-     */
     @RequestMapping(
             method = RequestMethod.GET,
             path = "/{id}"
@@ -62,11 +48,6 @@ public class ProductController {
         return productService.get(id);
     }
 
-    /**
-     * Reads all the existing {@link Product}s
-     *
-     * @return the serialized {@link Product}s
-     */
     @RequestMapping(
             method = RequestMethod.GET,
             path = ""
@@ -75,14 +56,6 @@ public class ProductController {
         return productService.getAll();
     }
 
-    /**
-     * Updates the {@link Product} with the specified ID with the details from the referenced {@link Product}
-     *
-     * @param id the ID of the updated {@link Product}
-     * @param product the new {@link Product} details
-     *
-     * @return a {@link ResponseEntity} with the appropriate {@link HttpStatus}
-     */
     @RequestMapping(
             method = RequestMethod.PUT,
             path = "/{id}"
@@ -92,13 +65,6 @@ public class ProductController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    /**
-     * Deletes the {@link Product} with the specified ID
-     *
-     * @param id the ID of the deleted {@link Product}
-     *
-     * @return a {@link ResponseEntity} with the appropriate {@link HttpStatus}
-     */
     @RequestMapping(
             method = RequestMethod.DELETE,
             path = "/{id}"
