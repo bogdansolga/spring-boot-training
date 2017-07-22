@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.nio.file.AccessDeniedException;
-
 /**
  * The most common exception handlers
  *
@@ -21,11 +19,7 @@ public class ExceptionHandlers {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ExceptionHandlers.class);
 
-    @ExceptionHandler({
-            NotFoundException.class,
-            IllegalAccessException.class,
-            AccessDeniedException.class
-    })
+    @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     @ResponseBody
     public MessageDTO notFoundException(final NotFoundException e) {
