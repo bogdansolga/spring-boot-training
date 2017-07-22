@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 
 /**
  * An example of a 'prototype' scoped {@link Service}
+ *
+ * @author bogdan.solga
  */
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
@@ -18,15 +20,17 @@ public class ProductPrototypeService {
 
     private Set<String> values;
 
-    public List<Integer> prcrossoverss() {
+    @SuppressWarnings("unused")
+    public List<Integer> processProducts() {
         //...
 
         values = new HashSet<>();
-        values.add("ceva");
+        values.add("a found Product");
+        // other operations
 
-        // alte operatii obscure...
-
-        return values.stream().map(item -> 6).collect(Collectors.toList());
+        return values.stream()
+                     .map(String::length)
+                     .collect(Collectors.toList());
     }
 
     public void displayHashCode() {
