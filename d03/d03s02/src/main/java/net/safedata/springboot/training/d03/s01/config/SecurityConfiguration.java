@@ -1,6 +1,9 @@
 package net.safedata.springboot.training.d03.s01.config;
 
 import net.safedata.springboot.training.d03.s01.filter.SampleFilter;
+import net.safedata.springboot.training.d03.s01.handler.FailedAuthHandler;
+import net.safedata.springboot.training.d03.s01.handler.PostLogoutHandler;
+import net.safedata.springboot.training.d03.s01.handler.SuccessfulAuthHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +14,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -18,6 +22,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,13 +42,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .roles("USER");
     }
 
+    @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/resources/static/**", "/about").permitAll()
-                .antMatchers(HttpMethod.POST, "/admin").hasAnyRole("ADMIN", "MANAGER")
-                .anyRequest().authenticated()
-                .and()
-        .formLogin();
+            .antMatchers("/resources/static/**", "/about").permitAll()
+            .antMatchers(HttpMethod.POST, "/admin").hasAnyRole("ADMIN", "MANAGER")
+            .anyRequest().authenticated();
+
+        // registering the post auth handlers
+        // they are registered as beans in order to be able to inject other dependencies in them (if needed)
+        http.formLogin()
+            .successHandler(successfulAuthHandler())
+            .failureHandler(failedAuthHandler())
+            .defaultSuccessUrl("/")
+            .permitAll();
+
+        // registering the post logout handler
+        http.logout()
+            .addLogoutHandler(postLogoutHandler());
 
         // setAuthenticated();
         // setAuthenticationDetails();
@@ -56,6 +72,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
+    }
+
+    @Bean
+    public SuccessfulAuthHandler successfulAuthHandler() {
+        return new SuccessfulAuthHandler();
+    }
+
+    @Bean
+    public FailedAuthHandler failedAuthHandler() {
+        return new FailedAuthHandler();
+    }
+
+    @Bean
+    public PostLogoutHandler postLogoutHandler() {
+        return new PostLogoutHandler();
     }
 
     private void setAuthenticated() {
