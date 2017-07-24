@@ -30,7 +30,8 @@ public class ProductServiceTest {
     private ProductService productService;
 
     @Test
-    public void shouldGetProductsWhenThereAreAvailableProducts() {
+    //public void shouldGetProductsWhenThereAreAvailableProducts() {
+    public void givenThereAreAvailableProducts_whenRetrievingProducts_thenProductsAreRetrievedCorrectly() {
         // arrange
         final List<Product> products = Arrays.asList(new Product(1, "Asus"), new Product(2, "Dell"));
         when(productRepository.findAll()).thenReturn(products);
@@ -72,9 +73,7 @@ public class ProductServiceTest {
     public void shouldGetAProductByIdWhenTheProductDoesNotExist() {
         when(productRepository.findOne(anyInt())).thenReturn(null);
 
-        final Product resulted = productService.getProduct(13);
-
-        assertNull(resulted);
+        productService.getProduct(13);
     }
 
     @Test
