@@ -13,14 +13,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductService {
 
-    private final ProductRepository productRepository;
+    private final ProductRepository mySQLProductRepository;
+    private final ProductRepository oracleProductRepository;
 
     @Autowired
-    public ProductService(@Qualifier(value = "mySQLProductRepository") final ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductService(@Qualifier(value = "mySQLProductRepository") final ProductRepository mySQLProductRepository,
+                          @Qualifier(value = "oracleProductRepository") final ProductRepository oracleProductRepository) {
+        this.mySQLProductRepository = mySQLProductRepository;
+        this.oracleProductRepository = oracleProductRepository;
     }
 
     public void displayProducts() {
-        productRepository.displayProducts();
+        final ProductRepository usedRepo = System.currentTimeMillis() % 2 == 0 ? mySQLProductRepository : oracleProductRepository;
+        usedRepo.displayProducts();
     }
 }
