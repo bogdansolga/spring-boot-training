@@ -44,7 +44,8 @@ public class RequestMappingController {
             method = RequestMethod.GET,
             path = "/pathVariable/{first}/{second}"
     )
-    public String pathVariableIntro(@PathVariable String first, @PathVariable String second) {
+    public String pathVariableIntro(@PathVariable String first,
+                                    @PathVariable(required = false) String second) {
         return "The first path variable value is '" + first + "', the second is '" + second + "'";
     }
 }
