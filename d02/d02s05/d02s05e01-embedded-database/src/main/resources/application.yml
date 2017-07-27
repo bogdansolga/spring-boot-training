@@ -26,7 +26,7 @@ spring:
   jpa:
     properties:
       hibernate:
-        show_sql: false
+        show_sql: true
         format_sql: true
 
 # logging settings
@@ -35,8 +35,11 @@ logging:
     root: info
     org:
       apache: warn
+      # to see the query parameters - change 'sql' to 'debug' and 'type' to 'trace'
+      hibernate:
+        sql: warn
+        type: warn
       springframework: warn
-      hibernate: warn
 
   pattern:
     console: '%clr([%date{HH:mm:ss.SSS}]){faint} %clr(%2p) %clr(%-40.40logger{36}){cyan} %m%n%wex'
