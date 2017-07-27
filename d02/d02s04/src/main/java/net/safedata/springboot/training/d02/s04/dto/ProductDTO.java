@@ -12,12 +12,8 @@ import java.util.Objects;
  */
 public class ProductDTO implements Serializable {
 
-    private int id;
-
-    private String productName;
-
-    public ProductDTO() {
-    }
+    private final int id;
+    private final String productName;
 
     public ProductDTO(final int id, final String productName) {
         this.id = id; this.productName = productName;
@@ -27,16 +23,8 @@ public class ProductDTO implements Serializable {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getProductName() {
         return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
     }
 
     @Override
