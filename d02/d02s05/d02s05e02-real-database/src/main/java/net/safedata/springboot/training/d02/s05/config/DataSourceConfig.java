@@ -5,6 +5,7 @@ import net.safedata.springboot.training.d02.s05.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.annotation.PostConstruct;
 
@@ -17,6 +18,7 @@ import javax.annotation.PostConstruct;
  */
 @Configuration
 @EnableJpaRepositories(basePackages = "net.safedata.springboot.training.d02.s05.repository")
+@EnableTransactionManagement
 public class DataSourceConfig {
 
     private final ProductService productService;
