@@ -21,7 +21,7 @@ public class ProfileConfig {
 
     private final Environment environment;
 
-    @Value("${connection.timeout}")
+    @Value("${connection.timeout:-1}")
     private int connectionTimeout;
 
     @Autowired
