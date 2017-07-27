@@ -32,37 +32,38 @@ public class ProductRESTControllerTest {
 
     @Before
     public void setup () {
-        DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(webApplicationContext);
-        this.mockMvc = builder.build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+                                 .build();
     }
 
     @Test
-    public void shouldAddUsers () throws Exception {
-
+    public void shouldRetrieveProducts() throws Exception {
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.post("/product")
                                       .contentType(MediaType.APPLICATION_JSON)
                                       .content(createProduct("Tablet"));
 
-        this.mockMvc.perform(builder)
-                    .andExpect(MockMvcResultMatchers.status()
-                                                    .isOk());
+        mockMvc.perform(builder)
+               .andExpect(MockMvcResultMatchers.status()
+                                               .isOk());
 
         // create one more product
         builder = MockMvcRequestBuilders.post("/product")
                                         .contentType(MediaType.APPLICATION_JSON)
                                         .content(createProduct("phone"));
 
-        this.mockMvc.perform(builder)
-                    .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(builder)
+               .andExpect(MockMvcResultMatchers.status()
+                                               .isOk());
 
         // get all products
         builder = MockMvcRequestBuilders.get("/product")
                                         .accept(MediaType.APPLICATION_JSON);
-        this.mockMvc.perform(builder)
-                    .andExpect(MockMvcResultMatchers.status().isOk())
-                    .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)))
-                    .andDo(MockMvcResultHandlers.print());
+        mockMvc.perform(builder)
+               .andExpect(MockMvcResultMatchers.status()
+                                               .isOk())
+               .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)))
+               .andDo(MockMvcResultHandlers.print());
 
     }
 
