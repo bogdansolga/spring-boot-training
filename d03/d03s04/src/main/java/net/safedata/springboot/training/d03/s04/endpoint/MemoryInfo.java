@@ -10,7 +10,7 @@ public class MemoryInfo implements Serializable {
 
     private final String usedMemory;
 
-    public MemoryInfo(final long usedMemory, final long freeMemory) {
+    MemoryInfo(final long usedMemory, final long freeMemory) {
         this.usedMemory = usedMemory / MB + " MB"; this.freeMemory = freeMemory / MB + " MB";
     }
 
