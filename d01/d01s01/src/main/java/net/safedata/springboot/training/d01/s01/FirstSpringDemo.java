@@ -20,6 +20,6 @@ public class FirstSpringDemo {
         helloSpring.displayWelcomeMessage();
 
         // retrieving a bean by it's ID
-        //System.out.println(applicationContext.getBean("helloSpring"));
+        //System.out.println(applicationContext.getBean("helloSpringAsString"));
     }
 }
