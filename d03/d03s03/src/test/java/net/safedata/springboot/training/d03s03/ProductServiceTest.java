@@ -33,7 +33,10 @@ public class ProductServiceTest {
     //public void shouldGetProductsWhenThereAreAvailableProducts() {
     public void givenThereAreAvailableProducts_whenRetrievingProducts_thenProductsAreRetrievedCorrectly() {
         // arrange
-        final List<Product> products = Arrays.asList(new Product(1, "Asus"), new Product(2, "Dell"));
+        final List<Product> products = Arrays.asList(
+                new Product(1, "Asus"),
+                new Product(2, "Dell")
+        );
         when(productRepository.findAll()).thenReturn(products);
 
         // act
