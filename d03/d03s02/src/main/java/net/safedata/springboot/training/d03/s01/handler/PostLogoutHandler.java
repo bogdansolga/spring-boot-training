@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 public class PostLogoutHandler implements LogoutHandler {
 
     @Override
-    public void logout(final HttpServletRequest httpServletRequest, final HttpServletResponse httpServletResponse,
+    public void logout(final HttpServletRequest httpServletRequest,
+                       final HttpServletResponse httpServletResponse,
                        final Authentication authentication) {
         // perform any post-logout operations
     }
