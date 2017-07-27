@@ -12,9 +12,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
+import org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -22,7 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.session.SimpleRedirectInvalidSessionStrategy;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,6 +34,8 @@ import java.util.Map;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    private static final String[] IGNORED_ENDPOINTS = {"/health", "/about"};
 
     @Autowired
     public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
@@ -47,6 +51,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
             .antMatchers("/resources/static/**", "/about").permitAll()
             .antMatchers(HttpMethod.POST, "/admin").hasAnyRole("ADMIN", "MANAGER")
+            .antMatchers(HttpMethod.GET, "/product").fullyAuthenticated()
             .anyRequest().authenticated();
 
         // registering the post auth handlers
@@ -55,11 +60,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .successHandler(successfulAuthHandler())
             .failureHandler(failedAuthHandler())
             .defaultSuccessUrl("/")
+            .failureUrl("/login?error")
+            .usernameParameter("username")
+            .passwordParameter("password")
             .permitAll();
 
         // registering the post logout handler
         http.logout()
+            .deleteCookies("JSESSIONID")
+            .clearAuthentication(true)
             .addLogoutHandler(postLogoutHandler());
+
+        configureSessionManagement(http);
 
         // setAuthenticated();
         // setAuthenticationDetails();
@@ -67,6 +79,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         // adding a new filter
         http.addFilterAfter(new SampleFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Override
+    public void configure(final WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(IGNORED_ENDPOINTS);
     }
 
     @Bean
@@ -89,6 +106,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new PostLogoutHandler();
     }
 
+    private void configureSessionManagement(HttpSecurity http) throws Exception {
+        final SessionManagementConfigurer<HttpSecurity> sessionManagement = http.sessionManagement();
+        sessionManagement.maximumSessions(3);
+        sessionManagement.invalidSessionStrategy(new SimpleRedirectInvalidSessionStrategy("/login"));
+        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+    }
+
     private void setAuthenticated() {
         final SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();
@@ -102,7 +126,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         authentication.setAuthenticated(true);
 
         Map<String, String> map = new HashMap<>();
-        map.put("key", "value");
+        map.put("userId", "25");
         authentication.setDetails(map);
 
         securityContext.setAuthentication(authentication);
