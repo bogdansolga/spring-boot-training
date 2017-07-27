@@ -4,6 +4,7 @@ import net.safedata.springboot.training.d01.s05.config.BeanProfilesConfig;
 import net.safedata.springboot.training.d01.s05.config.ProfileEnabledConfig;
 import net.safedata.springboot.training.d01.s05.config.Profiles;
 import net.safedata.springboot.training.d01.s05.service.ProductService;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
@@ -20,7 +21,7 @@ public class BeanProgrammaticProfilesDemo {
     public static void main(String[] args) {
         System.setProperty(PROFILE_ACTIVATION_PROPERTY, Profiles.DEV);
 
-        final AnnotationConfigApplicationContext applicationContext =
+        final ApplicationContext applicationContext =
                 new AnnotationConfigApplicationContext(BeanProfilesConfig.class, ProfileEnabledConfig.class);
 
         final ProductService productService = applicationContext.getBean(ProductService.class);
