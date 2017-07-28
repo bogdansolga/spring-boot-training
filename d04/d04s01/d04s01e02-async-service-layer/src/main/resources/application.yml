@@ -1,0 +1,11 @@
+# logging settings
+logging:
+  level:
+    root: info
+    org:
+      apache: warn
+      springframework: warn
+
+  pattern:
+    # special characters need to be escaped / quoted
+    console: '%clr([%date{HH:mm:ss.SSS}]){faint} %clr(%thread) %clr(%2p) %clr(%-40.40logger{36}){cyan} %m%n%wex'
