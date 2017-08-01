@@ -37,7 +37,8 @@ public class ProductService {
 
         if (future.isDone()) {
             try {
-                String value = future.get();
+                final String value = future.get();
+                LOGGER.info("The returned future value is '{}'", value);
             } catch (final ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }

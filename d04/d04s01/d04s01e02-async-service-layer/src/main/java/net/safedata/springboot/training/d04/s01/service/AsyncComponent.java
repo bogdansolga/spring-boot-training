@@ -16,25 +16,30 @@ public class AsyncComponent {
     private static final Logger LOGGER = LoggerFactory.getLogger(AsyncComponent.class);
 
     @Async
-    public void voidAsyncCall() {
+    void voidAsyncCall() {
         displayCurrentThread();
         LOGGER.info("Displaying a value asynchronously");
     }
 
     @Async
-    public Future<String> getFuture() {
+    Future<String> getFuture() {
         displayCurrentThread();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return new AsyncResult<>("Returning a Future async value");
     }
 
     @Async
-    public ListenableFuture<String> getListenableFuture() {
+    ListenableFuture<String> getListenableFuture() {
         displayCurrentThread();
         return new AsyncResult<>("Returning a ListenableFuture async value");
     }
 
     @Async
-    public CompletableFuture<String> getCompletableFuture() {
+    CompletableFuture<String> getCompletableFuture() {
         displayCurrentThread();
         return CompletableFuture.supplyAsync(() -> "Returned by the CompletableFuture");
     }
