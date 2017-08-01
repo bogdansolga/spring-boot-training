@@ -20,8 +20,9 @@ public class AsyncExceptionHandlingDemo implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        productService.voidAsyncCall();
+        productService.voidAsyncCall("some", "parameters");
         productService.getFuture();
+        productService.getCompletableFuture();
     }
 
     public static void main(String[] args) {

@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
 import java.util.concurrent.Future;
 
 @Service
+@SuppressWarnings("unused")
 public class ProductService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
@@ -21,8 +23,8 @@ public class ProductService {
         this.asyncComponent = asyncComponent;
     }
 
-    public void voidAsyncCall() {
-        asyncComponent.voidAsyncCall();
+    public void voidAsyncCall(final String firstParameter, final String secondParameter) {
+        asyncComponent.voidAsyncCall(firstParameter, secondParameter);
     }
 
     public void getFuture() {
@@ -49,8 +51,10 @@ public class ProductService {
             throws ExecutionException, InterruptedException {
 
         if (futureValue.isDone()) {
-            final String theValue = futureValue.get();
-            LOGGER.info("The {} value is '{}'", className, theValue);
+            LOGGER.info("The {} value is '{}'", className, futureValue.get());
+        } else {
+            System.out.println(futureValue.isCancelled());
+            System.out.println(futureValue.get());
         }
     }
 

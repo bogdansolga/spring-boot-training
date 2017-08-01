@@ -12,6 +12,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Future;
 
 @Component
+@SuppressWarnings("unused")
 public class AsyncComponent {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AsyncComponent.class);
@@ -23,22 +24,27 @@ public class AsyncComponent {
         this.defaultExecutor = defaultExecutor;
     }
 
-    @Async("defaultExecutor")
-    public void voidAsyncCall() {
+    @Async
+    void voidAsyncCall(final String firstParameter, final String secondParameter) {
         displayCurrentThread();
         LOGGER.info("Displaying a value asynchronously");
+
+        throw new RuntimeException("An exception thrown from an async call");
     }
 
     @Async("defaultExecutor")
-    public Future<String> getFuture() {
+    Future<String> getFuture() {
         displayCurrentThread();
         return new AsyncResult<>("Returning a Future async value");
     }
 
     @Async
-    public CompletableFuture<String> getCompletableFuture() {
+    CompletableFuture<String> getCompletableFuture() {
         displayCurrentThread();
-        return CompletableFuture.supplyAsync(() -> "Returned by the CompletableFuture", defaultExecutor);
+        return CompletableFuture.supplyAsync(() -> {
+            //throw new RuntimeException("From CompletableFuture");
+            return "something";
+        }, defaultExecutor);
     }
 
     private void displayCurrentThread() {
