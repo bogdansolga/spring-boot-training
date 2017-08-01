@@ -2,8 +2,10 @@
 logging:
   level:
     root: info
-    org.apache: warn
-    org.springframework: warn
+    org:
+      apache: warn
+      hibernate: warn
+      springframework: warn
 
   pattern:
     # special characters need to be escaped / quoted
@@ -14,3 +16,9 @@ spring:
   jackson:
     serialization:
       INDENT_OUTPUT: true
+
+  datasource:
+    platform: h2
+    url: jdbc:h2:mem:test
+    username: sa
+    password: aVeryComplexPassword
