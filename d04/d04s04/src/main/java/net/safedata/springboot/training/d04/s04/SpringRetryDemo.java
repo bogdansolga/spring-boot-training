@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * A small Spring Boot demo for packaging and running the app
+ * A small Spring Boot demo for demoing the Spring retry mechanism
  *
  * @author bogdan.solga
  */
