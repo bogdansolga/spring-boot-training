@@ -18,4 +18,11 @@
         <module>d04s02e01-non-clustered-scheduled-tasks</module>
         <module>d04s02e02-clustered-scheduled-tasks</module>
     </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
 </project>
