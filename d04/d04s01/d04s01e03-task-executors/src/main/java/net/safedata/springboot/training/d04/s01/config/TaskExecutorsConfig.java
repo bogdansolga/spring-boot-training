@@ -47,7 +47,7 @@ public class TaskExecutorsConfig {
         shortLivedTaskExecutor.setWaitForTasksToCompleteOnShutdown(true);
         shortLivedTaskExecutor.setAwaitTerminationSeconds(5);
         shortLivedTaskExecutor.setAllowCoreThreadTimeOut(true);
-        shortLivedTaskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+        shortLivedTaskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardPolicy());
         shortLivedTaskExecutor.initialize();
 
         return shortLivedTaskExecutor;
