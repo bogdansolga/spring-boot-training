@@ -3,6 +3,7 @@ package net.safedata.springboot.training.d04.s01.controller;
 import net.safedata.springboot.training.d04.s01.model.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,8 @@ public class ProductController {
             path = "/sync/{id}"
     )
     public Product getProduct(@PathVariable final int id) {
-        return new Product(10, "Tablet");
+        longRunningOperation();
+        return new Product(id, "Tablet");
     }
 
     @RequestMapping(
@@ -33,22 +35,34 @@ public class ProductController {
     )
     public DeferredResult<ResponseEntity<?>> getAsyncProduct(@PathVariable final int id) {
         final DeferredResult<ResponseEntity<?>> deferredResult = new DeferredResult<>();
+        deferredResult.onTimeout(() -> deferredResult.setResult(
+                new ResponseEntity<>("The request has timed-out", HttpStatus.REQUEST_TIMEOUT)));
 
-        LOGGER.info("getAsyncProduct - {}", getCurrentThreadName(Thread.currentThread()));
+        LOGGER.info("Getting the product with the ID {}...", id);
 
         CompletableFuture
                 .supplyAsync(() -> {
-                    LOGGER.info("supplyAsync - running on {}", getCurrentThreadName(Thread.currentThread()));
-                    return new Product(10, "Tablet");
+                    LOGGER.info("Performing the long running operation...");
+                    longRunningOperation();
+                    return new Product(id, "Tablet");
                 })
                 .whenCompleteAsync((response, error) -> {
-                    LOGGER.info("whenCompleteAsync - running on {}", getCurrentThreadName(Thread.currentThread()));
+                    LOGGER.info("Setting the deferred result");
                     processAsyncResponse(deferredResult, response, error);
                 });
 
-        LOGGER.info("Returning on - {}", getCurrentThreadName(Thread.currentThread()));
+        LOGGER.info("Returning the deferred result");
 
         return deferredResult;
+    }
+
+    private void longRunningOperation() {
+        try {
+            Thread.sleep(3000);
+            // throw new IllegalArgumentException("Oops :)");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void processAsyncResponse(final DeferredResult<ResponseEntity<?>> deferred, final Object response,
@@ -56,17 +70,7 @@ public class ProductController {
         if (error == null) {
             deferred.setResult(ResponseEntity.ok(response));
         } else {
-            deferred.setErrorResult(error);
-
-            /*
-            final ResponseEntity<String> responseEntity = new ResponseEntity<>(error.getMessage(), HttpStatus.BAD_REQUEST);
-            deferred.setResult(responseEntity);
-            deferred.onTimeout(() -> deferred.setResult(responseEntity));
-            */
+            deferred.setErrorResult(new ResponseEntity<>(error.getMessage(), HttpStatus.BAD_REQUEST));
         }
-    }
-
-    private String getCurrentThreadName(final Thread thread) {
-        return thread.getName();
     }
 }
