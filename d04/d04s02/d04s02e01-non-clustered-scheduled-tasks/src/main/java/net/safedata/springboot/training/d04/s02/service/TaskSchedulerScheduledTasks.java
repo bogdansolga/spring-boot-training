@@ -35,7 +35,7 @@ public class TaskSchedulerScheduledTasks {
         periodicTriggerTask();
     }
 
-    public void cronTriggerTask() {
+    private void cronTriggerTask() {
         final Runnable task = () -> LOGGER.info("[cronTriggerTask] Processing the latest sold products...");
         final CronTrigger cronTrigger = new CronTrigger("1 * * * * MON-FRI", CURRENT_TIME_ZONE);
 
@@ -45,7 +45,7 @@ public class TaskSchedulerScheduledTasks {
         taskScheduler.schedule(task, cronTrigger);
     }
 
-    public void periodicTriggerTask() {
+    private void periodicTriggerTask() {
         final Runnable task = () -> LOGGER.info("[periodicTriggerTask] Processing the latest sold products...");
         final PeriodicTrigger periodicTrigger = new PeriodicTrigger(5000, TimeUnit.MILLISECONDS);
 
