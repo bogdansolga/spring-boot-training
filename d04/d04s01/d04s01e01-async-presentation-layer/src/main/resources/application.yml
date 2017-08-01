@@ -1,3 +1,14 @@
+spring:
+  # indent the returned JSON responses
+  jackson:
+      serialization:
+        INDENT_OUTPUT: true
+
+  # the timeout of the async operations (ex: DeferredResult)
+  mvc:
+    async:
+      request-timeout: 60000
+
 # logging settings
 logging:
   level:
