@@ -17,30 +17,27 @@ public class AsyncComponent {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AsyncComponent.class);
 
-    private final Executor executor;
     private final Executor shortLivedTaskExecutor;
 
     @Autowired
-    public AsyncComponent(final Executor threadPoolTaskExecutor,
-                          @Qualifier("shortLivedTasksExecutor") final Executor shortLivedTaskExecutor) {
-        this.executor = threadPoolTaskExecutor;
+    public AsyncComponent(@Qualifier("shortLivedTasksExecutor") final Executor shortLivedTaskExecutor) {
         this.shortLivedTaskExecutor = shortLivedTaskExecutor;
     }
 
-    @Async("threadPoolTaskExecutor")
-    public void voidAsyncCall() {
+    @Async("shortLivedTasksExecutor")
+    void voidAsyncCall() {
         displayCurrentThread();
         LOGGER.info("Displaying a value asynchronously");
     }
 
     @Async("threadPoolTaskExecutor")
-    public Future<String> getFuture() {
+    Future<String> getFuture() {
         displayCurrentThread();
         return new AsyncResult<>("Returning a Future async value");
     }
 
     @Async
-    public CompletableFuture<String> getCompletableFuture() {
+    CompletableFuture<String> getCompletableFuture() {
         displayCurrentThread();
         return CompletableFuture.supplyAsync(() -> "Returned by the CompletableFuture", shortLivedTaskExecutor);
     }

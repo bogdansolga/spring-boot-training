@@ -15,12 +15,17 @@ import org.springframework.context.ConfigurableApplicationContext;
 @SpringBootApplication
 public class TaskExecutorsDemo implements CommandLineRunner {
 
+    private final ProductService productService;
+
     @Autowired
-    private ProductService productService;
+    public TaskExecutorsDemo(final ProductService productService) {
+        this.productService = productService;
+    }
 
     @Override
     public void run(String... strings) throws Exception {
         productService.voidAsyncCall();
+        productService.getCompletableFuture();
         productService.getFuture();
     }
 
