@@ -8,8 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.retry.RetryCallback;
-import org.springframework.retry.RetryContext;
 import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.retry.policy.SimpleRetryPolicy;
 import org.springframework.retry.support.RetryTemplate;
@@ -19,6 +19,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @Service
+@SuppressWarnings("unused")
 public class ProductService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
@@ -42,6 +43,16 @@ public class ProductService {
                 Optional.ofNullable(productRepository.get(id))
                         .orElseThrow(() -> new NotFoundException("There is no product with the id " + id));
 
+        return getProductConverter().apply(product);
+    }
+
+    @Recover
+    public ProductDTO recover(final NotFoundException nfe, final int productId) {
+        LOGGER.info("Recovering from '{}'...", nfe.getMessage());
+        return new ProductDTO(productId, "Default product");
+    }
+
+    private void usingRetryTemplate() {
         final RetryTemplate retryTemplate = new RetryTemplate();
         retryTemplate.setRetryPolicy(new SimpleRetryPolicy(5));
         try {
@@ -49,8 +60,6 @@ public class ProductService {
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
-
-        return getProductConverter().apply(product);
     }
 
     private Function<Product, ProductDTO> getProductConverter() {
