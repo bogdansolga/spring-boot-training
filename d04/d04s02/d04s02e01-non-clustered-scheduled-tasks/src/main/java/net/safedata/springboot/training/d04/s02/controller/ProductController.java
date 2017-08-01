@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
 
     @RequestMapping(
-            path = "/sync/{id}"
+            path = "/{id}"
     )
     public Product getProduct(@PathVariable final int id) {
         return new Product(10, "Tablet");
