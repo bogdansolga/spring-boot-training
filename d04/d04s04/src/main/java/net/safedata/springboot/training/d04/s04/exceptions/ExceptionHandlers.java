@@ -4,6 +4,7 @@ import net.safedata.springboot.training.d04.s04.dto.MessageDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,11 +41,10 @@ public class ExceptionHandlers {
     }
 
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    public MessageDTO internalServerError(final Exception e) {
+    public ResponseEntity<MessageDTO> internalServerError(final Exception e) {
         LOGGER.error(e.getMessage(), e);
 
-        return new MessageDTO("We have a little problem :)");
+        return new ResponseEntity<>(new MessageDTO("We have a little problem :)"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
