@@ -11,6 +11,7 @@ import org.springframework.retry.RetryCallback;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
+import org.springframework.retry.backoff.ExponentialBackOffPolicy;
 import org.springframework.retry.policy.SimpleRetryPolicy;
 import org.springframework.retry.support.RetryTemplate;
 import org.springframework.stereotype.Service;
@@ -55,6 +56,8 @@ public class ProductService {
     private void usingRetryTemplate() {
         final RetryTemplate retryTemplate = new RetryTemplate();
         retryTemplate.setRetryPolicy(new SimpleRetryPolicy(5));
+        retryTemplate.setBackOffPolicy(new ExponentialBackOffPolicy());
+        //retryTemplate.setListeners(new RetryListener[]);
         try {
             retryTemplate.execute((RetryCallback<String, Throwable>) context -> "something");
         } catch (Throwable throwable) {
