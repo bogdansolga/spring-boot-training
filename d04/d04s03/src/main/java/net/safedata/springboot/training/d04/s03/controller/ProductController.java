@@ -28,4 +28,11 @@ public class ProductController {
     public Product getProduct(@PathVariable final int id) {
         return productService.get(id);
     }
+
+    @RequestMapping(
+            path = "/throw/{id}"
+    )
+    public Product throwing(@PathVariable final int id) {
+        return productService.throwingGet(id);
+    }
 }

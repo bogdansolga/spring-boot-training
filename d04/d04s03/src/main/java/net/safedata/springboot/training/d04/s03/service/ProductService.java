@@ -20,13 +20,21 @@ public class ProductService {
 
     @Transactional(
             readOnly = true,
-            propagation = Propagation.SUPPORTS
+            propagation = Propagation.SUPPORTS //TODO find out why it works, even though there isn't an actual transaction
     )
     public Product get(int id) {
         applicationEventPublisher.publishEvent(new ProductRetrievedEvent("iSomething"));
 
-        //if (true) throw new IllegalArgumentException("Throwing from the publisher");
-
         return new Product(id, "iSomething");
+    }
+
+    @Transactional(
+            readOnly = true,
+            propagation = Propagation.SUPPORTS
+    )
+    public Product throwingGet(int id) {
+        applicationEventPublisher.publishEvent(new ProductRetrievedEvent("iSomething"));
+
+        throw new IllegalArgumentException("Can't find the product with the ID " + id);
     }
 }
