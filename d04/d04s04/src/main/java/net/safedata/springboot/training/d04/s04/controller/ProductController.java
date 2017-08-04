@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 /**
- * A Spring {@link RestController}
+ * A Spring {@link RestController} used to expose a retry-able endpoint
  *
  * @author bogdan.solga
  */
