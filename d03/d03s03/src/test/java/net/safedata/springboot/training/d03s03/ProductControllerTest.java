@@ -1,7 +1,7 @@
 package net.safedata.springboot.training.d03s03;
 
-import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.filter.log.LogDetail;
+import io.restassured.RestAssured;
+import io.restassured.filter.log.LogDetail;
 import net.safedata.springboot.training.d03s03.model.Product;
 import net.safedata.springboot.training.d03s03.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static com.jayway.restassured.RestAssured.when;
+import static io.restassured.RestAssured.when;
 import static org.hamcrest.core.Is.is;
 
 @SpringBootTest(
