@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.retry.RetryCallback;
+import org.springframework.retry.RetryContext;
+import org.springframework.retry.RetryListener;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
@@ -57,7 +59,7 @@ public class ProductService {
         final RetryTemplate retryTemplate = new RetryTemplate();
         retryTemplate.setRetryPolicy(new SimpleRetryPolicy(5));
         retryTemplate.setBackOffPolicy(new ExponentialBackOffPolicy());
-        //retryTemplate.setListeners(new RetryListener[]);
+        retryTemplate.setListeners(new RetryListener[]{new SimpleRetryListener()});
         try {
             retryTemplate.execute((RetryCallback<String, Throwable>) context -> "something");
         } catch (Throwable throwable) {
@@ -67,5 +69,24 @@ public class ProductService {
 
     private Function<Product, ProductDTO> getProductConverter() {
         return product -> new ProductDTO(product.getId(), product.getName());
+    }
+
+    private class SimpleRetryListener implements RetryListener {
+        @Override
+        public <T, E extends Throwable> boolean open(RetryContext context, RetryCallback<T, E> callback) {
+            return false;
+        }
+
+        @Override
+        public <T, E extends Throwable> void close(RetryContext context, RetryCallback<T, E> callback,
+                                                   Throwable throwable) {
+            // do stuff in it
+        }
+
+        @Override
+        public <T, E extends Throwable> void onError(RetryContext context, RetryCallback<T, E> callback,
+                                                     Throwable throwable) {
+            // do stuff in it
+        }
     }
 }
