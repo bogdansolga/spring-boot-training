@@ -17,13 +17,13 @@ public class AsyncComponent {
 
     @Async
     void voidAsyncCall() {
-        displayCurrentThread();
+        displayCurrentThread("voidAsyncCall");
         LOGGER.info("Displaying a value asynchronously");
     }
 
     @Async
     Future<String> getFuture() {
-        displayCurrentThread();
+        displayCurrentThread("getFuture");
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -34,17 +34,17 @@ public class AsyncComponent {
 
     @Async
     ListenableFuture<String> getListenableFuture() {
-        displayCurrentThread();
+        displayCurrentThread("getListenableFuture");
         return new AsyncResult<>("Returning a ListenableFuture async value");
     }
 
     @Async
     CompletableFuture<String> getCompletableFuture() {
-        displayCurrentThread();
+        displayCurrentThread("getCompletableFuture");
         return CompletableFuture.supplyAsync(() -> "Returned by the CompletableFuture");
     }
 
-    private void displayCurrentThread() {
-        LOGGER.info("Running on the thread '{}'", Thread.currentThread().getName());
+    private void displayCurrentThread(String asyncCallName) {
+        LOGGER.info("{} - running on the thread '{}'", asyncCallName, Thread.currentThread().getName());
     }
 }
