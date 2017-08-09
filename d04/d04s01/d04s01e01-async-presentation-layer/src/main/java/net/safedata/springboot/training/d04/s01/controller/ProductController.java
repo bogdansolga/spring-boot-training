@@ -66,11 +66,11 @@ public class ProductController {
     }
 
     private void processAsyncResponse(final DeferredResult<ResponseEntity<?>> deferred, final Object response,
-                                      final Throwable error) {
-        if (error == null) {
+                                      final Throwable exception) {
+        if (exception == null) {
             deferred.setResult(ResponseEntity.ok(response));
         } else {
-            deferred.setErrorResult(new ResponseEntity<>(error.getMessage(), HttpStatus.BAD_REQUEST));
+            deferred.setErrorResult(new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST));
         }
     }
 }
