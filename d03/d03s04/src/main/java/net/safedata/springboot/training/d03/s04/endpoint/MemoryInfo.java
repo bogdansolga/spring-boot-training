@@ -4,10 +4,11 @@ import java.io.Serializable;
 
 public class MemoryInfo implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
     private static final int MB = 1024 * 1024;
 
     private final String freeMemory;
-
     private final String usedMemory;
 
     MemoryInfo(final long usedMemory, final long freeMemory) {

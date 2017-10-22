@@ -11,6 +11,8 @@ import java.util.Objects;
  * @author bogdan.solga
  */
 public class ProductDTO implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
     private final int id;
     private final String productName;

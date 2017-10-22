@@ -6,11 +6,13 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A DTO (Data Transfer Object) used to serialize / deserialize {@link Product} objects
+ * A DTO (Data Transfer Object) used to serialize / de-serialize {@link Product} objects
  *
  * @author bogdan.solga
  */
 public class ProductDTO implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
     private int id;
 

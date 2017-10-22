@@ -15,10 +15,11 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "Product")
-@SuppressWarnings("unused")
 public class Product implements Serializable {
 
-    @Id
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
