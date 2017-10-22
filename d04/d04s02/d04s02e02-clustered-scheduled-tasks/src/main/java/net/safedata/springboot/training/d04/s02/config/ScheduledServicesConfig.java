@@ -2,7 +2,6 @@ package net.safedata.springboot.training.d04.s02.config;
 
 import net.safedata.springboot.training.d04.s02.job.SimpleJob;
 import org.quartz.CronScheduleBuilder;
-import org.quartz.Job;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
@@ -50,7 +49,6 @@ public class ScheduledServicesConfig {
         triggers.add(buildTrigger(simpleJob));
     }
 
-    @SuppressWarnings("unchecked")
     private JobDetail buildJobDetail(final SimpleJob simpleJob) {
         return JobBuilder.newJob(simpleJob.getClass())
                          .withIdentity(JobKey.jobKey(simpleJob.getName(), simpleJob.getGroup()))
