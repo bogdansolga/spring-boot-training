@@ -11,5 +11,4 @@
     </parent>
 
     <artifactId>d04s01e04-async-exception-handling</artifactId>
-    <version>1.0-SNAPSHOT</version>
 </project>
