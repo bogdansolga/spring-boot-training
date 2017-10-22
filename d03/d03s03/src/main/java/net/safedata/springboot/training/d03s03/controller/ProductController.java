@@ -46,7 +46,7 @@ public class ProductController {
             method = RequestMethod.POST,
             path = ""
     )
-    public ResponseEntity save(@RequestBody final Product product) {
+    public ResponseEntity<?> save(@RequestBody final Product product) {
         productService.saveProduct(product);
         return ResponseEntity.ok(HttpStatus.OK);
     }

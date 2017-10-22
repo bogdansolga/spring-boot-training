@@ -40,7 +40,7 @@ public class ProductController {
             method = RequestMethod.POST,
             path = ""
     )
-    public ResponseEntity create(@RequestBody Product product) {
+    public ResponseEntity<?> create(@RequestBody Product product) {
         productService.create(product);
         return ResponseEntity.ok(HttpStatus.OK);
     }
@@ -85,7 +85,7 @@ public class ProductController {
             method = RequestMethod.PUT,
             path = "/{id}"
     )
-    public ResponseEntity update(@PathVariable final int id, @RequestBody Product product) {
+    public ResponseEntity<?> update(@PathVariable final int id, @RequestBody Product product) {
         productService.update(id, product);
         return ResponseEntity.ok(HttpStatus.OK);
     }
@@ -101,7 +101,7 @@ public class ProductController {
             method = RequestMethod.DELETE,
             path = "/{id}"
     )
-    public ResponseEntity delete(@PathVariable final int id) {
+    public ResponseEntity<?> delete(@PathVariable final int id) {
         productService.delete(id);
         return ResponseEntity.ok(HttpStatus.OK);
     }
