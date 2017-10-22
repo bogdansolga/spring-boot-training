@@ -22,6 +22,7 @@ public class ProductService {
         this.asyncComponent = asyncComponent;
     }
 
+    @SuppressWarnings("unused")
     public void callAllAsyncMethods() {
         LOGGER.info("voidAsyncCall");
         asyncComponent.voidAsyncCall();
