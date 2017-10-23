@@ -17,14 +17,14 @@ public class SimpleBeanWiring {
     private static final boolean USE_ANNOTATIONS_CONFIG = true;
 
     public static void main(String[] args) {
-        final ApplicationContext applicationContext = buildAppContext();
+        final ApplicationContext applicationContext = buildApplicationContext();
 
         // retrieving and using the ProductService; it will have the dependency wired (injected)
         final ProductService productService = applicationContext.getBean(ProductService.class);
         productService.displayProducts();
     }
 
-    private static ApplicationContext buildAppContext() {
+    private static ApplicationContext buildApplicationContext() {
         return USE_ANNOTATIONS_CONFIG ? new AnnotationConfigApplicationContext(DomainConfig.class) :
                 new ClassPathXmlApplicationContext("applicationContext.xml");
     }
