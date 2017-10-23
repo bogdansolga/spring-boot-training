@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="productRepository"
+          class="net.safedata.springboot.training.d01.s03.repository.ProductRepository"/>
+
+    <bean id="lazyProductRepository"
+          lazy-init="true"
+          class="net.safedata.springboot.training.d01.s03.repository.ProductRepository"/>
+
+    <bean id="productService"
+          class="net.safedata.springboot.training.d01.s03.service.ProductService"
+          primary="true">
+        <constructor-arg index="0" ref="productRepository"/>
+        <constructor-arg index="1" value="main"/>
+    </bean>
+
+    <bean id="lazyProductService"
+          class="net.safedata.springboot.training.d01.s03.service.ProductService">
+        <constructor-arg index="0" ref="lazyProductRepository"/>
+        <constructor-arg index="1" value="main"/>
+    </bean>
+</beans>

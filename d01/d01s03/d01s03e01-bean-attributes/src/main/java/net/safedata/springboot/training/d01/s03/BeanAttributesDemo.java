@@ -4,6 +4,7 @@ import net.safedata.springboot.training.d01.s03.config.BeanAttributesConfig;
 import net.safedata.springboot.training.d01.s03.service.ProductService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * A simple demo for the usage of a Spring {@link org.springframework.context.annotation.Bean} with configured
@@ -13,8 +14,10 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 public class BeanAttributesDemo {
 
+    private static final boolean USE_ANNOTATIONS_CONFIG = true;
+
     public static void main(String[] args) {
-        final ApplicationContext applicationContext = new AnnotationConfigApplicationContext(BeanAttributesConfig.class);
+        final ApplicationContext applicationContext = buildApplicationContext();
 
         final ProductService productService = applicationContext.getBean(ProductService.class);
         productService.displayProducts();
@@ -31,5 +34,10 @@ public class BeanAttributesDemo {
          *      - how to retrieve and use the non-primary bean
          *      - the initialization of the @Lazy annotated bean, by retrieving the @Lazy ProductService
          */
+    }
+
+    private static ApplicationContext buildApplicationContext() {
+        return USE_ANNOTATIONS_CONFIG ? new AnnotationConfigApplicationContext(BeanAttributesConfig.class) :
+                new ClassPathXmlApplicationContext("applicationContext.xml");
     }
 }
