@@ -1,5 +1,7 @@
 package net.safedata.springboot.training.d03s03.controller;
 
+import net.safedata.springboot.training.d03s03.aspect.profiling.MemoryProfiling;
+import net.safedata.springboot.training.d03s03.aspect.profiling.Profiled;
 import net.safedata.springboot.training.d03s03.model.Product;
 import net.safedata.springboot.training.d03s03.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ public class ProductController {
         this.productService = productService;
     }
 
+    @MemoryProfiling
     @RequestMapping(
             method = RequestMethod.GET,
             path = ""
@@ -34,6 +37,7 @@ public class ProductController {
         return productService.getProducts();
     }
 
+    @Profiled
     @RequestMapping(
             method = RequestMethod.GET,
             path = "/{id}"
