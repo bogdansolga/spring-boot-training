@@ -11,5 +11,4 @@
     </parent>
 
     <artifactId>d04s01e01-async-presentation-layer</artifactId>
-    <packaging>pom</packaging>
 </project>
