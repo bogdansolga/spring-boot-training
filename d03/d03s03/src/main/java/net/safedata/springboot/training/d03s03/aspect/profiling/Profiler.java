@@ -13,23 +13,23 @@ import java.util.Arrays;
 public class Profiler {
     private static final Logger LOGGER = LoggerFactory.getLogger(Profiler.class);
 
+    private static final boolean IS_TRACE_ENABLED = LOGGER.isTraceEnabled();
+
     private static final long BYTES_IN_MB = 1048576;
 
     @Around("@annotation(Profiled)")
     public Object profileMethodExecutionTime(final ProceedingJoinPoint pjp) throws Throwable {
         try {
-            final boolean isTraceEnabled = LOGGER.isTraceEnabled();
-
-            final long start = isTraceEnabled ? System.currentTimeMillis() : 0L;
+            final long start = IS_TRACE_ENABLED ? System.currentTimeMillis() : 0L;
             final StringBuffer buffer = new StringBuffer();
-            if (isTraceEnabled) {
+            if (IS_TRACE_ENABLED) {
                 buffer.append(pjp.getSignature().getDeclaringTypeName()) // package name
                       .append(".")
                       .append(pjp.getSignature().getName()); // class name
             }
 
             final Object retVal = pjp.proceed();
-            if (isTraceEnabled) {
+            if (IS_TRACE_ENABLED) {
                 LOGGER.trace("{}, {}", buffer.append(": ")
                                              .append(System.currentTimeMillis() - start)
                                              .append(" ms"),
