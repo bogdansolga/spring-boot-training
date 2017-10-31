@@ -6,4 +6,7 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan base-package="net.safedata.springboot.training.d01.s04"/>
+
+    <!-- loading application properties files -->
+    <!-- <context:property-placeholder location="application.properties"/> -->
 </beans>
