@@ -3,6 +3,9 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!-- the 'import' tag can be used to import other bean definitions files -->
+	<!-- <import resource="otherAppContext.xml"/> -->
+
     <bean id="productRepository"
           class="net.safedata.springboot.training.d01.s03.repository.ProductRepository"/>
 
