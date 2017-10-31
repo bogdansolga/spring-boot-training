@@ -23,41 +23,41 @@ import static org.mockito.Mockito.*;
 public class ProductServiceTest {
 
     @Mock
-    private ProductRepository productRepository;
+    private ProductRepository productRepository; // the collaborator (productRepository) is mocked
 
     // the tested service; also called 'system under test'
     @InjectMocks
     private ProductService productService;
 
     @Test
-    //public void shouldGetProductsWhenThereAreAvailableProducts() {
     public void givenThereAreAvailableProducts_whenRetrievingProducts_thenProductsAreRetrievedCorrectly() {
-        // arrange
+        // arrange, including mocking behavior setup
         final List<Product> products = Arrays.asList(
                 new Product(1, "Asus"),
                 new Product(2, "Dell")
         );
-        when(productRepository.findAll()).thenReturn(products);
+        when(productRepository.findAll()).thenReturn(products); // simple mocking example
 
-        // act
+        // act --> calling the tested service method
         final List<Product> resulted = productService.getProducts();
 
-        // assert
+        // assert --> verifying the response of the tested method is correct (by the requirements)
         assertNotNull(resulted);
         assertThat(resulted.size(), is(products.size()));
     }
 
     @Test
-    public void shouldNotGetAnyProductsWhenThereAreNoAvailableProducts() {
+    public void givenThereAreNoAvailableProducts_thenGettingProducts_thenNoProductsAreReturned() {
         when(productRepository.findAll()).thenReturn(new ArrayList<>());
 
         final List<Product> resulted = productService.getProducts();
 
+        assertNotNull(resulted);
         assertThat(resulted.size(), is(0));
     }
 
     @Test
-    public void shouldGetAProductByIdWhenTheProductExists() {
+    public void givenThereAreAvailableProducts_whenRetrievingAProductById_thenTheProductIsRetrieved() {
         Product product = mock(Product.class);
         final String mockedName = "mocked name";
         when(product.getName()).thenReturn(mockedName);
@@ -73,20 +73,22 @@ public class ProductServiceTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldGetAProductByIdWhenTheProductDoesNotExist() {
+    public void givenThereAreNoAvailableProducts_whenGettingAProductById_thenAnIllegalArgumentExceptionIsThrown() {
         when(productRepository.findOne(anyInt())).thenReturn(null);
 
         productService.getProduct(13);
     }
 
     @Test
-    public void shouldSaveAProduct() {
-        Product product = mock(Product.class);
+    public void givenAProductIsSaved_whenSavingTheProduct_thenSaveIsCalledOneTimesAndTheResponseShouldNotBeEmptyOrNull
+            () {
+        final Product product = mock(Product.class);
         final String mockedName = "mocked name";
         when(product.getName()).thenReturn(mockedName);
 
         final String response = productService.saveProduct(product);
 
+        // it verifies that the .save method (from the productRepository collaborator) was called exactly 1 times
         verify(productRepository, times(1)).save(product);
 
         assertNotNull(response);
