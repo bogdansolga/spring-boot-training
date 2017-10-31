@@ -7,7 +7,6 @@
           class="net.safedata.springboot.training.d01.s03.repository.ProductRepository"
           destroy-method="init"/>
 
-
     <bean id="productService" class="net.safedata.springboot.training.d01.s03.service.ProductService"
           init-method="onClose">
         <constructor-arg ref="productRepository"/>
