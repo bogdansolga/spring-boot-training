@@ -58,6 +58,7 @@ public class ProductController {
 
     private void longRunningOperation() {
         try {
+            LOGGER.info("Running a long running operation...");
             Thread.sleep(3000);
             // throw new IllegalArgumentException("Oops :)");
         } catch (InterruptedException e) {
