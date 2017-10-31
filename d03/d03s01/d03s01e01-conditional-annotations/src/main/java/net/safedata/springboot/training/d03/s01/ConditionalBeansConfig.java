@@ -1,5 +1,6 @@
 package net.safedata.springboot.training.d03.s01;
 
+import org.eclipse.jetty.server.Server;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.embedded.EmbeddedServletContainer;
@@ -24,20 +25,30 @@ public class ConditionalBeansConfig {
     }
 
     @Bean
-    @ConditionalOnProperty(name = "matching.property", havingValue = "true")
+    @ConditionalOnProperty(
+            name = "enable.important.and.experimental.feature",
+    		havingValue = "true"
+	)
     public String conditionalOnProperty() {
+        System.out.println("Enabling our important [and experimental] feature...");
         return "Conditional on a property";
     }
 
     @Bean
-    @ConditionalOnProperty(name = "used.webserver", havingValue = "jetty")
+    @ConditionalOnProperty(
+    		name = "used.webserver",
+    		havingValue = "jetty"
+	)
     public EmbeddedServletContainer jetty() {
-        return new JettyEmbeddedServletContainer(null, true);
+        return new JettyEmbeddedServletContainer(new Server(9999), true);
     }
 
     // a 'feature toggle' sample approach
     @Bean
-    @ConditionalOnProperty(name = "cool.feature", havingValue = "enabled")
+    @ConditionalOnProperty(
+            name = "cool.feature",
+            havingValue = "enabled"
+    )
     public Object coolFeature() {
         return new Object();
     }
