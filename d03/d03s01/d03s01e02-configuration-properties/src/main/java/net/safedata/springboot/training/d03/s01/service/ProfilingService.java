@@ -34,5 +34,6 @@ public class ProfilingService {
 
         System.out.println(profilingConfiguration.getEnvironment());
         System.out.println(profilingConfiguration.getConnection().getSocketTimeout());
+        System.out.println(profilingConfiguration.getConnection().getIps());
     }
 }
