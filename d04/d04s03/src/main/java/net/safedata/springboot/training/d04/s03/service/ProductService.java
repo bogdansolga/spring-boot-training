@@ -20,7 +20,7 @@ public class ProductService {
 
     @Transactional(
             readOnly = true,
-            propagation = Propagation.SUPPORTS //TODO find out why it works, even though there isn't an actual transaction
+            propagation = Propagation.SUPPORTS
     )
     public Product get(int id) {
         applicationEventPublisher.publishEvent(new ProductRetrievedEvent("iSomething"));
