@@ -33,6 +33,7 @@ import java.util.Map;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@SuppressWarnings("unused")
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private static final String[] IGNORED_ENDPOINTS = {"/health", "/about"};
@@ -64,6 +65,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .usernameParameter("username")
             .passwordParameter("password")
             .permitAll();
+        
+        http.csrf().disable();
 
         // registering the post logout handler
         http.logout()
