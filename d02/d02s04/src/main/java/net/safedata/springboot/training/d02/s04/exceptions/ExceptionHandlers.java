@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class ExceptionHandlers {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(ExceptionHandlers.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionHandlers.class);
 
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
