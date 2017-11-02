@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.annotation.PostConstruct;
+import java.util.Random;
+import java.util.stream.IntStream;
 
 /**
  * A simple {@link javax.sql.DataSource} configuration, which:
@@ -21,6 +23,8 @@ import javax.annotation.PostConstruct;
 @EnableTransactionManagement
 public class DataSourceConfig {
 
+    private static final Random RANDOM = new Random(200);
+
     private final ProductService productService;
 
     @Autowired
@@ -30,8 +34,11 @@ public class DataSourceConfig {
 
     @PostConstruct
     public void init() {
-        final Product product = new Product();
-        product.setName("A default product");
-        productService.create(product);
+        IntStream.range(0, 20)
+                 .forEach(value -> {
+                     final Product product = new Product();
+                     product.setName("A default product with the ID " + RANDOM.nextInt());
+                     productService.create(product);
+                 });
     }
 }
