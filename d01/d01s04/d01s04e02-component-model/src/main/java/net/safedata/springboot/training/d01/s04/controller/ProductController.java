@@ -14,6 +14,7 @@ public class ProductController {
 
     private final ProductService productService;
 
+    // 'I need a ProductService to perform the logic, please autowire it'
     @Autowired
     public ProductController(final ProductService productService) {
         this.productService = productService;
