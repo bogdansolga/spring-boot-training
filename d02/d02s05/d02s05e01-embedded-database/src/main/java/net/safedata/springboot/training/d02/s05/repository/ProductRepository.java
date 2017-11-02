@@ -1,6 +1,7 @@
 package net.safedata.springboot.training.d02.s05.repository;
 
 import net.safedata.springboot.training.d02.s05.model.Product;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -21,7 +22,7 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
 
     List<Product> findByName(final String name);
 
-    List<Product> findByPrice(final double price);
+    List<Product> findByPriceOrderByNameAsc(final double price, final Pageable pageable);
 
     @Async
     Future<Product> findProductById(int id);

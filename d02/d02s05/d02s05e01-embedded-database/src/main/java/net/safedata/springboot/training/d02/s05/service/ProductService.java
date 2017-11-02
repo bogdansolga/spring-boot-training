@@ -3,6 +3,8 @@ package net.safedata.springboot.training.d02.s05.service;
 import net.safedata.springboot.training.d02.s05.model.Product;
 import net.safedata.springboot.training.d02.s05.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,5 +64,9 @@ public class ProductService {
 
     public void delete(final int id) {
         productRepository.delete(id);
+    }
+
+    public void paginationExample() {
+        productRepository.findByPriceOrderByNameAsc(20, new PageRequest(0, 30, new Sort(Sort.Direction.DESC)));
     }
 }
