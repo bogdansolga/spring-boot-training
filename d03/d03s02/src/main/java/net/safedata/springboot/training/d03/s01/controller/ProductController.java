@@ -1,5 +1,6 @@
 package net.safedata.springboot.training.d03.s01.controller;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import net.safedata.springboot.training.d03.s01.Product;
+import net.safedata.springboot.training.d03.s01.model.Product;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,6 +47,7 @@ public class ProductController {
         // the user details can be further passed to the services
     }
 
+    @Secured("ROLE_ADMIN")
     public void processRequestOrResponseParameters(final HttpServletRequest request, final HttpServletResponse response) {
         // get parameters from the HTTP request, set details in the response
     }
