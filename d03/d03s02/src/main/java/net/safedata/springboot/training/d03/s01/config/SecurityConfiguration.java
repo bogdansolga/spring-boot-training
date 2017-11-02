@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.RememberMeConfigurer;
 import org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
@@ -53,6 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/resources/static/**", "/about").permitAll()
             .antMatchers(HttpMethod.POST, "/admin").hasAnyRole("ADMIN", "MANAGER")
             .antMatchers(HttpMethod.GET, "/product").fullyAuthenticated()
+            .antMatchers(HttpMethod.POST, "/product").hasAuthority("WRITE")
             .anyRequest().authenticated();
 
         // registering the post auth handlers
@@ -67,6 +69,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .permitAll();
         
         http.csrf().disable();
+
+        final RememberMeConfigurer<HttpSecurity> rememberMeConfigurer = http.rememberMe();
+        rememberMeConfigurer.key("x");
 
         // registering the post logout handler
         http.logout()
