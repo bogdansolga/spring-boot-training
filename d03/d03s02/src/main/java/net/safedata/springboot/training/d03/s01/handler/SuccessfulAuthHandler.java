@@ -7,10 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @Component
 public class SuccessfulAuthHandler implements AuthenticationSuccessHandler {
@@ -20,9 +18,7 @@ public class SuccessfulAuthHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest httpServletRequest,
                                         final HttpServletResponse httpServletResponse,
-                                        final Authentication authentication)
-            throws IOException, ServletException {
-
+                                        final Authentication authentication) {
         String loggedInUser = null;
         final Object authenticationPrincipal = authentication.getPrincipal();
         if (authenticationPrincipal instanceof UserDetails) {
