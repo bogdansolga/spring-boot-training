@@ -19,6 +19,9 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
 
     List<Product> findByName(final String name);
 
-    @Query(value = "SELECT product FROM Product product WHERE product.name LIKE :name")
+    @Query(value =  "SELECT product " +
+                    "FROM Product product " +
+                    "WHERE product.name LIKE :name"
+    )
     List<Product> findProductsWhichIncludeName(final @Param(value = "name") String name);
 }
