@@ -7,6 +7,7 @@ import net.safedata.springboot.training.d03s03.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
@@ -24,7 +25,7 @@ import static org.hamcrest.core.Is.is;
 @ActiveProfiles("default")
 public class ProductControllerTest extends AbstractTransactionalTestNGSpringContextTests {
 
-    private static final String PRODUCT_NAME = "Something";
+    private static final String PRODUCT_NAME = "Tablet";
 
     @LocalServerPort
     private int port;
@@ -49,7 +50,7 @@ public class ProductControllerTest extends AbstractTransactionalTestNGSpringCont
     public void shouldGetAProductById() {
         when().get("/product/{id}", 1)
               .then()
-              .statusCode(200)
+              .statusCode(HttpStatus.OK.value())
               .body("name", is(PRODUCT_NAME));
     }
 
@@ -57,8 +58,8 @@ public class ProductControllerTest extends AbstractTransactionalTestNGSpringCont
     public void shouldGetAllProducts() {
         when().get("/product")
               .then()
-              .statusCode(200)
-              .body("$.size", is(1))
+              .statusCode(HttpStatus.OK.value())
+              .body("$.size", is(3))
               .body("[0].name", is(PRODUCT_NAME));
     }
 
@@ -73,8 +74,8 @@ public class ProductControllerTest extends AbstractTransactionalTestNGSpringCont
     @DataProvider(name = "dataProvider", parallel = true)
     public Object[][] dataProvider() {
         return new Object[][]{
-                { "1", 200}, // productId and status code
-                {"13", 400}
+                { "1", HttpStatus.OK.value()}, // productId and status code
+                {"13", HttpStatus.BAD_REQUEST.value()}
         };
     }
 }
