@@ -25,29 +25,29 @@ public class ProductServiceTest {
     @Mock
     private ProductRepository productRepository; // the collaborator (productRepository) is mocked
 
-    // the tested service; also called 'system under test'
+    // the tested service; also called 'system under test' // SUT
     @InjectMocks
     private ProductService productService;
 
     @Test
     public void givenThereAreAvailableProducts_whenRetrievingProducts_thenProductsAreRetrievedCorrectly() {
-        // arrange, including mocking behavior setup
+        // arrange, including mocking behavior setup    --> given
         final List<Product> products = Arrays.asList(
                 new Product(1, "Asus"),
                 new Product(2, "Dell")
         );
         when(productRepository.findAll()).thenReturn(products); // simple mocking example
 
-        // act --> calling the tested service method
+        // act --> calling the tested service method    --> when
         final List<Product> resulted = productService.getProducts();
 
-        // assert --> verifying the response of the tested method is correct (by the requirements)
+        // assert --> verifying the response of the tested method is correct (by the requirements)  --> then
         assertNotNull(resulted);
         assertThat(resulted.size(), is(products.size()));
     }
 
     @Test
-    public void givenThereAreNoAvailableProducts_thenGettingProducts_thenNoProductsAreReturned() {
+    public void givenThereAreNoAvailableProducts_whenGettingProducts_thenNoProductsAreReturned() {
         when(productRepository.findAll()).thenReturn(new ArrayList<>());
 
         final List<Product> resulted = productService.getProducts();
@@ -57,7 +57,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void givenThereAreAvailableProducts_whenRetrievingAProductById_thenTheProductIsRetrieved() {
+    public void givenThereAreAvailableProducts_whenRetrievingAProductById_thenTheProductIsCorrectlyRetrieved() {
         Product product = mock(Product.class);
         final String mockedName = "mocked name";
         when(product.getName()).thenReturn(mockedName);
@@ -70,6 +70,7 @@ public class ProductServiceTest {
         assertNotNull(resulted);
         assertThat(resulted.getName(), is(mockedName));
         assertThat(resulted.getId(), not(0));
+        assertThat(resulted.getId(), is(20));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -80,8 +81,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void givenAProductIsSaved_whenSavingTheProduct_thenSaveIsCalledOneTimesAndTheResponseShouldNotBeEmptyOrNull
-            () {
+    public void givenAProductIsSaved_whenSavingTheProduct_thenSaveIsCalledOneTimesAndTheResponseShouldNotBeEmptyOrNull () {
         final Product product = mock(Product.class);
         final String mockedName = "mocked name";
         when(product.getName()).thenReturn(mockedName);
@@ -92,6 +92,6 @@ public class ProductServiceTest {
         verify(productRepository, times(1)).save(product);
 
         assertNotNull(response);
-        assertThat(response.length(), not(0));
+        assertThat("The reason why we use the assert", response.length(), not(0));
     }
 }
