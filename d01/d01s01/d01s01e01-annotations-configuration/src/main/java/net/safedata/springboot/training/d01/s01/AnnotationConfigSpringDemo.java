@@ -16,9 +16,13 @@ public class AnnotationConfigSpringDemo {
     public static void main(String[] args) {
         final ApplicationContext applicationContext = new AnnotationConfigApplicationContext(DemoConfig.class);
 
-        // retrieving a Spring bean by it's class / type and using it
-        final HelloSpring helloSpring = applicationContext.getBean(HelloSpring.class);
+        // 'give me the bean (object) of type HelloSpring from the application context'
+        final HelloSpring helloSpring = applicationContext.getBean("beanName", HelloSpring.class);
         helloSpring.displayWelcomeMessage();
+
+        // 'give me the bean (object) of type String from the application context'
+        //final String bean = applicationContext.getBean(String.class);
+        //System.out.println(bean.toUpperCase());
 
         // retrieving a bean by it's ID
         //System.out.println(applicationContext.getBean("helloSpringAsString"));
