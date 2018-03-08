@@ -19,6 +19,6 @@ public class XMLConfigSpringDemo {
         helloSpring.displayWelcomeMessage();
 
         // retrieving a bean by it's ID
-        System.out.println(applicationContext.getBean("helloSpringAsString"));
+        //System.out.println(applicationContext.getBean("helloSpringAsString"));
     }
 }
