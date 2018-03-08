@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BeanParametersConfig {
 
-    @Bean(initMethod = "init")
+    @Bean(initMethod = "initialize")
     public ProductRepository productRepository() {
         return new ProductRepository();
     }

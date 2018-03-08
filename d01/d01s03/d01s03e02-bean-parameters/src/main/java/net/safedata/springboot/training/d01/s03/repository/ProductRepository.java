@@ -7,7 +7,7 @@ package net.safedata.springboot.training.d01.s03.repository;
  */
 public class ProductRepository {
 
-    public void init() {
+    public void initialize() {
         System.out.println("Initializing the repository...");
     }
 
