@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DemoConfig {
 
+    // the method 'helloSpringAsString' creates a Spring bean, as it has the @Bean annotation
     @Bean
     public String helloSpringAsString() {
         return "Hello, Spring [as a string]!";
