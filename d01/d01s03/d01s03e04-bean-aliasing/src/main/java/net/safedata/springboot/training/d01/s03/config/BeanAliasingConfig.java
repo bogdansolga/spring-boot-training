@@ -12,7 +12,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BeanAliasingConfig {
 
-    @Bean(name = {"productRepository", "repository", "prodRepo"})
+    @Bean(name = {
+            "productRepository",
+            "repository",
+            "prodRepo"
+    })
     public ProductRepository productRepository() {
         return new ProductRepository();
     }
