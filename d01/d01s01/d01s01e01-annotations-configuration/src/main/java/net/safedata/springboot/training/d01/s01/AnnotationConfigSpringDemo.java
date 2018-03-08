@@ -16,7 +16,7 @@ public class AnnotationConfigSpringDemo {
     public static void main(String[] args) {
         final ApplicationContext applicationContext = new AnnotationConfigApplicationContext(DemoConfig.class);
 
-        // retrieving a Spring bean by it's class and using it
+        // retrieving a Spring bean by it's class / type and using it
         final HelloSpring helloSpring = applicationContext.getBean(HelloSpring.class);
         helloSpring.displayWelcomeMessage();
 
