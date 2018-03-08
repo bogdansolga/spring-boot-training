@@ -13,6 +13,7 @@ import java.util.Arrays;
  * @author bogdan.solga
  */
 @Service
+//@Profile(Profiles.PROD) -- if needed / wanted
 public class ProductService {
 
     // the current environment can be easily autowired
