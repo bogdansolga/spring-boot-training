@@ -28,8 +28,9 @@ public class BeanAttributesConfig {
 
     @Lazy
     @Bean
-    public ProductService lazyProductService() {
+    public ProductService lazyProductService() throws InterruptedException {
         System.out.println("Initializing the lazy ProductService...");
+        Thread.sleep(3000);
         return new ProductService(productRepository(), "lazyProductService");
     }
 }
