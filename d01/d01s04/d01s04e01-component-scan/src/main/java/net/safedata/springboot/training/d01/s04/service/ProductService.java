@@ -16,7 +16,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    @Autowired
+    @Autowired // = 'I (the class) need to use a bean of type ProductRepository; please (-> Spring) wire an object here'
     public ProductService(final ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
