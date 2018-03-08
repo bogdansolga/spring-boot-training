@@ -19,7 +19,7 @@ public class ProductService {
     @Value("${metrics.enabled}")
     private boolean metricsEnabled;
 
-    @Value("${connection.timeout}")
+    @Value("${connection.timeout:5000}")
     private int connectionTimeout;
 
     @Value("${version.number:2.5}")
