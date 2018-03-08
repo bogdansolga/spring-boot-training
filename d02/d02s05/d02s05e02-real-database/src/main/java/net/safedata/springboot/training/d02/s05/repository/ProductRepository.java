@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * A simple Spring Data {@link CrudRepository} for the {@link Product} entity
@@ -17,11 +18,13 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface ProductRepository extends CrudRepository<Product, Integer> {
 
-    List<Product> findByName(final String name);
+    Optional<List<Product>> findByName(final String name);
 
     @Query(value =  "SELECT product " +
                     "FROM Product product " +
                     "WHERE product.name LIKE :name"
     )
-    List<Product> findProductsWhichIncludeName(final @Param(value = "name") String name);
+    Optional<List<Product>> findProductsWhichIncludeName(@Param(value = "name") final String name);
+
+    Optional<Product> findById(int id);
 }
