@@ -1,5 +1,6 @@
 package net.safedata.springboot.training.d01.s04.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,6 +10,11 @@ import org.springframework.context.annotation.Configuration;
  * @author bogdan.solga
  */
 @Configuration
-@ComponentScan(basePackages = "net.safedata.springboot.training.d01.s04")
+@ComponentScan(basePackages = "net.safedata.springboot.training.d01.s04") // --> implicit wiring
 public class ComponentScanConfig {
+
+    @Bean // --> explicit wiring
+    public String anExplicitlyDefinedBean() {
+        return "I am an explicitly defined bean";
+    }
 }
