@@ -50,6 +50,7 @@ public class ConditionalBeansConfig {
             havingValue = "enabled"
     )
     public Object coolFeature() {
+        System.out.println("Enabling the cool feature...");
         return new Object();
     }
 }
