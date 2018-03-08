@@ -31,7 +31,7 @@ public class BeanAttributesDemo {
         /*
          * Study:
          *      - what happens when we comment the @Primary annotation
-         *      - how to retrieve and use the non-primary bean
+         *      - how to retrieve and use the non-primary bean --> using its ID
          *      - the initialization of the @Lazy annotated bean, by retrieving the @Lazy ProductService
          */
     }
