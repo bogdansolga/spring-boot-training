@@ -13,6 +13,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DomainConfig {
 
+    /*
+        This bean is needed just in case we need to use a bean of ProductRepository type.
+        Otherwise, we can just use a private method.
+     */
     @Bean
     public ProductRepository productRepository() {
         return new ProductRepository();
@@ -20,12 +24,15 @@ public class DomainConfig {
 
     @Bean
     public ProductService productService() {
-        /*
-        final ProductService productService = new ProductService();
-        productService.setProductRepository(productRepository());   --> might be omitted / forgotten
-        */
-
-        // recommended wiring mode
         return new ProductService(productRepository());
     }
+
+    /* --> the property setting method
+    @Bean
+    public ProductService productService() {
+        final ProductService productService = new ProductService();
+        productService.setProductRepository(productRepository());   --> might be omitted / forgotten
+        return productService;
+    }
+    */
 }
