@@ -1,7 +1,6 @@
 package net.safedata.springboot.training.d02.s03.repository;
 
 import net.safedata.springboot.training.d02.s03.model.Product;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -30,7 +29,6 @@ public class ProductRepository {
         return products;
     }
 
-    @Async
     public void create(final Product product) {
         products.add(product);
     }
