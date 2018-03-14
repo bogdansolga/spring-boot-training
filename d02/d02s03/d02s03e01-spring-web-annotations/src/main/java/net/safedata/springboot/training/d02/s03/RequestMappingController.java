@@ -1,11 +1,14 @@
 package net.safedata.springboot.training.d02.s03;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.Optional;
 
@@ -47,5 +50,18 @@ public class RequestMappingController {
     public String pathVariableIntro(@PathVariable String first,
                                     @PathVariable(required = false) String second) {
         return "The first path variable value is '" + first + "', the second is '" + second + "'";
+    }
+
+    @RequestMapping(
+            method = RequestMethod.GET
+    )
+    @SuppressWarnings("unused")
+    public String requestAndResponseUsage(final HttpServletRequest request, final HttpServletResponse response) {
+        return "We can pass the HttpServletRequest and HttpServletResponse objects to any RequestMapping annotated method";
+    }
+
+    @GetMapping("/simple")
+    public String simpleGetMapping() {
+        return "A simple GetMapping";
     }
 }
