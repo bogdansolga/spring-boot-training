@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.nio.file.AccessDeniedException;
+
 /**
  * The most common exception handlers
  *
@@ -17,13 +19,23 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class ExceptionHandlers {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(ExceptionHandlers.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionHandlers.class);
 
-    @ExceptionHandler(IllegalArgumentException.class)
+    @ExceptionHandler({
+            IllegalArgumentException.class,
+            IllegalStateException.class,
+            RuntimeException.class
+    })
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ResponseBody
     public MessageDTO illegalArgumentException(final IllegalArgumentException e) {
         return new MessageDTO(e.getMessage());
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+    public MessageDTO unauthorized() {
+        return new MessageDTO("Unauthorized access");
     }
 
     @ExceptionHandler(Exception.class)
@@ -32,6 +44,6 @@ public class ExceptionHandlers {
     public MessageDTO internalServerError(final Exception e) {
         LOGGER.error(e.getMessage(), e);
 
-        return new MessageDTO("Oops!");
+        return new MessageDTO("Internal server error");
     }
 }
