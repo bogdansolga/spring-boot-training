@@ -9,9 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -48,9 +46,8 @@ public class ProductService {
             propagation = Propagation.SUPPORTS
     )
     public List<Product> getProducts() {
-        final List<Product> products = new ArrayList<>();
-        productRepository.findAll().forEach(products::add);
-        return products;
+        return StreamSupport.stream(productRepository.findAll().spliterator(), false)
+                            .collect(Collectors.toList());
     }
 
     @Transactional(
@@ -61,14 +58,5 @@ public class ProductService {
         // a lot of processing goes in here, before actually saving the product :)
         productRepository.save(product);
         return "OK";
-    }
-
-    @Transactional(
-            readOnly = true,
-            propagation = Propagation.SUPPORTS
-    )
-    public List<Product> getAll() {
-        return StreamSupport.stream(productRepository.findAll().spliterator(), false)
-                            .collect(Collectors.toList());
     }
 }
