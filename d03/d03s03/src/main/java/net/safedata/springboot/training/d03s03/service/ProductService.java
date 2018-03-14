@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -37,9 +38,7 @@ public class ProductService {
             propagation = Propagation.SUPPORTS
     )
     public Product getProduct(final int id) {
-        if (id == THROWING_ID) {
-            throw new IllegalArgumentException("There is no product with the ID " + THROWING_ID);
-        }
+        Assert.isTrue(id != THROWING_ID, "There is no product with the ID " + THROWING_ID);
 
         return productRepository.findOne(id);
     }
