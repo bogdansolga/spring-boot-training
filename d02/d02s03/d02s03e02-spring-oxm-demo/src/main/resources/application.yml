@@ -5,8 +5,8 @@ spring:
 
   # indent the returned JSON responses
   jackson:
-      serialization:
-        INDENT_OUTPUT: true
+    serialization:
+      INDENT_OUTPUT: true
 
 # logging settings
 logging:
