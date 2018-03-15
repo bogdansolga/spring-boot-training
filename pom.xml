@@ -33,7 +33,7 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <restassured.version>3.0.3</restassured.version>
+        <restassured.version>3.0.7</restassured.version>
         <spring-boot.version>1.5.10.RELEASE</spring-boot.version>
         <testng.version>6.11</testng.version>
     </properties>
