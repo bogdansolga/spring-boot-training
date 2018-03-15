@@ -1,5 +1,6 @@
 package net.safedata.springboot.training.d03.s01.controller;
 
+import net.safedata.springboot.training.d03.s01.config.Manager;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -18,11 +19,11 @@ import java.security.Principal;
 import static net.safedata.springboot.training.d03.s01.config.Roles.*;
 
 @RestController
-@PreAuthorize("isFullyAuthenticated()")
+@PreAuthorize("isAuthenticated()") // it's just an example :)
 @SuppressWarnings("unused")
 public class ProductController {
 
-    @PreAuthorize("hasAnyRole('" + ADMIN_ROLE + "', '" + MANAGER_ROLE + "')")
+    @PreAuthorize("hasRole('" + ADMIN_ROLE + "') AND hasAuthority('WRITE')")
     public void addProduct(final Authentication authentication) {
         // further use the Authentication object, if needed
     }
@@ -54,6 +55,7 @@ public class ProductController {
 
     // recommended to be used when the principal details need to be consumed by an external tool / API
     @GetMapping("/currentUser")
+    @Manager // DRY
     public Principal principal(final Principal principal) {
         return principal;
     }
