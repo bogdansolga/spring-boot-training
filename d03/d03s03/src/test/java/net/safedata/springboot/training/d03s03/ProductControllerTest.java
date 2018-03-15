@@ -48,19 +48,21 @@ public class ProductControllerTest extends AbstractTransactionalTestNGSpringCont
 
     @Test
     public void shouldGetAProductById() {
-        when().get("/product/{id}", 1)
-              .then()
-              .statusCode(HttpStatus.OK.value())
-              .body("name", is(PRODUCT_NAME));
+        when()
+                .get("/product/{id}", 1).
+        then()
+                .statusCode(HttpStatus.OK.value())
+                .body("name", is(PRODUCT_NAME));
     }
 
     @Test
     public void shouldGetAllProducts() {
-        when().get("/product")
-              .then()
-              .statusCode(HttpStatus.OK.value())
-              .body("$.size", is(3))
-              .body("[0].name", is(PRODUCT_NAME));
+        when()
+                .get("/product").
+        then()
+                .statusCode(HttpStatus.OK.value())
+                .body("$.size", is(3))
+                .body("[0].name", is(PRODUCT_NAME));
     }
 
     // a sample of using a dataProvider
