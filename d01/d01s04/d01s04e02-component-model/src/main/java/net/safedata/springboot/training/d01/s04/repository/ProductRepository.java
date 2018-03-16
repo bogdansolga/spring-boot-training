@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 public class ProductRepository {
 
     public void displayProducts() {
-        System.out.println("Displaying all the products");
+        System.out.println("Displaying all the products, from the database [a little later]...");
     }
 }

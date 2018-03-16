@@ -17,13 +17,16 @@ public class ComponentScanDemo {
     private static final boolean USE_ANNOTATIONS_CONFIG = false;
 
     public static void main(String[] args) {
+        // 1 - wiring the beans
         final ApplicationContext applicationContext = buildApplicationContext();
 
+        // 2 - using a (configured / assembled) bean
         final ProductService productService = applicationContext.getBean(ProductService.class);
         productService.displayProducts();
     }
 
     private static ApplicationContext buildApplicationContext() {
+        // programmers are lazy
         return USE_ANNOTATIONS_CONFIG ? new AnnotationConfigApplicationContext(ComponentScanConfig.class) :
                 new ClassPathXmlApplicationContext("applicationContext.xml");
     }
