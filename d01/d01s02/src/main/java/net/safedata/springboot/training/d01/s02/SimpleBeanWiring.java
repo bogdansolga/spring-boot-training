@@ -19,7 +19,7 @@ public class SimpleBeanWiring {
     public static void main(String[] args) {
         final ApplicationContext applicationContext = buildApplicationContext();
 
-        // retrieving and using the ProductService; it will have the dependency wired (injected)
+        // retrieving and using the ProductService; it will have its dependency automatically wired by Spring
         final ProductService productService = applicationContext.getBean(ProductService.class);
         productService.displayProducts();
     }
