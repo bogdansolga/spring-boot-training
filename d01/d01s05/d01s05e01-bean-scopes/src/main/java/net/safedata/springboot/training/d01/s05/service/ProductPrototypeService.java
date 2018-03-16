@@ -33,6 +33,10 @@ public class ProductPrototypeService {
                      .collect(Collectors.toList());
     }
 
+    public void processProduct(final int productId) {
+        System.out.println("[" + hashCode() + "] Processing the product with the ID " + productId + "...");
+    }
+
     public void displayHashCode() {
         System.out.println("The hashCode for this instance is " + hashCode());
     }
