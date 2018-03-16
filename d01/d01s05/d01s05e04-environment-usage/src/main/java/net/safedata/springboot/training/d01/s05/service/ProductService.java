@@ -13,7 +13,6 @@ import java.util.Arrays;
  * @author bogdan.solga
  */
 @Service
-//@Profile(Profiles.PROD) -- if needed / wanted
 public class ProductService {
 
     // the current environment can be easily autowired
@@ -26,9 +25,13 @@ public class ProductService {
 
     public void displayProducts() {
         if (environment.acceptsProfiles(Profiles.PROD)) {
-            System.out.println("Running with prod");
+            System.out.println("Running with the '" + Profiles.PROD + "' profile...");
         }
 
         System.out.println("Displaying the products for the '" + Arrays.asList(environment.getActiveProfiles()) + "' profiles...");
+
+        // resolved per active profile
+        final String remoteEndpoint = environment.getProperty("remote.endpoint.url");
+        System.out.println("The configured endpoint is " + remoteEndpoint);
     }
 }

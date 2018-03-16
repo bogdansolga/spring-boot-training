@@ -12,7 +12,6 @@ public class UserService {
     @Autowired(required = false)
     private Optional<ProductService> productService;
 
-    @PostConstruct
     public void init() {
         productService.ifPresent(service -> System.out.println("The service is present"));
     }
