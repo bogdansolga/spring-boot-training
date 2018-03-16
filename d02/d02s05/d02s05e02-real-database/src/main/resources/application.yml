@@ -16,7 +16,7 @@ spring:
   # JPA properties - JpaProperties
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create-drop # use it carefully, for development only
 
     properties:
       hibernate:
