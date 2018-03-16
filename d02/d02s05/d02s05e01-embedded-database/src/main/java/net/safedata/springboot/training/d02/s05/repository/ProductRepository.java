@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.Future;
 
 /**
@@ -20,7 +21,10 @@ import java.util.concurrent.Future;
 @SuppressWarnings("unused")
 public interface ProductRepository extends CrudRepository<Product, Integer> {
 
-    List<Product> findByName(final String name);
+    Optional<List<Product>> findByName(final String name);
+
+    Optional<Product> findProductByNameAndId(@Param(value = "name") final String name,
+                                             @Param(value = "id") final int id);
 
     List<Product> findByPriceOrderByNameAsc(final double price, final Pageable pageable);
 
