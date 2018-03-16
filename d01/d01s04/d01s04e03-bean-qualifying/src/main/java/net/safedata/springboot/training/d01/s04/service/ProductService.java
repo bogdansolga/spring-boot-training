@@ -17,10 +17,10 @@ public class ProductService {
     private final ProductRepository oracleProductRepository;
 
     @Autowired
-    public ProductService(@Qualifier(value = "mySQLProductRepository") final ProductRepository mySQLProductRepository,
-                          @Qualifier(value = "oracleProductRepository") final ProductRepository oracleProductRepository) {
-        this.mySQLProductRepository = mySQLProductRepository;
-        this.oracleProductRepository = oracleProductRepository;
+    public ProductService(@Qualifier("mySQLProductRepository") final ProductRepository repository,
+                          @Qualifier("oracleProductRepository") final ProductRepository theOtherRepository) {
+        this.mySQLProductRepository = repository;
+        this.oracleProductRepository = theOtherRepository;
     }
 
     public void displayProducts() {
