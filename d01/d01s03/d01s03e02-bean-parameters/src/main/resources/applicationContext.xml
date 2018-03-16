@@ -5,10 +5,10 @@
 
     <bean id="productRepository"
           class="net.safedata.springboot.training.d01.s03.repository.ProductRepository"
-          destroy-method="init"/>
+          init-method="initialize"/>
 
     <bean id="productService" class="net.safedata.springboot.training.d01.s03.service.ProductService"
-          init-method="onClose">
+          destroy-method="onClose">
         <constructor-arg ref="productRepository"/>
     </bean>
 </beans>
