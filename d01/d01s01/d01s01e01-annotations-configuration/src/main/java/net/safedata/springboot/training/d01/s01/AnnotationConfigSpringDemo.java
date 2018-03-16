@@ -16,15 +16,24 @@ public class AnnotationConfigSpringDemo {
     public static void main(String[] args) {
         final ApplicationContext applicationContext = new AnnotationConfigApplicationContext(DemoConfig.class);
 
+        retrievingBeansByType(applicationContext);
+
+        retrievingBeansByTypeAndID(applicationContext);
+    }
+
+    private static void retrievingBeansByType(final ApplicationContext applicationContext) {
         // 'give me the bean (object) of type HelloSpring from the application context'
-        final HelloSpring helloSpring = applicationContext.getBean("beanName", HelloSpring.class);
+        final HelloSpring helloSpring = applicationContext.getBean(HelloSpring.class);
         helloSpring.displayWelcomeMessage();
 
         // 'give me the bean (object) of type String from the application context'
-        //final String bean = applicationContext.getBean(String.class);
-        //System.out.println(bean.toUpperCase());
+        final String stringBean = applicationContext.getBean(String.class);
+        System.out.println(stringBean);
+    }
 
-        // retrieving a bean by it's ID
-        //System.out.println(applicationContext.getBean("helloSpringAsString"));
+    private static void retrievingBeansByTypeAndID(final ApplicationContext applicationContext) {
+        // retrieving a bean by it's type and ID
+        final HelloSpring helloSpring = applicationContext.getBean("helloSpring", HelloSpring.class);
+        helloSpring.displayWelcomeMessage();
     }
 }

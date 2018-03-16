@@ -10,14 +10,10 @@ import org.springframework.context.annotation.Configuration;
  * @author bogdan.solga
  */
 @Configuration
+@SuppressWarnings("unused")
 public class DemoConfig {
 
-    // the method 'helloSpringAsString' creates a Spring bean, as it has the @Bean annotation
-    @Bean
-    public String helloSpringAsString() {
-        return "Hello, Spring [as a string]!";
-    }
-
+    // the method 'helloSpring' creates a HelloSpring bean, as it has the @Bean annotation
     @Bean
     public HelloSpring helloSpring() {
         return new HelloSpring();
@@ -29,5 +25,10 @@ public class DemoConfig {
     //@Bean
     public HelloSpring otherHelloSpring() {
         return new HelloSpring();
+    }
+
+    @Bean
+    public String helloSpringAsString() {
+        return "Hello, Spring [as a string]!";
     }
 }
