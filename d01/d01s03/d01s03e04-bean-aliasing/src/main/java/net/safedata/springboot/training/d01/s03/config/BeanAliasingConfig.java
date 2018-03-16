@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BeanAliasingConfig {
 
+    // the specified name[s] will become the bean ID[s]
     @Bean(name = {
             "productRepository",
             "repository",
