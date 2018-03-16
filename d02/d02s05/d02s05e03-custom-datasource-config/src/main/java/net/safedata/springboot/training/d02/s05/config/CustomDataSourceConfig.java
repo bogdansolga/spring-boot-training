@@ -45,7 +45,7 @@ public class CustomDataSourceConfig {
         final HikariConfig hikariConfig = new HikariConfig();
 
         hikariConfig.setPoolName("hikari-connection-pool");
-        hikariConfig.setMaximumPoolSize(AVAILABLE_PROCESSORS * 2);
+        hikariConfig.setMaximumPoolSize(AVAILABLE_PROCESSORS / 2);
         hikariConfig.setConnectionTimeout(30000);
         hikariConfig.setIdleTimeout(60000);
         hikariConfig.setMaxLifetime(120000);
@@ -68,7 +68,7 @@ public class CustomDataSourceConfig {
         dataSource.setDriverClassName(driverClassName);
         dataSource.setMinIdle(2);
         dataSource.setMaxIdle(AVAILABLE_PROCESSORS / 2);
-        dataSource.setMaxActive(AVAILABLE_PROCESSORS * 2 + 2);
+        dataSource.setMaxActive(AVAILABLE_PROCESSORS * 2);
 
         return dataSource;
     }
