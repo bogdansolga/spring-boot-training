@@ -5,12 +5,16 @@ import net.safedata.springboot.training.d03.s06.model.Product;
 import net.safedata.springboot.training.d03.s06.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class ProductService {
@@ -23,27 +27,45 @@ public class ProductService {
     }
 
     public void create(final ProductDTO productDTO) {
-        productRepository.create(getDTOConverter().apply(productDTO));
+        productRepository.save(getDTOConverter().apply(productDTO));
     }
 
+    @Transactional(
+            readOnly = false,
+            propagation = Propagation.REQUIRED,
+            rollbackFor = {
+                    Exception.class
+            }
+    )
+    public String save(final Product product) {
+        // a lot of processing, before saving the product
+        productRepository.save(product);
+        return "OK";
+    }
+
+    @Transactional(
+            readOnly = false,
+            propagation = Propagation.SUPPORTS
+    )
     public ProductDTO get(final int id) {
         final Product product =
-                Optional.ofNullable(productRepository.get(id))
+                Optional.ofNullable(productRepository.findOne(id))
                         .orElseThrow(() -> new IllegalArgumentException("There is no product with the id " + id));
 
         return getProductConverter().apply(product);
     }
 
     public List<ProductDTO> getAll() {
-        return productRepository.getAll()
-                                .parallelStream()
-                                .filter(filterItem())
-                                .map(getProductConverter())
-                                .collect(Collectors.toList());
+        return StreamSupport.stream(productRepository.findAll().spliterator(), false)
+                            .filter(filterItem())
+                            .map(getProductConverter())
+                            .collect(Collectors.toList());
     }
 
     public void update(final int id, final ProductDTO productDTO) {
-        productRepository.update(id, getDTOConverter().apply(productDTO));
+        final Product product = Optional.ofNullable(productRepository.findOne(id))
+                      .orElseThrow(() -> new IllegalArgumentException("There is no product with the ID " + id));
+        productRepository.save(convertProductForUpdate().apply(productDTO, product));
     }
 
     public void delete(final int id) {
@@ -56,6 +78,13 @@ public class ProductService {
 
     private Function<Product, ProductDTO> getProductConverter() {
         return product -> new ProductDTO(product.getId(), product.getName());
+    }
+
+    private BiFunction<ProductDTO, Product, Product> convertProductForUpdate() {
+        return (dto, existingProduct) -> {
+            existingProduct.setName(dto.getProductName());
+            return existingProduct;
+        };
     }
 
     private Predicate<Product> filterItem() {
