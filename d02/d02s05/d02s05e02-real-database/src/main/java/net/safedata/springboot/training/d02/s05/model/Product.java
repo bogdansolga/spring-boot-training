@@ -1,5 +1,6 @@
 package net.safedata.springboot.training.d02.s05.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +15,9 @@ import java.util.Objects;
  * @author bogdan.solga
  */
 @Entity
-@Table(name = "Product")
+@Table(
+        name = "Product"
+)
 public class Product implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -23,6 +26,7 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+	@Column(name = "name", length = 50)
     private String name;
 
     public int getId() {
