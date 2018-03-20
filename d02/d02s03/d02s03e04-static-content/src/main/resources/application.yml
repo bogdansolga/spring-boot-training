@@ -3,11 +3,6 @@ spring:
   application:
     name: spring-boot-web-static-demo
 
-  # indent the returned JSON responses
-  jackson:
-      serialization:
-        INDENT_OUTPUT: true
-
 # logging settings
 logging:
   level:
