@@ -38,14 +38,13 @@ public class CustomDataSourceConfig {
     @Value("${spring.datasource.driver-class-name}")
     private String driverClassName;
 
-    // if the @Bean is commented, the configured data-source will be wired
     @Primary
     @Bean
     public javax.sql.DataSource hikariConnectionPool() {
         final HikariConfig hikariConfig = new HikariConfig();
 
-        hikariConfig.setPoolName("hikari-connection-pool");
-        hikariConfig.setMaximumPoolSize(AVAILABLE_PROCESSORS / 2);
+        hikariConfig.setPoolName("hikari-first-connection-pool");
+        hikariConfig.setMaximumPoolSize(AVAILABLE_PROCESSORS);
         hikariConfig.setConnectionTimeout(30000);
         hikariConfig.setIdleTimeout(60000);
         hikariConfig.setMaxLifetime(120000);
