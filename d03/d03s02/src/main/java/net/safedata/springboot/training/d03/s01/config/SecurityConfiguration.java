@@ -33,7 +33,10 @@ import java.util.Map;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true
+)
 @SuppressWarnings("unused")
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -42,17 +45,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-            //.passwordEncoder(passwordEncoder())
+            .passwordEncoder(passwordEncoder())
             .withUser("user")
             .password("password")
-            .roles("USER");
+            .roles(Roles.ADMIN_ROLE);
     }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http.authorizeRequests()
-            .antMatchers("/resources/static/**", "/about").permitAll()
-            .antMatchers(HttpMethod.POST, "/admin").hasAnyRole("ADMIN", "MANAGER")
+            .antMatchers("/static/**").permitAll()
+            .antMatchers(HttpMethod.POST, "/admin")
+                .hasAnyRole(Roles.ADMIN_ROLE, Roles.MANAGER_ROLE)
             .antMatchers(HttpMethod.GET, "/product").fullyAuthenticated()
             .antMatchers(HttpMethod.POST, "/product").hasAuthority("WRITE")
             .anyRequest().authenticated();
@@ -90,7 +94,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(final WebSecurity web) throws Exception {
+    public void configure(final WebSecurity web) {
         web.ignoring().antMatchers(IGNORED_ENDPOINTS);
     }
 
@@ -129,12 +133,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private void setAuthenticationDetails() {
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken("john", "doe",
-                Collections.singleton(new SimpleGrantedAuthority("ADMIN")));
+        UsernamePasswordAuthenticationToken authentication =
+                new UsernamePasswordAuthenticationToken("john", "doe",
+                Collections.singleton(new SimpleGrantedAuthority(Roles.ADMIN_ROLE)));
         authentication.setAuthenticated(true);
 
-        Map<String, String> map = new HashMap<>();
-        map.put("userId", "25");
+        Map<String, Integer> map = new HashMap<>();
+        map.put("userAccount", 25);
         authentication.setDetails(map);
 
         securityContext.setAuthentication(authentication);
@@ -143,6 +148,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private void obtainAuthContext() {
         // obtaining the security context
         SecurityContext existingContext = SecurityContextHolder.getContext();
-        existingContext.getAuthentication();
+        final Authentication authentication = existingContext.getAuthentication();
+        authentication.getDetails();
     }
 }
