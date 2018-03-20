@@ -1,14 +1,13 @@
 # the name of the current app
 spring:
   application:
-    name: spring-boot-properties-usage-demo
+    name: spring-boot-yaml-usage-demo
 
 # logging settings
 logging:
   level:
     root: info
     org:
-      apache: warn
       springframework: warn
 
   pattern:
