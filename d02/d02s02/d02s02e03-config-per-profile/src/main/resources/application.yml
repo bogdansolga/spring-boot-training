@@ -1,14 +1,14 @@
 # the name of the current app
 spring:
   application:
-    name: spring-boot-properties-usage-demo
+    name: spring-boot-config-per-profile-demo
 
 # logging settings
 logging:
   level:
     root: info
-    org.apache: warn
-    org.springframework: warn
+    org:
+      springframework: warn
 
   pattern:
     # special characters need to be escaped / quoted
