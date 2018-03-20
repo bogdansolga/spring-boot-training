@@ -1,7 +1,7 @@
 # the name of the current app
 spring:
   application:
-    name: spring-boot-web-demo
+    name: spring-boot-custom-datasource-config-demo
 
   autoconfigure:
     exclude:
@@ -27,6 +27,8 @@ spring:
   # JPA properties - JpaProperties
   jpa:
     hibernate:
+      # be VERY careful with it's usage
+      # DO NOT use it for 'prod' | 'staging' environments
       ddl-auto: create-drop
 
     properties:
@@ -43,10 +45,13 @@ spring:
 logging:
   level:
     root: info
-    com.zaxxer.hikari: warn
-    org.apache: warn
-    org.springframework: warn
-    org.hibernate: warn
+    com:
+      zaxxer:
+        hikari: warn
+    org:
+      apache: warn
+      hibernate: warn
+      springframework: warn
 
   pattern:
     console: '%clr([%date{HH:mm:ss.SSS}]){faint} %clr(%2p) %clr(%-40.40logger{36}){cyan} %m%n%wex'
