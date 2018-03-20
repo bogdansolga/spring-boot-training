@@ -139,7 +139,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         authentication.setAuthenticated(true);
 
         Map<String, Integer> map = new HashMap<>();
-        map.put("userAccount", 25);
+        map.put("userId", 25);
         authentication.setDetails(map);
 
         securityContext.setAuthentication(authentication);

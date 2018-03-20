@@ -1,8 +1,10 @@
 package net.safedata.springboot.training.d03.s01.controller;
 
-import net.safedata.springboot.training.d03.s01.config.Manager;
+import net.safedata.springboot.training.d03.s01.config.HasManagerRole;
+import net.safedata.springboot.training.d03.s01.config.Roles;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +17,7 @@ import net.safedata.springboot.training.d03.s01.model.Product;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.util.List;
 
 import static net.safedata.springboot.training.d03.s01.config.Roles.*;
 
@@ -23,9 +26,18 @@ import static net.safedata.springboot.training.d03.s01.config.Roles.*;
 @SuppressWarnings("unused")
 public class ProductController {
 
-    @PreAuthorize("hasRole('" + ADMIN_ROLE + "') AND hasAuthority('WRITE')")
+    @PreAuthorize(
+            "hasRole('" + ADMIN_ROLE + "') " +
+            "AND authentication.details.userAccount == 25 " + // an equality check
+            "AND hasAuthority('WRITE')"
+    )
     public void addProduct(final Authentication authentication) {
         // further use the Authentication object, if needed
+    }
+
+    @PreFilter("filterObject.id == authentication.details.userId")
+    public void filterProducts(final List<Product> products) {
+        // using the filtered products, afterwards
     }
     
     @GetMapping(
@@ -48,14 +60,14 @@ public class ProductController {
         // the user details can be further passed to the services
     }
 
-    @Secured("ROLE_ADMIN")
+    @Secured({Roles.ADMIN_ROLE})
     public void processRequestOrResponseParameters(final HttpServletRequest request, final HttpServletResponse response) {
         // get parameters from the HTTP request, set details in the response
     }
 
     // recommended to be used when the principal details need to be consumed by an external tool / API
     @GetMapping("/currentUser")
-    @Manager // DRY
+    @HasManagerRole // DRY
     public Principal principal(final Principal principal) {
         return principal;
     }
