@@ -44,7 +44,7 @@ public class ProductController {
             method = RequestMethod.GET,
             path = "/{id}"
     )
-    public Product getProduct(@PathVariable final int id) {
+    public Product get(@PathVariable final int id) {
         return productService.get(id);
     }
 
