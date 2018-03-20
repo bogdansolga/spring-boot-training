@@ -1,7 +1,7 @@
 # the name of the current app
 spring:
   application:
-    name: spring-boot-web-demo
+    name: spring-boot-embedded-database-demo
 
   # indent the returned JSON responses
   jackson:
