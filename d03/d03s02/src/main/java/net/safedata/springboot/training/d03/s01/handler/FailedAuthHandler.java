@@ -15,9 +15,7 @@ public class FailedAuthHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(final HttpServletRequest httpServletRequest,
                                         final HttpServletResponse httpServletResponse,
-                                        final AuthenticationException e)
-            throws IOException, ServletException {
-
+                                        final AuthenticationException e) {
         // perform failed auth operations - ex: increasing the failed password attempts count, etc
     }
 }
