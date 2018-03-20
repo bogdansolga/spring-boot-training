@@ -34,10 +34,10 @@ public class DataSourceConfig {
 
     @PostConstruct
     public void init() {
-        IntStream.range(0, 20)
+        IntStream.range(0, 10)
                  .forEach(value -> {
                      final Product product = new Product();
-                     product.setName("A default product with the ID " + RANDOM.nextInt());
+                     product.setName("A default product with the ID " + RANDOM.nextInt(100));
                      productService.create(product);
                  });
     }
