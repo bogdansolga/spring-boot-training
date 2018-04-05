@@ -25,29 +25,44 @@ public class AsyncComponent {
     }
 
     @Async
-    void voidAsyncCall(final String firstParameter, final String secondParameter) {
-        displayCurrentThread();
+    public void voidAsyncCall(final String firstParameter, final String secondParameter) {
+        displayCurrentThreadName();
+        sleepALittle();
+
         LOGGER.info("Displaying a value asynchronously");
 
-        throw new RuntimeException("An exception thrown from an async call");
+        //throw new IllegalArgumentException("An exception thrown from an async call");
     }
 
     @Async("defaultExecutor")
-    Future<String> getFuture() {
-        displayCurrentThread();
+    public Future<String> getFuture() {
+        displayCurrentThreadName();
+        sleepALittle();
+
         return new AsyncResult<>("Returning a Future async value");
     }
 
     @Async
-    CompletableFuture<String> getCompletableFuture() {
-        displayCurrentThread();
+    public CompletableFuture<String> getCompletableFuture() {
+        displayCurrentThreadName();
+        sleepALittle();
+
         return CompletableFuture.supplyAsync(() -> {
             //throw new RuntimeException("From CompletableFuture");
             return "something";
         }, defaultExecutor);
     }
 
-    private void displayCurrentThread() {
+    private void displayCurrentThreadName() {
         LOGGER.info("Running on the thread '{}'", Thread.currentThread().getName());
+    }
+
+    private void sleepALittle() {
+        try {
+            LOGGER.debug("Simulating a long running operation...");
+            Thread.sleep(1500);
+        } catch (final InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
