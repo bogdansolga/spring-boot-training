@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -42,7 +43,8 @@ public class TaskSchedulerScheduledTasks {
         final TriggerContext triggerContext = new SimpleTriggerContext(new Date(), new Date(), new Date());
         cronTrigger.nextExecutionTime(triggerContext);
 
-        taskScheduler.schedule(task, cronTrigger);
+        final ScheduledFuture<?> schedule = taskScheduler.schedule(task, cronTrigger);
+        LOGGER.debug("Is it done? - {}", schedule.isDone());
     }
 
     private void periodicTriggerTask() {
