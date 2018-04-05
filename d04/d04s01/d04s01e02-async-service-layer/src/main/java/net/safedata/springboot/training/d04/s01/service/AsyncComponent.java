@@ -16,14 +16,14 @@ public class AsyncComponent {
     private static final Logger LOGGER = LoggerFactory.getLogger(AsyncComponent.class);
 
     @Async
-    void voidAsyncCall() {
-        displayCurrentThread("voidAsyncCall");
+    public void voidReturningAsyncCall() {
+        displayCurrentThreadName("voidReturningAsyncCall");
         LOGGER.info("Displaying a value asynchronously");
     }
 
     @Async
-    Future<String> getFuture() {
-        displayCurrentThread("getFuture");
+    public Future<String> asyncMethodReturningAFuture() {
+        displayCurrentThreadName("asyncMethodReturningAFuture");
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -33,18 +33,23 @@ public class AsyncComponent {
     }
 
     @Async
-    ListenableFuture<String> getListenableFuture() {
-        displayCurrentThread("getListenableFuture");
+    public ListenableFuture<String> asyncMethodReturningAListenableFuture() {
+        displayCurrentThreadName("asyncMethodReturningAListenableFuture");
         return new AsyncResult<>("Returning a ListenableFuture async value");
     }
 
     @Async
-    CompletableFuture<String> getCompletableFuture() {
-        displayCurrentThread("getCompletableFuture");
+    CompletableFuture<String> asyncMethodReturningACompletableFuture() {
+        displayCurrentThreadName("asyncMethodReturningACompletableFuture");
         return CompletableFuture.supplyAsync(() -> "Returned by the CompletableFuture");
     }
 
-    private void displayCurrentThread(String asyncCallName) {
-        LOGGER.info("{} - running on the thread '{}'", asyncCallName, Thread.currentThread().getName());
+    private void displayCurrentThreadName(final String exampleName) {
+        LOGGER.info("{} - running on the thread '{}'", exampleName, Thread.currentThread().getName());
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

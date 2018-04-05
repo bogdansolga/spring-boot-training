@@ -11,6 +11,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 @Service
+@SuppressWarnings("unused")
 public class ProductService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
@@ -22,36 +23,36 @@ public class ProductService {
         this.asyncComponent = asyncComponent;
     }
 
-    @SuppressWarnings("unused")
     public void callAllAsyncMethods() {
-        LOGGER.info("voidAsyncCall");
-        asyncComponent.voidAsyncCall();
+        // 1st stage - invoking the async methods
+        LOGGER.info("Invoking an async method which doesn't have a return...");
+        asyncComponent.voidReturningAsyncCall();
 
-        LOGGER.info("getFuture");
-        final Future<String> future = asyncComponent.getFuture();
+        LOGGER.info("Invoking an async method which returns a Future object...");
+        final Future<String> future = asyncComponent.asyncMethodReturningAFuture();
 
-        LOGGER.info("getListenableFuture");
-        final ListenableFuture<String> listenableFuture = asyncComponent.getListenableFuture();
+        LOGGER.info("Invoking an async method which returns a ListenableFuture object...");
+        final ListenableFuture<String> listenableFuture = asyncComponent.asyncMethodReturningAListenableFuture();
 
-        LOGGER.info("getCompletableFuture");
-        final CompletableFuture<String> completableFuture = asyncComponent.getCompletableFuture();
+        LOGGER.info("Invoking an async method which returns a CompletableFuture object...");
+        final CompletableFuture<String> completableFuture = asyncComponent.asyncMethodReturningACompletableFuture();
 
+        // 2nd stage - getting the returned values
         if (future.isDone()) {
             try {
                 final String value = future.get();
                 LOGGER.info("The returned future value is '{}'", value);
             } catch (final ExecutionException | InterruptedException e) {
-                e.printStackTrace();
+                handleException(e);
             }
         }
+
+        completableFuture.whenCompleteAsync((value, error) -> System.out.println(value));
+        completableFuture.join();
     }
 
-    public void voidAsyncCall() {
-        asyncComponent.voidAsyncCall();
-    }
-
-    public void getFuture() {
-        final Future<String> future = asyncComponent.getFuture();
+    public void asyncMethodReturningAFuture() {
+        final Future<String> future = asyncComponent.asyncMethodReturningAFuture();
 
         try {
             getAndDisplayValue(future);
@@ -60,8 +61,8 @@ public class ProductService {
         }
     }
 
-    public void getListenableFuture() {
-        final ListenableFuture<String> listenableFuture = asyncComponent.getListenableFuture();
+    public void asyncMethodReturningAListenableFuture() {
+        final ListenableFuture<String> listenableFuture = asyncComponent.asyncMethodReturningAListenableFuture();
 
         try {
             getAndDisplayValue(listenableFuture);
@@ -70,8 +71,8 @@ public class ProductService {
         }
     }
 
-    public void getCompletableFuture() {
-        final CompletableFuture<String> completableFuture = asyncComponent.getCompletableFuture();
+    public void asyncMethodReturningACompletableFuture() {
+        final CompletableFuture<String> completableFuture = asyncComponent.asyncMethodReturningACompletableFuture();
 
         try {
             getAndDisplayValue(completableFuture);
@@ -90,6 +91,6 @@ public class ProductService {
     }
 
     private void handleException(final Exception ex) {
-        ex.printStackTrace();
+        LOGGER.error(ex.getMessage(), ex);
     }
 }

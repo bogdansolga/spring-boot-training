@@ -23,14 +23,8 @@ public class AsyncProcessingServiceLayerDemo implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         productService.callAllAsyncMethods();
-
-        //productService.voidAsyncCall();
-        //productService.getFuture();
-
-        //productService.getListenableFuture();
-        //productService.getCompletableFuture();
     }
 
     public static void main(String[] args) {
