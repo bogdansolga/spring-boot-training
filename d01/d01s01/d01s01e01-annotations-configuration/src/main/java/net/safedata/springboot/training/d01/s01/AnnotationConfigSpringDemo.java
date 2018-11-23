@@ -1,7 +1,7 @@
 package net.safedata.springboot.training.d01.s01;
 
 import net.safedata.springboot.training.d01.s01.beans.HelloSpring;
-import net.safedata.springboot.training.d01.s01.config.DemoConfig;
+import net.safedata.springboot.training.d01.s01.config.SpringDemoConfig;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -14,7 +14,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class AnnotationConfigSpringDemo {
 
     public static void main(String[] args) {
-        final ApplicationContext applicationContext = new AnnotationConfigApplicationContext(DemoConfig.class);
+        final ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringDemoConfig.class);
 
         retrievingBeansByType(applicationContext);
 
