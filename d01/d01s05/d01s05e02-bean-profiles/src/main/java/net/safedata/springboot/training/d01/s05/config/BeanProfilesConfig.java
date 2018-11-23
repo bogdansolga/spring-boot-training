@@ -21,6 +21,12 @@ public class BeanProfilesConfig {
     }
 
     @Bean
+    @Profile(Profiles.TOMCAT)
+    public String tomcat() {
+        return "Running with Tomcat";
+    }
+
+    @Bean
     @Profile(Profiles.PROD)
     public ProductService prodProductService() {
         return new ProductService(prodProductRepository());

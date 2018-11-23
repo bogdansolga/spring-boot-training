@@ -10,4 +10,8 @@ public final class Profiles {
     public static final String PROD = "prod";
 
     public static final String DEFAULT = "default";
+
+    public static final String TOMCAT = "tomcat";
+
+    public static final String JETTY = "jetty";
 }
