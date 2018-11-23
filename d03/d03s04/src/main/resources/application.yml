@@ -40,9 +40,11 @@ endpoints:
 
   shutdown:
     enabled: true
+    sensitive: true
 
   info:
     enabled: true
+    path: the-info
 
   metrics:
     enabled: true
@@ -54,3 +56,12 @@ info:
       target: 1.8
   owner: someone
   key: value
+
+management:
+  endpoint:
+    health:
+      show-details: always
+
+  health:
+    defaults:
+      enabled: true
