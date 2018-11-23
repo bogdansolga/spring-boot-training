@@ -25,7 +25,8 @@ public class SimpleBeanWiring {
     }
 
     private static ApplicationContext buildApplicationContext() {
-        return USE_ANNOTATIONS_CONFIG ? new AnnotationConfigApplicationContext(DomainConfig.class) :
+        return USE_ANNOTATIONS_CONFIG ?
+                new AnnotationConfigApplicationContext(DomainConfig.class) :
                 new ClassPathXmlApplicationContext("applicationContext.xml");
     }
 }
