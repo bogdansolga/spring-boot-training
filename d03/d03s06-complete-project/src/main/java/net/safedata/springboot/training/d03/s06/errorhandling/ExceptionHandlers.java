@@ -44,6 +44,8 @@ public class ExceptionHandlers {
     public MessageDTO internalServerError(final Exception e) {
         LOGGER.error(e.getMessage(), e);
 
+        // optionally integrate an email sending / error reporting service
+
         return new MessageDTO("Internal server error");
     }
 }
