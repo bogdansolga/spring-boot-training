@@ -13,6 +13,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
+    // setting properties via constructor --> immutable class
     public ProductService(final ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
