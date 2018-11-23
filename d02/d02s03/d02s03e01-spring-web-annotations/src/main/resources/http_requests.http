@@ -1,0 +1,32 @@
+GET http://localhost:8080/hello
+
+###
+POST http://localhost:8080/requestBody
+
+A request body
+
+###
+POST http://localhost:8080/responseBody
+
+###
+POST http://localhost:8080/product
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "Another one"
+}
+
+###
+GET http://localhost:8080/product/1
+
+###
+POST http://localhost:8080/product
+
+###
+POST http://localhost:8080/matches/2/score
+
+###
+GET http://localhost:8080/product/6
+
+###
