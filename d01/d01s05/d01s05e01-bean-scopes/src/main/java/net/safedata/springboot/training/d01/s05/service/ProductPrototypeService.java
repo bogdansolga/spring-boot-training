@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * @author bogdan.solga
  */
 @Service
-@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE) // = stateful applications
 public class ProductPrototypeService {
 
     private Set<String> values;
