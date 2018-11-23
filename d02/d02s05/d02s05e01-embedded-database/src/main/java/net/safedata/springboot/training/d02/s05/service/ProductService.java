@@ -47,7 +47,8 @@ public class ProductService {
             propagation = Propagation.SUPPORTS
     )
     public Product get(final int id) {
-        return productRepository.findOne(id);
+        return productRepository.findById(id)
+                                .orElseThrow(() -> new IllegalArgumentException("Not found"));
     }
 
     public Iterable<Product> getAll() {
@@ -55,7 +56,7 @@ public class ProductService {
     }
 
     public void update(final int id, final Product product) {
-        final Product existingProduct = productRepository.findOne(id);
+        final Product existingProduct = get(id);
 
         existingProduct.setName(product.getName());
 
@@ -63,10 +64,22 @@ public class ProductService {
     }
 
     public void delete(final int id) {
-        productRepository.delete(id);
+        productRepository.deleteById(id);
     }
 
     public void paginationExample() {
-        productRepository.findByPriceOrderByNameAsc(20, new PageRequest(0, 30, new Sort(Sort.Direction.DESC)));
+        // 1st benefit - better method contract
+        // 2nd benefit - chaining other processing methods on the result
+        final Integer productsCount = getProductsCountOrThrow();
+
+        // 3rd benefit - separating the happy (processing) path from the unhappy path
+        System.out.println(productsCount);
+    }
+
+    private Integer getProductsCountOrThrow() {
+        return productRepository.findByPriceOrderByNameAsc(20, new PageRequest(0, 30, new Sort(Sort.Direction.DESC)))
+                                .map(products -> products.size())
+                                .orElseThrow(()
+                   -> new IllegalArgumentException("No products are available"));
     }
 }

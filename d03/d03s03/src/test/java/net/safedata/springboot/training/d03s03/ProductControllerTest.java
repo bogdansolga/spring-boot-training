@@ -2,11 +2,12 @@ package net.safedata.springboot.training.d03s03;
 
 import io.restassured.RestAssured;
 import io.restassured.filter.log.LogDetail;
+import io.restassured.http.ContentType;
 import net.safedata.springboot.training.d03s03.model.Product;
 import net.safedata.springboot.training.d03s03.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
@@ -15,6 +16,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.core.Is.is;
 
@@ -56,21 +58,24 @@ public class ProductControllerTest extends AbstractTransactionalTestNGSpringCont
     }
 
     @Test
-    public void shouldGetAllProducts() {
+    public void givenTheContentTypeIsCorrect_WhenGettingAllProducts_ThenAllGood() {
+        given()
+                .accept(ContentType.JSON).
         when()
                 .get("/product").
         then()
                 .statusCode(HttpStatus.OK.value())
-                .body("$.size", is(3))
+                .body("$.size", is(3)) // the response array size is 3
                 .body("[0].name", is(PRODUCT_NAME));
     }
 
     // a sample of using a dataProvider
     @Test(dataProvider = "dataProvider")
     public void shouldGetAllProducts(final String productId, final int statusCode) {
-        when().get("/product/{id}", productId)
-              .then()
-              .statusCode(statusCode);
+        when()
+                .get("/product/{id}", productId).
+        then()
+                .statusCode(statusCode);
     }
 
     @DataProvider(name = "dataProvider", parallel = true)

@@ -25,7 +25,7 @@ public class ProductService {
 
     public void callAllAsyncMethods() {
         // 1st stage - invoking the async methods
-        LOGGER.info("Invoking an async method which doesn't have a return...");
+        LOGGER.info("Invoking an async method which doesn't have a return object...");
         asyncComponent.voidReturningAsyncCall();
 
         LOGGER.info("Invoking an async method which returns a Future object...");
@@ -47,7 +47,7 @@ public class ProductService {
             }
         }
 
-        completableFuture.whenCompleteAsync((value, error) -> System.out.println(value));
+        completableFuture.whenCompleteAsync((value, error) -> LOGGER.debug("{}", value));
         completableFuture.join();
     }
 

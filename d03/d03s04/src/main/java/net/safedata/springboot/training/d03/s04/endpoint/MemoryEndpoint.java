@@ -1,6 +1,7 @@
 package net.safedata.springboot.training.d03.s04.endpoint;
 
-import org.springframework.boot.actuate.endpoint.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,25 +10,11 @@ import org.springframework.stereotype.Component;
  * @author bogdan.solga
  */
 @Component
-public class MemoryEndpoint implements Endpoint<MemoryInfo> {
+@Endpoint(id = "memory")
+public class MemoryEndpoint {
 
-    @Override
-    public String getId() {
-        return "memory";
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    @Override
-    public boolean isSensitive() {
-        return false;
-    }
-
-    @Override
-    public MemoryInfo invoke() {
+    @ReadOperation
+    public MemoryInfo memoryInfo() {
         final Runtime runtime = Runtime.getRuntime();
         final long freeMemory = runtime.freeMemory();
 

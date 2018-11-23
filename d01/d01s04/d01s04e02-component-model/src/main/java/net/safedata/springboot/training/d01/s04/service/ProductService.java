@@ -19,7 +19,10 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
+    // read
     public void displayProducts() {
         productRepository.displayProducts();
     }
+
+    // + many other CRUD operations
 }

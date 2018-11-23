@@ -20,7 +20,8 @@ public class ProductService {
     }
 
     public Product get(final int id) {
-        return productRepository.findOne(id);
+        return productRepository.findById(id)
+                                .orElseThrow(() -> new IllegalArgumentException("Not found"));
     }
 
     public Iterable<Product> getAll() {
@@ -28,7 +29,7 @@ public class ProductService {
     }
 
     public void update(final int id, final Product product) {
-        final Product existingProduct = productRepository.findOne(id);
+        final Product existingProduct = get(id);
 
         existingProduct.setName(product.getName());
 
@@ -36,6 +37,6 @@ public class ProductService {
     }
 
     public void delete(final int id) {
-        productRepository.delete(id);
+        productRepository.deleteById(id);
     }
 }

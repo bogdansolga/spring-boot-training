@@ -13,17 +13,17 @@ import java.util.Arrays;
 @Service
 public class ProductService {
 
-    @Value("${remote.endpoint.url:let's see a default value with spaces}")
+    @Value("${remote.endpoint.url}")
     private String remoteEndpointURL;
 
     @Value("${metrics.enabled}")
     private boolean metricsEnabled;
 
-    @Value("${connection.timeout:5000}")
+    @Value("${connection.timeout}")
     private int connectionTimeout;
 
     @Value("${version.number:2.5}")
-    private Double versionNumber;
+    private double versionNumber;
 
     @Value("${external.property}")
     private String externalProperty;

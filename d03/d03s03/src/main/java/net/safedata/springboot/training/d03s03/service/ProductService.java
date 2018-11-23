@@ -38,7 +38,8 @@ public class ProductService {
     public Product getProduct(final int id) {
         Assert.isTrue(id != THROWING_ID, "There is no product with the ID " + THROWING_ID);
 
-        return productRepository.findOne(id);
+        return productRepository.findById(id)
+                                .orElseThrow(() -> new IllegalArgumentException("Not found"));
     }
 
     @Transactional(

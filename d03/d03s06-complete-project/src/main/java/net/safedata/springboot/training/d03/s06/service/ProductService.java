@@ -48,9 +48,8 @@ public class ProductService {
             propagation = Propagation.SUPPORTS
     )
     public ProductDTO get(final int id) {
-        final Product product =
-                Optional.ofNullable(productRepository.findOne(id))
-                        .orElseThrow(() -> new IllegalArgumentException("There is no product with the id " + id));
+        final Product product = productRepository.findById(id)
+                             .orElseThrow(() -> new IllegalArgumentException("There is no product with the id " + id));
 
         return getProductConverter().apply(product);
     }
@@ -63,13 +62,13 @@ public class ProductService {
     }
 
     public void update(final int id, final ProductDTO productDTO) {
-        final Product product = Optional.ofNullable(productRepository.findOne(id))
+        final Product product = productRepository.findById(id)
                       .orElseThrow(() -> new IllegalArgumentException("There is no product with the ID " + id));
         productRepository.save(convertProductForUpdate().apply(productDTO, product));
     }
 
     public void delete(final int id) {
-        productRepository.delete(id);
+        productRepository.deleteById(id);
     }
 
     private Function<ProductDTO, Product> getDTOConverter() {

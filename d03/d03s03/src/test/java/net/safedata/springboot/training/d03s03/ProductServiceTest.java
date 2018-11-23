@@ -12,6 +12,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
@@ -75,7 +76,7 @@ public class ProductServiceTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void givenThereAreNoAvailableProducts_whenGettingAProductById_thenAnIllegalArgumentExceptionIsThrown() {
-        when(productRepository.findOne(anyInt())).thenReturn(null);
+        when(productRepository.findById(anyInt())).thenReturn(Optional.empty());
 
         productService.getProduct(13);
     }

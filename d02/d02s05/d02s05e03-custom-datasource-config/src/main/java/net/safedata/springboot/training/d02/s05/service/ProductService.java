@@ -33,7 +33,8 @@ public class ProductService {
 
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public Product get(final int id) {
-        return productRepository.findOne(id);
+        return productRepository.findById(id)
+                                .orElseThrow(() -> new IllegalArgumentException("Not found"));
     }
 
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
@@ -43,7 +44,7 @@ public class ProductService {
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public void update(final int id, final Product product) {
-        final Product existingProduct = productRepository.findOne(id);
+        final Product existingProduct = get(id);
 
         existingProduct.setName(product.getName());
 
@@ -52,6 +53,6 @@ public class ProductService {
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public void delete(final int id) {
-        productRepository.delete(id);
+        productRepository.deleteById(id);
     }
 }

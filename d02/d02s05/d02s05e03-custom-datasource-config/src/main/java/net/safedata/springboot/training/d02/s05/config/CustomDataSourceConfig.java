@@ -2,7 +2,6 @@ package net.safedata.springboot.training.d02.s05.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,7 +43,7 @@ public class CustomDataSourceConfig {
         final HikariConfig hikariConfig = new HikariConfig();
 
         hikariConfig.setPoolName("hikari-first-connection-pool");
-        hikariConfig.setMaximumPoolSize(AVAILABLE_PROCESSORS);
+        hikariConfig.setMaximumPoolSize(AVAILABLE_PROCESSORS * 2);
         hikariConfig.setConnectionTimeout(30000);
         hikariConfig.setIdleTimeout(60000);
         hikariConfig.setMaxLifetime(120000);
@@ -54,21 +53,5 @@ public class CustomDataSourceConfig {
         hikariConfig.setDriverClassName(driverClassName);
 
         return new HikariDataSource(hikariConfig);
-    }
-
-    @Bean
-    public javax.sql.DataSource tomcatConnectionPool() {
-        final DataSource dataSource = new DataSource();
-
-        dataSource.setName("tomcat-connection-pool");
-        dataSource.setUrl(url);
-        dataSource.setUsername(userName);
-        dataSource.setPassword(password);
-        dataSource.setDriverClassName(driverClassName);
-        dataSource.setMinIdle(2);
-        dataSource.setMaxIdle(AVAILABLE_PROCESSORS / 2);
-        dataSource.setMaxActive(AVAILABLE_PROCESSORS * 2);
-
-        return dataSource;
     }
 }

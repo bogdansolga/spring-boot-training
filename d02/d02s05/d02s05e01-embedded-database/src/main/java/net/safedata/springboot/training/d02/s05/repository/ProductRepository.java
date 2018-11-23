@@ -26,7 +26,7 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
     Optional<Product> findProductByNameAndId(@Param(value = "name") final String name,
                                              @Param(value = "id") final int id);
 
-    List<Product> findByPriceOrderByNameAsc(final double price, final Pageable pageable);
+    Optional<List<Product>> findByPriceOrderByNameAsc(final double price, final Pageable pageable);
 
     @Async
     Future<Product> findProductById(int id);

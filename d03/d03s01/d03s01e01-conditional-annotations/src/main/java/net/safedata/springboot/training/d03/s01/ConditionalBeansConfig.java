@@ -1,10 +1,8 @@
 package net.safedata.springboot.training.d03.s01;
 
-import org.eclipse.jetty.server.Server;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.embedded.EmbeddedServletContainer;
-import org.springframework.boot.context.embedded.jetty.JettyEmbeddedServletContainer;
+import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -39,8 +37,8 @@ public class ConditionalBeansConfig {
     		name = "used.webserver",
     		havingValue = "jetty"
 	)
-    public EmbeddedServletContainer jetty() {
-        return new JettyEmbeddedServletContainer(new Server(9999), true);
+    public JettyServletWebServerFactory jetty() {
+        return new JettyServletWebServerFactory(9999);
     }
 
     // a 'feature toggle' sample approach
