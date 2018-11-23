@@ -45,18 +45,20 @@ public class Profiler {
 
     @Around("@annotation(MemoryProfiling)")
     public Object profileMemory(final ProceedingJoinPoint pjp) throws Throwable {
+        final Runtime runtime = Runtime.getRuntime();
+
         final Signature signature = pjp.getSignature();
-        final String signatureName = signature.getName();
+        final String methodName = signature.getName();
         try {
-            long usedMemory = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / BYTES_IN_MB;
-            LOGGER.info("JVM memory in use before '{}': {} MB", signatureName, usedMemory);
+            long usedMemory = (runtime.totalMemory() - runtime.freeMemory()) / BYTES_IN_MB;
+            LOGGER.info("JVM memory in use before '{}': {} MB", methodName, usedMemory);
 
-            Object retVal = pjp.proceed();
+            Object methodReturnValue = pjp.proceed();
 
-            usedMemory = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / BYTES_IN_MB;
-            LOGGER.info("JVM memory in use after '{}': {} MB", signatureName, usedMemory);
+            usedMemory = (runtime.totalMemory() - runtime.freeMemory()) / BYTES_IN_MB;
+            LOGGER.info("JVM memory in use after '{}': {} MB", methodName, usedMemory);
 
-            return retVal;
+            return methodReturnValue;
         } catch (final Exception exception) {
             LOGGER.error(exception.getMessage(), exception);
             throw exception;
