@@ -14,8 +14,10 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackages = "net.safedata.springboot.training")
 public class BeanQualifyingConfig {
 
-    @Bean
-    public ProductRepository mySQLProductRepository() {
+    public static final String MY_SQL_REPO_BEAN_NAME = "mySQLProductRepository";
+
+    @Bean(name = MY_SQL_REPO_BEAN_NAME)
+    public ProductRepository productRepository() {
         return new ProductRepository("MySQL");
     }
 
