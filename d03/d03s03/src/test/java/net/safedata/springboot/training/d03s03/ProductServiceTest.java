@@ -64,9 +64,9 @@ public class ProductServiceTest {
         when(product.getName()).thenReturn(mockedName);
         when(product.getId()).thenReturn(20);
 
-        when(productRepository.findOne(anyInt())).thenReturn(product);
+        when(productRepository.findById(10)).thenReturn(Optional.of(product));
 
-        final Product resulted = productService.getProduct(25);
+        final Product resulted = productService.getProduct(10);
 
         assertNotNull(resulted);
         assertThat(resulted.getName(), is(mockedName));
