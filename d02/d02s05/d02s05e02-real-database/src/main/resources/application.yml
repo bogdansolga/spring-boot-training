@@ -34,7 +34,10 @@ logging:
     root: info
     org:
       apache: warn
-      hibernate: warn
+      # to see the query parameters - change 'sql' to 'debug' and 'type' to 'trace'
+      hibernate:
+        sql: warn
+        type: warn
       springframework: warn
 
   pattern:
