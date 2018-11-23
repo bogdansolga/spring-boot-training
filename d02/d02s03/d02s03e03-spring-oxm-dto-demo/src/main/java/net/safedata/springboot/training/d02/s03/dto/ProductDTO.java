@@ -5,6 +5,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A DTO (Data Transfer Object) used to serialize / deserialize {@link net.safedata.springboot.training.d02.s03.model.Product} objects
@@ -16,6 +17,8 @@ public class ProductDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
     private int id;
+
+    private String optionalValue;
 
     @NotNull(message = "The name cannot be null")
     @Pattern(regexp = "\\d", message = "Does not match the pattern")
@@ -43,6 +46,14 @@ public class ProductDTO implements Serializable {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public Optional<String> getOptionalValue() {
+        return Optional.ofNullable(optionalValue);
+    }
+
+    public void setOptionalValue(String optionalValue) {
+        this.optionalValue = optionalValue;
     }
 
     @Override
