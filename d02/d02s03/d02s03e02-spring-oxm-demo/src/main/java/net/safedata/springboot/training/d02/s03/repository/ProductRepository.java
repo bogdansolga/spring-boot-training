@@ -22,7 +22,7 @@ public class ProductRepository {
 
     @SuppressWarnings("unused")
     public Product get(int id) {
-        return getDefaultProduct();
+        return products.get(0);
     }
 
     public List<Product> getAll() {
