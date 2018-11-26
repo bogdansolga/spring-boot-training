@@ -62,7 +62,7 @@ public class RequestMappingController {
             method = RequestMethod.GET
     )
     @SuppressWarnings("unused")
-    public String requestAndResponseUsage(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
+    public String requestAndResponseUsage(final HttpServletRequest request, final HttpServletResponse response) {
         return "We can pass the HttpServletRequest and HttpServletResponse objects to any RequestMapping annotated method";
     }
 
