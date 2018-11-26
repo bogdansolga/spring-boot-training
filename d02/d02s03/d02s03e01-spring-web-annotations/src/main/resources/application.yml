@@ -12,8 +12,11 @@ spring:
 logging:
   level:
     root: info
+    io:
+      undertow: error
     org:
       apache: warn
       springframework: warn
+      xnio: error
   pattern:
     console: '%clr([%date{HH:mm:ss.SSS}]){faint} %clr(%2p) %clr(%-40.40logger{36}){cyan} %m%n%wex'
