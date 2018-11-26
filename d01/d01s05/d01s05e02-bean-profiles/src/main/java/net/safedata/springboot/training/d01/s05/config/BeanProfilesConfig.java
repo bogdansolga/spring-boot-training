@@ -1,7 +1,8 @@
 package net.safedata.springboot.training.d01.s05.config;
 
 import net.safedata.springboot.training.d01.s05.repository.ProductRepository;
-import net.safedata.springboot.training.d01.s05.service.ProductService;
+import net.safedata.springboot.training.d01.s05.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -36,6 +37,18 @@ public class BeanProfilesConfig {
     @Profile(Profiles.DEFAULT)
     public ProductService defaultProductService() {
         return new ProductService(prodProductRepository());
+    }
+
+    @Bean
+    @Profile(Profiles.DEV)
+    public FileSavingServiceExample devFileSavingServiceExample() {
+        return new FileSavingServiceExample(new DevFileSavingService());
+    }
+
+    @Bean
+    @Profile(Profiles.PROD)
+    public FileSavingServiceExample prodFileSavingServiceExample() {
+        return new FileSavingServiceExample(new ProdFileSavingService());
     }
 
     @Bean

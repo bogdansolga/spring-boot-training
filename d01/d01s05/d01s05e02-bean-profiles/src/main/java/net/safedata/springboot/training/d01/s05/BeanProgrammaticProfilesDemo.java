@@ -21,8 +21,7 @@ public class BeanProgrammaticProfilesDemo {
 
     // usually passed as a '-Dspring.profiles.active=<profiles>' run argument
     public static void main(String[] args) {
-        System.setProperty(PROFILE_ACTIVATION_PROPERTY, Profiles.DEV);
-        System.setProperty(DEFAULT_PROFILE_SETTING_PROPERTY, Profiles.DEV);
+        System.setProperty(PROFILE_ACTIVATION_PROPERTY, Profiles.DEV + "," + Profiles.TOMCAT);
 
         final ApplicationContext applicationContext =
                 new AnnotationConfigApplicationContext(BeanProfilesConfig.class, ProfileEnabledConfig.class);
