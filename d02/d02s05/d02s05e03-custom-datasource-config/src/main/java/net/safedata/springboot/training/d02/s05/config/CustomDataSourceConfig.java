@@ -44,6 +44,7 @@ public class CustomDataSourceConfig {
 
         hikariConfig.setPoolName("hikari-first-connection-pool");
         hikariConfig.setMaximumPoolSize(AVAILABLE_PROCESSORS * 2);
+        hikariConfig.setMinimumIdle(AVAILABLE_PROCESSORS / 2);
         hikariConfig.setConnectionTimeout(30000);
         hikariConfig.setIdleTimeout(60000);
         hikariConfig.setMaxLifetime(120000);
