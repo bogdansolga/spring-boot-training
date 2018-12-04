@@ -38,7 +38,7 @@ public class ProductController {
             path = "",
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<?> create(@RequestBody @Valid ProductDTO productDTO) {
+    public ResponseEntity create(@RequestBody @Valid ProductDTO productDTO) {
         productService.create(productDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
@@ -50,6 +50,15 @@ public class ProductController {
     )
     public ProductDTO getProduct(@PathVariable final int id) {
         return productService.get(id);
+    }
+
+    @RequestMapping(
+            method = RequestMethod.GET,
+            path = "/{id}",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public ResponseEntity<ProductDTO> getProductUsingResponseEntity(@PathVariable final int id) {
+        return new ResponseEntity<>(productService.get(id), HttpStatus.EXPECTATION_FAILED);
     }
 
     @RequestMapping(
