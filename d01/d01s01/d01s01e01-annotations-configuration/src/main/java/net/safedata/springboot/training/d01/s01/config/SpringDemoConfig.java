@@ -22,7 +22,7 @@ public class SpringDemoConfig {
     /**
      * This bean is commented by default, so that we won't have two beans of the same type in the Spring IoC container
      */
-    @Bean
+    //@Bean
     public HelloSpring otherHelloSpring() {
         return new HelloSpring();
     }
@@ -32,7 +32,7 @@ public class SpringDemoConfig {
         return "Hello, Spring [as a string]!";
     }
 
-    @Bean(name = "theBeanName")
+    @Bean
     public Boolean booleanBean() {
         return Boolean.TRUE;
     }

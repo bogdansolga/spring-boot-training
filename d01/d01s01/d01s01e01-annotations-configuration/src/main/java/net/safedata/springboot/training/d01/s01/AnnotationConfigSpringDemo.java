@@ -18,7 +18,7 @@ public class AnnotationConfigSpringDemo {
 
         retrievingBeansByType(applicationContext);
 
-        retrievingBeansByTypeAndID(applicationContext);
+        //retrievingBeansByTypeAndID(applicationContext);
     }
 
     private static void retrievingBeansByType(final ApplicationContext applicationContext) {
@@ -27,8 +27,8 @@ public class AnnotationConfigSpringDemo {
         helloSpring.displayWelcomeMessage();
 
         // 'give me the bean (object) of type String from the application context'
-        final String stringBean = applicationContext.getBean(String.class);
-        System.out.println(stringBean);
+        //final String stringBean = applicationContext.getBean(String.class);
+        //System.out.println(stringBean);
     }
 
     private static void retrievingBeansByTypeAndID(final ApplicationContext applicationContext) {
