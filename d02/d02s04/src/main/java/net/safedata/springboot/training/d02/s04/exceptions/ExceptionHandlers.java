@@ -39,6 +39,8 @@ public class ExceptionHandlers {
     public MessageDTO internalServerError(final Exception e) {
         LOGGER.error(e.getMessage(), e);
 
+        // optionally - send an email with the stack trace
+
         return new MessageDTO("Oops!");
     }
 }
