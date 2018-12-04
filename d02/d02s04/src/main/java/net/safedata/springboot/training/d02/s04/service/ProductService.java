@@ -30,7 +30,7 @@ public class ProductService {
     }
 
     public ProductDTO get(final int id) {
-        final Product product = validateAndGetProduct(id);
+        final Product product = getOrThrow(id);
         return getProductConverter().apply(product);
     }
 
@@ -43,13 +43,13 @@ public class ProductService {
 
     public void update(final int id, final ProductDTO productDTO) {
         validateRequest(productDTO);
-        validateAndGetProduct(id);
+        getOrThrow(id);
 
         productRepository.update(id, getDTOConverter().apply(productDTO));
     }
 
     public void delete(final int id) {
-        validateAndGetProduct(id);
+        getOrThrow(id);
         productRepository.delete(id);
     }
 
@@ -66,7 +66,8 @@ public class ProductService {
         Assert.notNull(productDTO, "Cannot process a null product");
     }
 
-    private Product validateAndGetProduct(final int id) {
+    private Product getOrThrow(final int id) {
+        // a short circuiting operation
         return Optional.ofNullable(productRepository.get(id))
                        .orElseThrow(() -> new NotFoundException("There is no product with the ID " + id));
     }
