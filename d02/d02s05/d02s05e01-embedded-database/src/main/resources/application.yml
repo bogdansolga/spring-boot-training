@@ -19,9 +19,6 @@ spring:
 
     username: sa
     password: aVeryComplexPassword
-    data: data-h2.sql
-    schema: schema-h2.sql
-    initialize: false
 
   jpa:
     properties:
