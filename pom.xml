@@ -23,6 +23,7 @@
         <module>d03</module>
         <module>d04</module>
         <module>d05</module>
+        <module>domain-model</module>
     </modules>
 
     <properties>
@@ -51,6 +52,12 @@
                 <artifactId>rest-assured</artifactId>
                 <version>${restassured.version}</version>
                 <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>net.safedata</groupId>
+                <artifactId>domain-model</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
