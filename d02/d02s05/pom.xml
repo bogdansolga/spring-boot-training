@@ -18,4 +18,11 @@
         <module>d02s05e02-real-database</module>
         <module>d02s05e03-custom-datasource-config</module>
     </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.safedata</groupId>
+            <artifactId>jpa-domain-model</artifactId>
+        </dependency>
+    </dependencies>
 </project>
