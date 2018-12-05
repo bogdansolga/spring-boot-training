@@ -10,10 +10,12 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>d05</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>jpa-domain-model</artifactId>
 
-    <modules>
-        <module>d05s01-caching</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+    </dependencies>
 </project>
