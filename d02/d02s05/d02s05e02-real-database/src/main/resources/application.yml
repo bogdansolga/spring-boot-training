@@ -15,7 +15,7 @@ spring:
   # JPA properties - JpaProperties
   jpa:
     hibernate:
-      ddl-auto: create # use it carefully, for development only
+      ddl-auto: create-drop # use it carefully, for development only
 
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
 
@@ -40,12 +40,10 @@ logging:
       zaxxer: warn
     org:
       apache: warn
-      # to see the query parameters - change 'sql' to 'debug' and 'type' to 'trace'
-      hibernate:
-        dialect: warn
-        engine: warn
-        sql: warn
-        type: warn
+        # to see the query parameters - change 'sql' to 'debug' and 'type' to 'trace'
+      hibernate: warn
+        #sql: warn
+        #type: warn
       springframework: warn
 
   pattern:

@@ -1,8 +1,9 @@
 package net.safedata.springboot.training.d02.s05.config;
 
-import net.safedata.springboot.training.d02.s05.model.Product;
+import net.safedata.spring.training.jpa.model.Product;
 import net.safedata.springboot.training.d02.s05.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -20,6 +21,7 @@ import java.util.stream.IntStream;
  */
 @Configuration
 @EnableJpaRepositories(basePackages = "net.safedata.springboot.training.d02.s05.repository")
+@EntityScan(basePackages = "net.safedata.spring.training.jpa.model")
 @EnableTransactionManagement
 public class DataSourceConfig {
 
@@ -37,7 +39,8 @@ public class DataSourceConfig {
         IntStream.range(0, 10)
                  .forEach(value -> {
                      final Product product = new Product();
-                     product.setName("A default product with the ID " + RANDOM.nextInt(100));
+                     product.setName("The product with the ID " + RANDOM.nextInt(100));
+                     product.setPrice(RANDOM.nextDouble() * 200);
                      productService.create(product);
                  });
     }
