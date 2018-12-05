@@ -14,9 +14,12 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>d04s01</module>
-        <module>d04s02</module>
-        <module>d04s03</module>
-        <module>d04s04</module>
+        <module>d04s01-async-processing</module>
+        <module>d04s02-scheduled-tasks</module>
+        <module>d04s03-events-pub-sub</module>
+        <module>d04s04-spring-retry</module>
+        <module>d04s05-caching</module>
+
+        <module>d04s06-complete-project</module>
     </modules>
 </project>

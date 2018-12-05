@@ -10,7 +10,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>d04s01</artifactId>
+    <artifactId>d04s01-async-processing</artifactId>
     <packaging>pom</packaging>
 
     <modules>

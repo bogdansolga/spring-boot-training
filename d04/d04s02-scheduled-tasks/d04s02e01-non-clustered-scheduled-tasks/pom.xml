@@ -6,9 +6,9 @@
 
     <parent>
         <groupId>net.safedata</groupId>
-        <artifactId>d04s01</artifactId>
+        <artifactId>d04s02-scheduled-tasks</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>d04s01e03-task-executors</artifactId>
-</project>
+    <artifactId>d04s02e01-non-clustered-scheduled-tasks</artifactId>
+  </project>

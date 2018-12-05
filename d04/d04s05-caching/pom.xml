@@ -10,15 +10,14 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>d04s02</artifactId>
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>d04s02e01-non-clustered-scheduled-tasks</module>
-        <module>d04s02e02-clustered-scheduled-tasks</module>
-    </modules>
+    <artifactId>d04s05-caching</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
