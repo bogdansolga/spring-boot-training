@@ -1,6 +1,6 @@
 package net.safedata.springboot.training.d02.s05.repository;
 
-import net.safedata.springboot.training.d02.s05.model.Product;
+import net.safedata.spring.training.jpa.model.Product;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

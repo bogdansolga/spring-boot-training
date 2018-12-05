@@ -1,6 +1,6 @@
 package net.safedata.springboot.training.d02.s05.controller;
 
-import net.safedata.springboot.training.d02.s05.model.Product;
+import net.safedata.spring.training.jpa.model.Product;
 import net.safedata.springboot.training.d02.s05.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

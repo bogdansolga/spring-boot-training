@@ -1,6 +1,6 @@
 package net.safedata.springboot.training.d02.s05.service;
 
-import net.safedata.springboot.training.d02.s05.model.Product;
+import net.safedata.spring.training.jpa.model.Product;
 import net.safedata.springboot.training.d02.s05.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Service
 public class ProductService {
@@ -67,18 +68,19 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
+    @SuppressWarnings("unused")
     public void paginationExample() {
         // 1st benefit - better method contract
         // 2nd benefit - chaining other processing methods on the result
-        final Integer productsCount = getProductsCountOrThrow();
+        final Integer productsCount = getCountOrThrow();
 
         // 3rd benefit - separating the happy (processing) path from the unhappy path
         System.out.println(productsCount);
     }
 
-    private Integer getProductsCountOrThrow() {
-        return productRepository.findByPriceOrderByNameAsc(20, new PageRequest(0, 30, new Sort(Sort.Direction.DESC)))
-                                .map(products -> products.size())
+    private Integer getCountOrThrow() {
+        return productRepository.findByPriceOrderByNameAsc(20, PageRequest.of(0, 30, new Sort(Sort.Direction.DESC)))
+                                .map(List::size)
                                 .orElseThrow(()
                    -> new IllegalArgumentException("No products are available"));
     }
