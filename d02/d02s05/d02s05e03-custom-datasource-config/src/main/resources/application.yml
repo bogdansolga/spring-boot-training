@@ -30,6 +30,7 @@ spring:
       # DO NOT use it for 'prod' | 'staging' environments
       ddl-auto: create-drop
 
+    open-in-view: false
     properties:
       hibernate:
         show_sql: false

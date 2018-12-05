@@ -1,6 +1,6 @@
 package net.safedata.springboot.training.d02.s05.service;
 
-import net.safedata.springboot.training.d02.s05.model.Product;
+import net.safedata.spring.training.jpa.model.Product;
 import net.safedata.springboot.training.d02.s05.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,8 @@ public class ProductService {
     @PostConstruct
     public void init() {
         final Product product = new Product();
-        product.setName("A default product");
+        product.setName("A nice and useful tablet");
+        product.setPrice(250d);
         create(product);
     }
 
