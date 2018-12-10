@@ -1,0 +1,38 @@
+# the name of the current app
+spring:
+  application:
+    name: spring-boot-spring-data-jdbc-demo
+
+  h2:
+    console:
+      enabled: true
+
+  # indent the returned JSON responses
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+
+  jpa:
+    open-in-view: true
+
+  datasource:
+    platform: h2
+    url: jdbc:h2:mem:spring-data-jdbc-demo
+    username: sa
+    password: spring-data-jdbc-demo
+    initialization-mode: embedded
+    data: classpath:create-tables.sql
+
+# logging settings
+logging:
+  level:
+    root: info
+    com:
+      zaxxer: warn
+    org:
+      apache: warn
+      hibernate: warn
+      springframework: warn
+
+  pattern:
+    console: '%clr([%date{HH:mm:ss.SSS}]){faint} %clr(%2p) %clr(%-40.40logger{36}){cyan} %m%n%wex'
