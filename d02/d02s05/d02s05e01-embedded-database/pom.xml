@@ -19,11 +19,6 @@
         </dependency>
 
         <dependency>
-            <groupId>net.safedata</groupId>
-            <artifactId>jpa-domain-model</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
