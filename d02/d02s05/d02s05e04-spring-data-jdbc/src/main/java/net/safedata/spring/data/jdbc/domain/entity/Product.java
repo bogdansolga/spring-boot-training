@@ -1,11 +1,9 @@
 package net.safedata.spring.data.jdbc.domain.entity;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Objects;
 
-@Table("Product")
 public class Product extends AbstractEntity {
 
     @Id
@@ -13,20 +11,17 @@ public class Product extends AbstractEntity {
     private String name;
     private double price;
 
-    public Product(final int id, final String name, final double price) {
-        this.id = id;
+    public Product(final String name, final double price) {
         this.name = name;
         this.price = price;
-    }
-
-    public Product() {
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    @Override
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -63,6 +58,10 @@ public class Product extends AbstractEntity {
 
     @Override
     public String toString() {
-        return id + ", " + name + ": " + price;
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
     }
 }
