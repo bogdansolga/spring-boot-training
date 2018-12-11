@@ -40,7 +40,7 @@ import java.util.Map;
 @SuppressWarnings("unused")
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private static final String[] IGNORED_ENDPOINTS = {"/health", "/about"};
+    private static final String[] IGNORED_ENDPOINTS = {"/info", "/about"};
 
     @Autowired
     public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
@@ -50,6 +50,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             // the unencrypted password is 'password'
             .password("$2a$10$4xnpk2a5jLr1mf6VWle6Vuv4q7DBsW2rqQcg6N1Ms/y4g98Ry4D4C")
             .roles(Roles.ADMIN_ROLE);
+
+        /*
+        auth.jdbcAuthentication()
+            .dataSource(dataSource)
+            .usersByUsernameQuery("SELECT user FROM Users user WHERE user.userName = ? AND user.active = 'true'")
+            .authoritiesByUsernameQuery("SELECT auth FROM Authorities auth WHERE auth.userName = ?");
+        */
     }
 
     @Override
