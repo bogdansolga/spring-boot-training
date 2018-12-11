@@ -13,6 +13,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
@@ -64,7 +65,7 @@ public class ProductServiceTest {
         when(product.getName()).thenReturn(mockedName);
         when(product.getId()).thenReturn(20);
 
-        when(productRepository.findOne(anyInt())).thenReturn(product);
+        when(productRepository.findById(anyInt())).thenReturn(Optional.of(product));
 
         final ProductDTO resulted = productService.get(25);
 
@@ -76,7 +77,7 @@ public class ProductServiceTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void givenThereAreNoAvailableProducts_whenGettingAProductById_thenAnIllegalArgumentExceptionIsThrown() {
-        when(productRepository.findOne(anyInt())).thenReturn(null);
+        when(productRepository.findById(anyInt())).thenReturn(Optional.empty());
 
         productService.get(13);
     }

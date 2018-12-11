@@ -1,6 +1,5 @@
 package net.safedata.springboot.training.d03.s06;
 
-import net.safedata.springboot.training.d03s03.config.ProductServiceConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +20,7 @@ import static org.hamcrest.Matchers.hasSize;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = {ProductServiceConfig.class, ProductServiceDemo.class})
+@ContextConfiguration(classes = CompleteProductsProject.class)
 public class ProductRESTControllerTest {
 
     @Autowired
