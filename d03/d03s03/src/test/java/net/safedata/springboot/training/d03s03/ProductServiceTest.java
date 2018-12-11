@@ -3,24 +3,26 @@ package net.safedata.springboot.training.d03s03;
 import net.safedata.springboot.training.d03s03.model.Product;
 import net.safedata.springboot.training.d03s03.repository.ProductRepository;
 import net.safedata.springboot.training.d03s03.service.ProductService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
-public class ProductServiceTest {
+@ExtendWith(SpringExtension.class)
+class ProductServiceTest {
 
     @Mock
     private ProductRepository productRepository; // the collaborator (productRepository) is mocked
@@ -30,7 +32,7 @@ public class ProductServiceTest {
     private ProductService productService;
 
     @Test
-    public void givenThereAreAvailableProducts_whenRetrievingProducts_thenProductsAreRetrievedCorrectly() {
+    void givenThereAreAvailableProducts_whenRetrievingProducts_thenProductsAreRetrievedCorrectly() {
         // arrange, including mocking behavior setup    --> given
         final List<Product> products = Arrays.asList(
                 new Product(1, "Asus"),
@@ -47,7 +49,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void givenThereAreNoAvailableProducts_whenGettingProducts_thenNoProductsAreReturned() {
+    void givenThereAreNoAvailableProducts_whenGettingProducts_thenNoProductsAreReturned() {
         when(productRepository.findAll()).thenReturn(new ArrayList<>());
 
         final List<Product> resulted = productService.getProducts();
@@ -57,7 +59,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void givenThereAreAvailableProducts_whenRetrievingAProductById_thenTheProductIsCorrectlyRetrieved() {
+    void givenThereAreAvailableProducts_whenRetrievingAProductById_thenTheProductIsCorrectlyRetrieved() {
         Product product = mock(Product.class);
         final String mockedName = "mocked name";
         when(product.getName()).thenReturn(mockedName);
@@ -73,13 +75,14 @@ public class ProductServiceTest {
         assertThat(resulted.getId(), is(20));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void givenThereAreNoAvailableProducts_whenGettingAProductById_thenAnIllegalArgumentExceptionIsThrown() {
-        productService.getProduct(13);
+    @Test
+    void givenThereAreNoAvailableProducts_whenGettingAProductById_thenAnIllegalArgumentExceptionIsThrown() {
+
+        assertThrows(IllegalArgumentException.class, () -> productService.getProduct(13));
     }
 
     @Test
-    public void givenAProductIsSaved_whenSavingTheProduct_thenSaveIsCalledOneTimesAndTheResponseShouldNotBeEmptyOrNull () {
+    void givenAProductIsSaved_whenSavingTheProduct_thenSaveIsCalledOneTimesAndTheResponseShouldNotBeEmptyOrNull () {
         final Product product = mock(Product.class);
 
         final String response = productService.saveProduct(product);
