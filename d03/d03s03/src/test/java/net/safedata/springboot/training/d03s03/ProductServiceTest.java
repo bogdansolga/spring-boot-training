@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +17,6 @@ import java.util.Optional;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -76,16 +75,12 @@ public class ProductServiceTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void givenThereAreNoAvailableProducts_whenGettingAProductById_thenAnIllegalArgumentExceptionIsThrown() {
-        when(productRepository.findById(anyInt())).thenReturn(Optional.empty());
-
         productService.getProduct(13);
     }
 
     @Test
     public void givenAProductIsSaved_whenSavingTheProduct_thenSaveIsCalledOneTimesAndTheResponseShouldNotBeEmptyOrNull () {
         final Product product = mock(Product.class);
-        final String mockedName = "mocked name";
-        when(product.getName()).thenReturn(mockedName);
 
         final String response = productService.saveProduct(product);
 

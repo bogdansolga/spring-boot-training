@@ -1,6 +1,5 @@
 package net.safedata.springboot.training.d03s03;
 
-import net.safedata.springboot.training.d03s03.config.ProductServiceConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +20,7 @@ import static org.hamcrest.Matchers.hasSize;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = {ProductServiceConfig.class, ProductServiceDemo.class})
+@ContextConfiguration(classes = ProductServiceDemo.class)
 public class ProductRESTControllerTest {
 
     @Autowired
@@ -36,7 +35,8 @@ public class ProductRESTControllerTest {
     }
 
     @Test
-    public void shouldRetrieveProducts() throws Exception {
+    public void given_thereAreTabletsInTheDatabase_andANewTabletIsCreated_whenRetrievingTablets_thenTheirNumberIsCorrect()
+            throws Exception {
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.post("/product")
                                       .contentType(MediaType.APPLICATION_JSON)
@@ -46,7 +46,7 @@ public class ProductRESTControllerTest {
                .andExpect(MockMvcResultMatchers.status()
                                                .isOk());
 
-        // create one more product
+        // create one more products
         builder = MockMvcRequestBuilders.post("/product")
                                         .contentType(MediaType.APPLICATION_JSON)
                                         .content(createProduct("phone"));
