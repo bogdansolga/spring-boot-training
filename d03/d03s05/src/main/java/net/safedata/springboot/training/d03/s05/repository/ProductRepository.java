@@ -1,6 +1,6 @@
 package net.safedata.springboot.training.d03.s05.repository;
 
-import net.safedata.springboot.training.d03.s05.model.Product;
+import net.safedata.spring.training.jpa.model.Product;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -46,10 +46,6 @@ public class ProductRepository {
     }
 
     private Product buildRandomProduct() {
-        final Product product = new Product();
-        product.setId(RANDOM.nextInt(100));
-        product.setName("The product with the ID " + product.getId());
-
-        return product;
+        return new Product("The product with the ID " + RANDOM.nextInt(100));
     }
 }

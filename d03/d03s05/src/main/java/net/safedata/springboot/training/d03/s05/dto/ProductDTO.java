@@ -1,6 +1,6 @@
 package net.safedata.springboot.training.d03.s05.dto;
 
-import net.safedata.springboot.training.d03.s05.model.Product;
+import net.safedata.spring.training.jpa.model.Product;
 
 import java.io.Serializable;
 import java.util.Objects;

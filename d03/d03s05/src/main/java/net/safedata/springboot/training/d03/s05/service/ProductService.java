@@ -1,7 +1,7 @@
 package net.safedata.springboot.training.d03.s05.service;
 
+import net.safedata.spring.training.jpa.model.Product;
 import net.safedata.springboot.training.d03.s05.dto.ProductDTO;
-import net.safedata.springboot.training.d03.s05.model.Product;
 import net.safedata.springboot.training.d03.s05.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,7 +51,7 @@ public class ProductService {
     }
 
     private Function<ProductDTO, Product> getDTOConverter() {
-        return dto -> new Product(dto.getId(), dto.getProductName());
+        return dto -> new Product(dto.getProductName());
     }
 
     private Function<Product, ProductDTO> getProductConverter() {
