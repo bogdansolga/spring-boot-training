@@ -1,2 +1,2 @@
 # spring-boot-training
-An introduction in Spring and Spring Boot, over a 5 days long training
+The examples of a 4 days 'Spring and Spring Boot' training
