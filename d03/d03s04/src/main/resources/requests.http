@@ -1,0 +1,20 @@
+### get the app beans
+GET {{host}}:{{port}}//{{actuatorURI}}/beans
+
+### get the environment info
+GET {{host}}:{{port}}//{{actuatorURI}}/env
+
+### get the app health
+GET {{host}}:{{port}}//{{actuatorURI}}/health
+
+### get the app info
+GET {{host}}:{{port}}//{{actuatorURI}}/info
+
+### get the app metrics
+GET {{host}}:{{port}}//{{actuatorURI}}/metrics
+
+### get the app threaddump
+GET {{host}}:{{port}}//{{actuatorURI}}/threaddump
+
+### gracefully shutdown the server
+POST {{host}}:{{port}}//{{actuatorURI}}/shutdown
