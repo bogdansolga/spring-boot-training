@@ -24,6 +24,8 @@ spring:
 logging:
   level:
     root: info
+    com:
+      zaxxer: warn
     org:
       apache: warn
       springframework: warn
@@ -33,21 +35,6 @@ logging:
     console: '%clr([%date{HH:mm:ss.SSS}]){faint} %clr(%2p) %clr(%-40.40logger{36}){cyan} %m%n%wex'
 
 # actuator config
-endpoints:
-  sensitive: false
-  actuator:
-    enabled: true
-
-  shutdown:
-    enabled: true
-    sensitive: true
-
-  info:
-    enabled: true
-    path: the-info
-
-  metrics:
-    enabled: true
 
 info:
   app:
@@ -65,3 +52,9 @@ management:
   health:
     defaults:
       enabled: true
+
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: '*'
