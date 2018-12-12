@@ -15,9 +15,9 @@
 
     <modules>
         <module>d03s01</module>
-        <module>d03s02</module>
-        <module>d03s03</module>
-        <module>d03s04</module>
-        <module>d03s05</module>
+        <module>d03s02-spring-security</module>
+        <module>d03s03-unit-and-integration-testing</module>
+        <module>d03s04-actuator</module>
+        <module>d03s05-project-packaging</module>
     </modules>
 </project>
