@@ -69,7 +69,7 @@ public class Product extends AbstractEntity {
     @JoinColumn(name = "sectionId")
     private Section section;
 
-    public Product() {}
+    protected Product() {}
 
     public Product(final String name) {
         this.name = name;
