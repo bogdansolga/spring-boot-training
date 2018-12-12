@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>d02s02-properties-and-profiles</artifactId>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>net.safedata</groupId>
+        <artifactId>d02</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modules>
+        <module>d02s02e01-properties-files</module>
+        <module>d02s02e02-yaml-files</module>
+        <module>d02s02e03-config-per-profile</module>
+        <module>d02s02e04-config-override</module>
+        <module>d02s02e05-loading-properties-files</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+    </dependencies>
+</project>
