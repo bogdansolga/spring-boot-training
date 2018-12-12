@@ -35,7 +35,7 @@ import java.util.Map;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @SuppressWarnings("unused")
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private static final String[] IGNORED_ENDPOINTS = {"/health", "/about"};
 

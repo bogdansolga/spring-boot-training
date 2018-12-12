@@ -1,21 +1,25 @@
 package net.safedata.spring.training.complete.project.controller;
 
-import net.safedata.spring.training.jpa.model.Product;
 import net.safedata.spring.training.complete.project.dto.ProductDTO;
+import net.safedata.spring.training.complete.project.security.auth.HasManagerRole;
 import net.safedata.spring.training.complete.project.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
+
+import static net.safedata.spring.training.complete.project.security.auth.Roles.ADMIN_ROLE;
 
 /**
  * A Spring {@link RestController} used to showcase the modeling of a REST controller for CRUD operations
@@ -35,65 +39,68 @@ public class ProductController {
         this.productService = productService;
     }
 
-    /**
-     * Creates a {@link Product} entity from the referenced {@link ProductDTO}
-     *
-     * @param productDTO the {@link ProductDTO} which contains the data of the {@link Product} to be created
-     *
-     * @return a {@link ResponseEntity} with the appropriate {@link HttpStatus}
-     */
-    @PostMapping("")
-    public ResponseEntity create(@RequestBody ProductDTO productDTO) {
-        productService.create(productDTO);
+    @PostMapping
+    public ResponseEntity<?> create(@RequestBody @Valid ProductDTO productDTO) {
+        productService.save(productDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    /**
-     * Reads the {@link Product} with the specified id
-     *
-     * @param id the id of the requested {@link Product}
-     *
-     * @return the serialized {@link ProductDTO}
-     */
     @GetMapping("/{id}")
     public ProductDTO getProduct(@PathVariable final int id) {
         return productService.get(id);
     }
 
-    /**
-     * Reads all the existing {@link Product}s
-     *
-     * @return the serialized {@link Product}s
-     */
-    @GetMapping("")
-    public Iterable<ProductDTO> getAll() {
+    @GetMapping
+    public List<ProductDTO> getAll() {
         return productService.getAll();
     }
 
-    /**
-     * Updates the {@link Product} with the specified ID with the details from the referenced {@link Product}
-     *
-     * @param id the ID of the updated {@link Product}
-     * @param productDTO the {@link ProductDTO} with the new {@link Product} details
-     *
-     * @return a {@link ResponseEntity} with the appropriate {@link HttpStatus}
-     */
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable final int id, @RequestBody ProductDTO productDTO) {
+    public ResponseEntity<?> update(@PathVariable final int id, @RequestBody ProductDTO productDTO) {
         productService.update(id, productDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    /**
-     * Deletes the {@link Product} with the specified ID
-     *
-     * @param id the ID of the deleted {@link Product}
-     *
-     * @return a {@link ResponseEntity} with the appropriate {@link HttpStatus}
-     */
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity delete(@PathVariable final int id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable final int id) {
         productService.delete(id);
         return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    // -------------------------------------------------------------------------
+
+    @PreAuthorize("hasRole('" + ADMIN_ROLE + "') AND hasAuthority('WRITE')")
+    public void addProduct(final Authentication authentication) {
+        // further use the Authentication object, if needed
+    }
+
+    @GetMapping("/product/{id}")
+    public ProductDTO getProduct(@PathVariable final int id, final @AuthenticationPrincipal UserDetails userDetails) {
+        final String username = userDetails.getUsername();
+        System.out.println("The current user is '" + username + "'");
+        return new ProductDTO(20, "Tablet");
+    }
+
+    // dynamically retrieving the authenticated user details
+    public void passAuthenticatedUser(final @AuthenticationPrincipal UserDetails userDetails) {
+        /* the same details can be obtained using:
+        final SecurityContext securityContext = SecurityContextHolder.getContext();
+        final UserDetails details = (UserDetails) securityContext.getAuthentication().getPrincipal();
+        */
+
+        final String username = userDetails.getUsername();
+        // the user details can be further passed to the services
+    }
+
+    @Secured("ROLE_ADMIN")
+    public void processRequestOrResponseParameters(final HttpServletRequest request, final HttpServletResponse response) {
+        // get parameters from the HTTP request, set details in the response
+    }
+
+    // recommended to be used when the principal details need to be consumed by an external tool / API
+    @GetMapping("/currentUser")
+    @HasManagerRole // DRY
+    public Principal principal(final Principal principal) {
+        return principal;
     }
 }

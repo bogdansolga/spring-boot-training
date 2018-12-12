@@ -1,37 +1,47 @@
 package net.safedata.spring.training.complete.project;
 
-import net.safedata.spring.training.jpa.model.Product;
 import net.safedata.spring.training.complete.project.dto.ProductDTO;
 import net.safedata.spring.training.complete.project.repository.ProductRepository;
 import net.safedata.spring.training.complete.project.service.ProductService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import net.safedata.spring.training.jpa.model.Product;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.Spy;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
-public class ProductServiceTest {
+@ExtendWith(SpringExtension.class)
+class ProductServiceTest {
 
     @Mock
     private ProductRepository productRepository; // the collaborator (productRepository) is mocked
+
+    @Spy
+    @SuppressWarnings("unused")
+    private ExecutorService executorService;
 
     // the tested service; also called 'system under test' // SUT
     @InjectMocks
     private ProductService productService;
 
     @Test
-    public void givenThereAreAvailableProducts_whenRetrievingProducts_thenProductsAreRetrievedCorrectly() {
+    @DisplayName("Given there are available products, when retrieving products then products are retrieved correctly")
+    void givenThereAreAvailableProducts_whenRetrievingProducts_thenProductsAreRetrievedCorrectly() {
         // arrange, including mocking behavior setup    --> given
         final List<Product> products = Arrays.asList(
                 new Product("Samsung S8"),
@@ -44,22 +54,22 @@ public class ProductServiceTest {
 
         // assert --> verifying the response of the tested method is correct (by the requirements)  --> then
         assertNotNull(resulted);
-        System.out.println(resulted.size());
+        assertThat(resulted.size(), is(products.size()));
         assertThat(resulted.iterator().hasNext(), is(true));
     }
 
     @Test
-    public void givenThereAreNoAvailableProducts_whenGettingProducts_thenNoProductsAreReturned() {
+    void givenThereAreNoAvailableProducts_whenGettingProducts_thenNoProductsAreReturned() {
         when(productRepository.findAll()).thenReturn(new ArrayList<>());
 
-        final Iterable<ProductDTO> resulted = productService.getAll();
+        final List<ProductDTO> resulted = productService.getAll();
 
         assertNotNull(resulted);
-        //assertThat(resulted.size(), is(0));
+        assertThat(resulted.iterator().hasNext(), is(false));
     }
 
     @Test
-    public void givenThereAreAvailableProducts_whenRetrievingAProductById_thenTheProductIsCorrectlyRetrieved() {
+    void givenThereAreAvailableProducts_whenRetrievingAProductById_thenTheProductIsCorrectlyRetrieved() {
         final int productId = 20;
 
         final Product product = mock(Product.class);
@@ -77,18 +87,21 @@ public class ProductServiceTest {
         assertThat(resulted.getId(), is(productId));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void givenThereAreNoAvailableProducts_whenGettingAProductById_thenAnIllegalArgumentExceptionIsThrown() {
-        productService.get(13);
+    @Test
+    void givenThereAreNoAvailableProducts_whenGettingAProductById_thenAnIllegalArgumentExceptionIsThrown() {
+        assertThrows(IllegalArgumentException.class, () -> productService.get(13));
     }
 
     @Test
-    public void givenAProductIsSaved_whenSavingTheProduct_thenSaveIsCalledOneTimesAndTheResponseShouldNotBeEmptyOrNull () {
+    void givenAProductIsSaved_whenSavingTheProduct_thenSaveIsCalledOneTimesAndTheResponseShouldNotBeEmptyOrNull () {
         final ProductDTO product = mock(ProductDTO.class);
 
-        productService.create(product);
+        final String response = productService.save(product);
 
         // it verifies that the .save method (from the productRepository collaborator) was called exactly 1 times
         verify(productRepository, times(1)).save(any(Product.class));
+
+        assertNotNull(response);
+        assertThat("The displayed error message", response.length(), not(0));
     }
 }

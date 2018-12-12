@@ -1,3 +1,0 @@
-# the connection timeout for the 'prod' profile
-connection:
-  timeout: 10000

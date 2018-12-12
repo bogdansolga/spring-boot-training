@@ -3,11 +3,15 @@ package net.safedata.spring.training.complete.project;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
+import net.safedata.spring.training.complete.project.dto.ProductDTO;
+import net.safedata.spring.training.complete.project.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -27,10 +31,18 @@ public class ProductControllerTest extends AbstractTransactionalTestNGSpringCont
     @LocalServerPort
     private int port;
 
+    @Autowired
+    private ProductService productService;
+
     @BeforeMethod
     public void init() {
         RestAssured.port = port;
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails(LogDetail.ALL);
+    }
+
+    @BeforeClass
+    public void initializeProduct() {
+        productService.save(new ProductDTO(1, PRODUCT_NAME));
     }
 
     @Test

@@ -6,12 +6,17 @@ import net.safedata.spring.training.complete.project.repository.ProductRepositor
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
+import javax.annotation.PostConstruct;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -22,6 +27,8 @@ public class ProductService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 
+    private static final int THROWING_ID = 13;
+
     private final ProductRepository productRepository;
 
     @Autowired
@@ -29,19 +36,38 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
+    @PostConstruct
+    public void init() {
+        save(new ProductDTO(1, "Tablet"));
+        save(new ProductDTO(2, "Phone"));
+    }
+
     @Transactional(
             readOnly = false,
             propagation = Propagation.REQUIRED
     )
-    public void create(final ProductDTO productDTO) {
-        productRepository.save(getDTOConverter().apply(productDTO));
+    public String save(final ProductDTO productDTO) {
+        // a lot of processing goes in here, before actually saving the product :)
+        productRepository.save(new Product(productDTO.getProductName()));
+        return "OK";
     }
 
+    @Cacheable(cacheNames = "products", key = "#id")
+    @Transactional(
+            readOnly = true,
+            propagation = Propagation.SUPPORTS
+    )
     public ProductDTO get(final int id) {
+        Assert.isTrue(id != THROWING_ID, "There is no product with the ID " + THROWING_ID);
+
         final Product product = getByIdOrThrow(id);
         return getProductConverter().apply(product);
     }
 
+    @Transactional(
+            readOnly = true,
+            propagation = Propagation.SUPPORTS
+    )
     public List<ProductDTO> getAll() {
         return StreamSupport.stream(productRepository.findAll().spliterator(), false)
                             .filter(filterItem())
@@ -50,10 +76,11 @@ public class ProductService {
                             .collect(Collectors.toList());
     }
 
+    @Async
     public void update(final int id, final ProductDTO productDTO) {
+        LOGGER.debug("Updating the product with the ID {}...", id);
         final Product product = getByIdOrThrow(id);
-        LOGGER.debug("Updating the product with the ID '{}'...", product.getId());
-        productRepository.save(getDTOConverter().apply(productDTO));
+        productRepository.save(convertProductForUpdate().apply(productDTO, product));
     }
 
     public void delete(final int id) {
@@ -73,7 +100,13 @@ public class ProductService {
         return product -> new ProductDTO(product.getId(), product.getName());
     }
 
-    // just an example of a filtering operation
+    private BiFunction<ProductDTO, Product, Product> convertProductForUpdate() {
+        return (dto, existingProduct) -> {
+            existingProduct.setName(dto.getProductName());
+            return existingProduct;
+        };
+    }
+
     private Predicate<Product> filterItem() {
         return product -> !product.getName().isEmpty() || product.getId() < 20;
     }

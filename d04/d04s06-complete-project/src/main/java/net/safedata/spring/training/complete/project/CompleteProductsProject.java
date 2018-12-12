@@ -12,6 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CompleteProductsProject {
 
     public static void main(String[] args) {
-        SpringApplication.run(CompleteProductsProject.class, args);
+        final SpringApplication application = new SpringApplication(CompleteProductsProject.class);
+        application.setAdditionalProfiles(Profiles.DEV);
+        application.run(args);
     }
 }
