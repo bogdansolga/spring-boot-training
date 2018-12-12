@@ -24,11 +24,7 @@ public class ProductService {
 
     @PostConstruct
     public void bootstrap() {
-        final Product product = new Product();
-        product.setName("iSomething");
-        product.setPrice(250d);
-
-        create(product);
+        create(new Product("iSomething", 250d));
     }
 
     @Transactional(

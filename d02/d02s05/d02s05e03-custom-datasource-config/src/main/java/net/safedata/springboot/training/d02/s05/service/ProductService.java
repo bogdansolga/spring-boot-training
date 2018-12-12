@@ -21,10 +21,7 @@ public class ProductService {
 
     @PostConstruct
     public void init() {
-        final Product product = new Product();
-        product.setName("A nice and useful tablet");
-        product.setPrice(250d);
-        create(product);
+        create(new Product("A nice and useful tablet", 250d));
     }
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)

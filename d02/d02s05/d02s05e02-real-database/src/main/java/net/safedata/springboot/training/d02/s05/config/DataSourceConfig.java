@@ -37,11 +37,9 @@ public class DataSourceConfig {
     @PostConstruct
     public void init() {
         IntStream.range(0, 10)
-                 .forEach(value -> {
-                     final Product product = new Product();
-                     product.setName("The product with the ID " + RANDOM.nextInt(100));
-                     product.setPrice(RANDOM.nextDouble() * 200);
-                     productService.create(product);
-                 });
+                 .forEach(value ->
+                     productService.create(new Product("The product with the ID " + RANDOM.nextInt(100),
+                             RANDOM.nextDouble() * 200))
+                 );
     }
 }

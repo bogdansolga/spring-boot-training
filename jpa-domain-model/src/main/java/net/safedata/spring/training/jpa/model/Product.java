@@ -80,6 +80,11 @@ public class Product extends AbstractEntity {
         this.section = section;
     }
 
+    public Product(final String name, final double price) {
+        this.name = name;
+        this.price = price;
+    }
+
     public int getId() {
         return id;
     }
