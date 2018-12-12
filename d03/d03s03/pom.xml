@@ -24,6 +24,11 @@
         </dependency>
 
         <dependency>
+            <groupId>net.safedata</groupId>
+            <artifactId>jpa-domain-model</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>${junit-jupiter.version}</version>

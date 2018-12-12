@@ -3,7 +3,7 @@ package net.safedata.springboot.training.d03s03;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
-import net.safedata.springboot.training.d03s03.model.Product;
+import net.safedata.springboot.training.d03s03.dto.ProductDTO;
 import net.safedata.springboot.training.d03s03.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,17 +17,16 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
 import static org.hamcrest.core.Is.is;
 
 @SpringBootTest(
         classes = ProductServiceDemo.class,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-@ActiveProfiles("default")
+@ActiveProfiles(Profiles.IN_MEMORY)
 public class ProductControllerTest extends AbstractTransactionalTestNGSpringContextTests {
 
-    private static final String PRODUCT_NAME = "Tablet";
+    private static final String PRODUCT_NAME = "The product with the ID 1";
 
     @LocalServerPort
     private int port;
@@ -43,13 +42,13 @@ public class ProductControllerTest extends AbstractTransactionalTestNGSpringCont
 
     @BeforeClass
     public void initializeProduct() {
-        final Product product = new Product();
-        product.setName(PRODUCT_NAME);
-        productService.saveProduct(product);
+        productService.save(new ProductDTO(1, PRODUCT_NAME));
     }
 
     @Test
-    public void shouldGetAProductById() {
+    public void givenTheContentTypeIsCorrect_WhenGettingAProduct_ThenAllGood() {
+        given()
+                .accept(ContentType.JSON).
         when()
                 .get("/product/{id}", 1).
         then()
@@ -71,7 +70,9 @@ public class ProductControllerTest extends AbstractTransactionalTestNGSpringCont
 
     // a sample of using a dataProvider
     @Test(dataProvider = "dataProvider")
-    public void shouldGetAllProducts(final String productId, final int statusCode) {
+    public void givenTheContentTypeIsCorrect_WhenUsingADataProvider_ThenAllGood(final String productId, final int statusCode) {
+        given()
+                .accept(ContentType.JSON).
         when()
                 .get("/product/{id}", productId).
         then()

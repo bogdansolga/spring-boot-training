@@ -26,16 +26,16 @@ class ProductRESTControllerTest {
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.post("/product")
                                       .contentType(MediaType.APPLICATION_JSON)
-                                      .content(createProduct("Tablet"));
+                                      .content(createProduct("Another tablet"));
 
         mockMvc.perform(builder)
                .andExpect(MockMvcResultMatchers.status()
                                                .isOk());
 
-        // create one more products
+        // create one more product
         builder = MockMvcRequestBuilders.post("/product")
                                         .contentType(MediaType.APPLICATION_JSON)
-                                        .content(createProduct("phone"));
+                                        .content(createProduct("Another phone"));
 
         mockMvc.perform(builder)
                .andExpect(MockMvcResultMatchers.status()
@@ -53,6 +53,6 @@ class ProductRESTControllerTest {
     }
 
     private String createProduct(final String productName) {
-        return "{ \"name\": \"" + productName + "\"}";
+        return "{ \"productName\": \"" + productName + "\"}";
     }
 }
