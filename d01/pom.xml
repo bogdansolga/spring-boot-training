@@ -14,10 +14,10 @@
     </parent>
 
     <modules>
-        <module>d01s01</module>
-        <module>d01s02</module>
-        <module>d01s03</module>
-        <module>d01s04</module>
-        <module>d01s05</module>
+        <module>d01s01-configuration-modes</module>
+        <module>d01s02-simple-beans-wiring</module>
+        <module>d01s03-bean-attributes-and-parameters</module>
+        <module>d01s04-component-scanning-and-qualifying</module>
+        <module>d01s05-bean-scopes-and-profiles</module>
     </modules>
 </project>
