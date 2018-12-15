@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @SuppressWarnings("unused")
-public class SpringDemoConfig {
+public class MultipleBeansConfig {
 
     // the method 'helloSpring' creates a HelloSpring bean, as it has the @Bean annotation
     @Bean
@@ -20,7 +20,7 @@ public class SpringDemoConfig {
     }
 
     /**
-     * This bean is commented by default, so that we won't have two beans of the same type in the Spring IoC container
+     * This bean is commented by default, so that we don't have two beans of the same type in the Spring IoC container
      */
     //@Bean
     public HelloSpring otherHelloSpring() {

@@ -10,6 +10,6 @@ import org.springframework.context.annotation.Bean;
 public class HelloSpring {
 
     public void displayWelcomeMessage() {
-        System.out.println("Hello, Spring! [using annotations based config]");
+        System.out.println("Hello, Spring Framework!");
     }
 }
