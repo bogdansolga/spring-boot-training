@@ -1,5 +1,6 @@
 package net.safedata.springboot.training.d01.s05.config;
 
+import net.safedata.springboot.training.d01.s05.RunProfiles;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,6 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @ComponentScan(basePackages = "net.safedata.springboot.training.d01.s05")
 @PropertySource("application-prod.properties")
-@Profile(Profiles.PROD)
+@Profile(RunProfiles.PROD)
 public class BeanProfilesProdConfig {
 }

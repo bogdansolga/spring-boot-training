@@ -1,9 +1,10 @@
 package net.safedata.springboot.training.d01.s05.service;
 
-import net.safedata.springboot.training.d01.s05.config.Profiles;
+import net.safedata.springboot.training.d01.s05.RunProfiles;
 import net.safedata.springboot.training.d01.s05.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
@@ -31,7 +32,7 @@ public class ProductService {
     }
 
     public void displayProducts() {
-        if (environment.acceptsProfiles(Profiles.PROD)) {
+        if (environment.acceptsProfiles(Profiles.of(RunProfiles.PROD))) {
             System.out.println("Do something only when prod is enabled...");
         }
 

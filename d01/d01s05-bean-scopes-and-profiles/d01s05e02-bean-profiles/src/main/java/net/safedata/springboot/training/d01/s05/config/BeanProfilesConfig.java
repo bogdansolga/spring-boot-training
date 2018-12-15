@@ -1,8 +1,8 @@
 package net.safedata.springboot.training.d01.s05.config;
 
+import net.safedata.springboot.training.d01.s05.RunProfiles;
 import net.safedata.springboot.training.d01.s05.repository.ProductRepository;
 import net.safedata.springboot.training.d01.s05.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -16,37 +16,37 @@ import org.springframework.context.annotation.Profile;
 public class BeanProfilesConfig {
 
     @Bean
-    @Profile(Profiles.DEV)
+    @Profile(RunProfiles.DEV)
     public ProductService devProductService() {
         return new ProductService(devProductRepository());
     }
 
     @Bean
-    @Profile(Profiles.TOMCAT)
+    @Profile(RunProfiles.TOMCAT)
     public String tomcat() {
         return "Running with Tomcat";
     }
 
     @Bean
-    @Profile(Profiles.PROD)
+    @Profile(RunProfiles.PROD)
     public ProductService prodProductService() {
         return new ProductService(prodProductRepository());
     }
 
     @Bean
-    @Profile(Profiles.DEFAULT)
+    @Profile(RunProfiles.DEFAULT)
     public ProductService defaultProductService() {
         return new ProductService(prodProductRepository());
     }
 
     @Bean
-    @Profile(Profiles.DEV)
+    @Profile(RunProfiles.DEV)
     public FileSavingServiceExample devFileSavingServiceExample() {
         return new FileSavingServiceExample(new DevFileSavingService());
     }
 
     @Bean
-    @Profile(Profiles.PROD)
+    @Profile(RunProfiles.PROD)
     public FileSavingServiceExample prodFileSavingServiceExample() {
         return new FileSavingServiceExample(new ProdFileSavingService());
     }

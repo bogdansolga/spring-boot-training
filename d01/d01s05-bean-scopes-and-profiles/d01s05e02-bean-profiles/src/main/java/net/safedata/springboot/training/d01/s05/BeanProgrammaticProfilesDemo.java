@@ -2,7 +2,6 @@ package net.safedata.springboot.training.d01.s05;
 
 import net.safedata.springboot.training.d01.s05.config.BeanProfilesConfig;
 import net.safedata.springboot.training.d01.s05.config.ProfileEnabledConfig;
-import net.safedata.springboot.training.d01.s05.config.Profiles;
 import net.safedata.springboot.training.d01.s05.service.ProductService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -13,6 +12,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  *
  * @author bogdan.solga
  */
+@SuppressWarnings("unused")
 public class BeanProgrammaticProfilesDemo {
 
     private static final String PROFILE_ACTIVATION_PROPERTY = "spring.profiles.active";
@@ -21,7 +21,7 @@ public class BeanProgrammaticProfilesDemo {
 
     // usually passed as a '-Dspring.profiles.active=<profiles>' run argument
     public static void main(String[] args) {
-        System.setProperty(PROFILE_ACTIVATION_PROPERTY, Profiles.DEV + "," + Profiles.TOMCAT);
+        System.setProperty(PROFILE_ACTIVATION_PROPERTY, RunProfiles.DEV + "," + RunProfiles.TOMCAT);
 
         final ApplicationContext applicationContext =
                 new AnnotationConfigApplicationContext(BeanProfilesConfig.class, ProfileEnabledConfig.class);
