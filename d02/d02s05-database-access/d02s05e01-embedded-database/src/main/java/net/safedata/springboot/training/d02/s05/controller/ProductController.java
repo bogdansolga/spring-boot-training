@@ -3,6 +3,7 @@ package net.safedata.springboot.training.d02.s05.controller;
 import net.safedata.spring.training.jpa.model.Product;
 import net.safedata.springboot.training.d02.s05.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -68,6 +70,19 @@ public class ProductController {
     )
     public Iterable<Product> getAll() {
         return productService.getAll();
+    }
+
+    @RequestMapping(
+            method = RequestMethod.GET,
+            path = {
+                    "/{pageNumber}/{resultsNumber}/{sortMode}",
+                    "/{pageNumber}/{resultsNumber}"
+            }
+    )
+    public Page<Product> getPage(@PathVariable final int pageNumber,
+                                 @PathVariable final int resultsNumber,
+                                 @PathVariable final Optional<String> sortMode) {
+        return productService.getPage(pageNumber, resultsNumber, sortMode.orElse("asc"));
     }
 
     @RequestMapping(

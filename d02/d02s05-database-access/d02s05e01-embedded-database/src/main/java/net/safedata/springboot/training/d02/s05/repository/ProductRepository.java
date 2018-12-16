@@ -4,6 +4,7 @@ import net.safedata.spring.training.jpa.model.Product;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
@@ -19,7 +20,7 @@ import java.util.concurrent.Future;
  */
 @Repository
 @SuppressWarnings("unused")
-public interface ProductRepository extends CrudRepository<Product, Integer> {
+public interface ProductRepository extends PagingAndSortingRepository<Product, Integer> {
 
     Optional<List<Product>> findByName(final String name);
 

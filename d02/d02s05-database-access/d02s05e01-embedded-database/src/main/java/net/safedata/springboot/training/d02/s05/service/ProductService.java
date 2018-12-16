@@ -3,13 +3,13 @@ package net.safedata.springboot.training.d02.s05.service;
 import net.safedata.spring.training.jpa.model.Product;
 import net.safedata.springboot.training.d02.s05.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
@@ -20,11 +20,6 @@ public class ProductService {
     @Autowired
     public ProductService(final ProductRepository productRepository) {
         this.productRepository = productRepository;
-    }
-
-    @PostConstruct
-    public void bootstrap() {
-        create(new Product("iSomething", 250d));
     }
 
     @Transactional(
@@ -50,6 +45,11 @@ public class ProductService {
 
     public Iterable<Product> getAll() {
         return productRepository.findAll();
+    }
+
+    public Page<Product> getPage(final int pageNumber, final int resultsNumber, final String sortMode) {
+        return productRepository.findAll(PageRequest.of(pageNumber, resultsNumber,
+                Sort.Direction.valueOf(sortMode.toUpperCase()), "name"));
     }
 
     public void update(final int id, final Product product) {
