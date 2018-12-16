@@ -15,6 +15,10 @@
 
     <packaging>war</packaging>
 
+    <properties>
+        <webapp.name>spring-boot-war-packaging</webapp.name>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -39,8 +43,7 @@
     </dependencies>
 
     <build>
-        <!-- don't include the project version in the assembled file name -->
-        <finalName>${parent.parent.parent.artifactId}</finalName>
+        <finalName>${webapp.name}</finalName>
 
         <plugins>
             <plugin>
@@ -48,7 +51,7 @@
                 <artifactId>maven-war-plugin</artifactId>
 
                 <configuration>
-                    <warName>${artifactId}</warName>
+                    <warName>${webapp.name}</warName>
                 </configuration>
             </plugin>
         </plugins>
