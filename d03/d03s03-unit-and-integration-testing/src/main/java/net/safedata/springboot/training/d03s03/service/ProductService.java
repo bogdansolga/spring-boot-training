@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import javax.annotation.PostConstruct;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.BiFunction;
@@ -33,12 +32,6 @@ public class ProductService {
     @Autowired
     public ProductService(final ProductRepository productRepository) {
         this.productRepository = productRepository;
-    }
-
-    @PostConstruct
-    public void init() {
-        save(new ProductDTO(1, "Tablet"));
-        save(new ProductDTO(2, "Phone"));
     }
 
     @Transactional(
