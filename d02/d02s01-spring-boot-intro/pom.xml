@@ -36,6 +36,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+
+                <configuration>
+                    <mainClass>net.safedata.springboot.training.d02.s01.HelloSpringBoot</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
