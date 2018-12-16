@@ -17,6 +17,18 @@
         <version>2.1.1.RELEASE</version>
     </parent>
 
+    <developers>
+        <developer>
+            <id>bogdan.solga</id>
+
+            <name>Bogdan Solga</name>
+            <organization>SafeData Net</organization>
+
+            <email>bogdan.solga@gmail.com</email>
+            <url>https://learnspring.eu</url>
+        </developer>
+    </developers>
+
     <modules>
         <module>domain-model</module>
         <module>jpa-domain-model</module>
