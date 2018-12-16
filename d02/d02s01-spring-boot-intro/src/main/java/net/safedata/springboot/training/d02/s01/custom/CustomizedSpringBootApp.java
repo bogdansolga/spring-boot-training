@@ -1,4 +1,4 @@
-package net.safedata.springboot.training.d03.s01.custom;
+package net.safedata.springboot.training.d02.s01.custom;
 
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.Banner;
