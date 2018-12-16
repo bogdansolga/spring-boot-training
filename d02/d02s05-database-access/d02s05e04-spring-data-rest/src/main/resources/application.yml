@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: spring-boot-spring-data-rest-demo
+
+  datasource:
+    platform: h2
+    url: jdbc:h2:mem:spring-boot-spring-data-rest-demo
+
+    username: sa
+    password: aVeryComplexPassword
+
+  jpa:
+    open-in-view: false
+
+# logging settings
+logging:
+  level:
+    root: info
+    com:
+      zaxxer: warn
+    org:
+      apache: warn
+      hibernate: warn
+      springframework: warn
+
+    sql: warn
+
+  pattern:
+    console: '%clr([%date{HH:mm:ss.SSS}]){faint} %clr(%2p) %clr(%-40.40logger{36}){cyan} %m%n%wex'

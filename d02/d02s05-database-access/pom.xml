@@ -18,12 +18,6 @@
         <module>d02s05e02-real-database</module>
         <module>d02s05e03-custom-datasource-config</module>
         <module>d02s05e04-spring-data-jdbc</module>
+        <module>d02s05e04-spring-data-rest</module>
     </modules>
-
-    <dependencies>
-        <dependency>
-            <groupId>net.safedata</groupId>
-            <artifactId>jpa-domain-model</artifactId>
-        </dependency>
-    </dependencies>
 </project>
