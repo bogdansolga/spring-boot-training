@@ -20,6 +20,8 @@ public class BeanScopesDemo {
 
         displayingTheBeanHashCode(applicationContext);
 
+        System.out.println();
+
         usingThePrototypeBean(applicationContext);
     }
 
