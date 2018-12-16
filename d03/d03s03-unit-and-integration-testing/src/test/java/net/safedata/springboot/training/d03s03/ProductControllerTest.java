@@ -53,7 +53,7 @@ public class ProductControllerTest extends AbstractTransactionalTestNGSpringCont
                 .get("/product/{id}", 1).
         then()
                 .statusCode(HttpStatus.OK.value())
-                .body("name", is(PRODUCT_NAME));
+                .body("productName", is(PRODUCT_NAME));
     }
 
     @Test
@@ -64,8 +64,8 @@ public class ProductControllerTest extends AbstractTransactionalTestNGSpringCont
                 .get("/product").
         then()
                 .statusCode(HttpStatus.OK.value())
-                .body("$.size", is(3)) // the response array size is 3
-                .body("[0].name", is(PRODUCT_NAME));
+                .body("$.size", is(1)) // the response array size is 1
+                .body("[0].productName", is(PRODUCT_NAME));
     }
 
     // a sample of using a dataProvider
