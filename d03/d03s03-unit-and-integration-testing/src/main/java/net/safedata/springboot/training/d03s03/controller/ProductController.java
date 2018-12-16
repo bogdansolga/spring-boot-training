@@ -1,7 +1,5 @@
 package net.safedata.springboot.training.d03s03.controller;
 
-import net.safedata.springboot.training.d03s03.aspect.profiling.MemoryProfiling;
-import net.safedata.springboot.training.d03s03.aspect.profiling.Profiled;
 import net.safedata.springboot.training.d03s03.dto.ProductDTO;
 import net.safedata.springboot.training.d03s03.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +39,11 @@ public class ProductController {
         return productService.get(id);
     }
 
-    @MemoryProfiling
     @GetMapping
     public List<ProductDTO> getAll() {
         return productService.getAll();
     }
 
-    @Profiled
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable final int id, @RequestBody ProductDTO productDTO) {
         productService.update(id, productDTO);

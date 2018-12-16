@@ -1,4 +1,4 @@
-package net.safedata.springboot.training.d03s03.aspect;
+package net.safedata.spring.training.complete.project.aop.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -32,7 +32,7 @@ public class LoggingAspect {
     private EmailsService emailsService;    // if needed
     */
 
-    @Pointcut("within(net.safedata.springboot.training.d03s03.controller..*)")
+    @Pointcut("within(net.safedata.spring.training.complete.project.controller..*)")
     public void loggingPointcut() {}
 
     @AfterThrowing(pointcut = "loggingPointcut()", throwing = "exception")

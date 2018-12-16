@@ -1,4 +1,4 @@
-package net.safedata.springboot.training.d03s03.aspect.profiling;
+package net.safedata.spring.training.complete.project.aop.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -10,14 +10,14 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 
 @Aspect
-public class Profiler {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Profiler.class);
+public class ProfilingAspect {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProfilingAspect.class);
 
     private static final boolean IS_TRACE_ENABLED = LOGGER.isTraceEnabled();
 
     private static final long BYTES_IN_MB = 1048576;
 
-    @Around("@annotation(Profiled)")
+    @Around("@annotation(net.safedata.spring.training.complete.project.aop.profiling.ExecutionTimeProfiling)")
     public Object profileMethodExecutionTime(final ProceedingJoinPoint pjp) throws Throwable {
         try {
             final long start = IS_TRACE_ENABLED ? System.currentTimeMillis() : 0L;
@@ -43,7 +43,7 @@ public class Profiler {
         }
     }
 
-    @Around("@annotation(MemoryProfiling)")
+    @Around("@annotation(net.safedata.spring.training.complete.project.aop.profiling.MemoryProfiling)")
     public Object profileMemory(final ProceedingJoinPoint pjp) throws Throwable {
         final Runtime runtime = Runtime.getRuntime();
 

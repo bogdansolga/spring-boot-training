@@ -1,5 +1,7 @@
 package net.safedata.spring.training.complete.project.controller;
 
+import net.safedata.spring.training.complete.project.aop.profiling.ExecutionTimeProfiling;
+import net.safedata.spring.training.complete.project.aop.profiling.MemoryProfiling;
 import net.safedata.spring.training.complete.project.dto.ProductDTO;
 import net.safedata.spring.training.complete.project.security.auth.HasManagerRole;
 import net.safedata.spring.training.complete.project.service.ProductService;
@@ -50,11 +52,13 @@ public class ProductController {
         return productService.get(id);
     }
 
+    @MemoryProfiling
     @GetMapping
     public List<ProductDTO> getAll() {
         return productService.getAll();
     }
 
+    @ExecutionTimeProfiling
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable final int id, @RequestBody ProductDTO productDTO) {
         productService.update(id, productDTO);
@@ -67,7 +71,7 @@ public class ProductController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    // -------------------------------------------------------------------------
+    // ----------------------- security related endpoints -------------------------------
 
     @PreAuthorize("hasRole('" + ADMIN_ROLE + "') AND hasAuthority('WRITE')")
     public void addProduct(final Authentication authentication) {

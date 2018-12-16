@@ -1,7 +1,7 @@
-package net.safedata.springboot.training.d03s03.config;
+package net.safedata.spring.training.complete.project.config;
 
-import net.safedata.springboot.training.d03s03.aspect.LoggingAspect;
-import net.safedata.springboot.training.d03s03.aspect.profiling.Profiler;
+import net.safedata.spring.training.complete.project.aop.aspect.LoggingAspect;
+import net.safedata.spring.training.complete.project.aop.aspect.ProfilingAspect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -16,7 +16,7 @@ public class AspectJConfig {
     }
 
     @Bean
-    public Profiler profiler() {
-        return new Profiler();
+    public ProfilingAspect profiler() {
+        return new ProfilingAspect();
     }
 }
