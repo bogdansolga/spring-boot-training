@@ -9,9 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author bogdan.solga
  */
 @SpringBootApplication
-public class ProjectPackagingDemo {
+public class JarPackagingDemo {
 
     public static void main(String[] args) {
-        SpringApplication.run(ProjectPackagingDemo.class, args);
+        SpringApplication.run(JarPackagingDemo.class, args);
     }
 }

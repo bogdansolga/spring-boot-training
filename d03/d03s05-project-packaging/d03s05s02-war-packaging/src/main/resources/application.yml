@@ -1,0 +1,43 @@
+# the name of the current app
+spring:
+  application:
+    name: spring-boot-complete-web-project
+
+  # indent the returned JSON responses
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+
+  datasource:
+    platform: h2
+    url: jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=TRUE
+    username: sa
+    password: aVeryComplexPassword
+    initialization-mode: never
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: true
+
+    open-in-view: false
+
+# logging settings
+logging:
+  level:
+    root: info
+    com:
+      zaxxer: warn
+    org:
+      apache: warn
+      # to see the query parameters - change 'sql' to 'debug' and 'type' to 'trace'
+      hibernate: warn
+        # sql: warn
+        # type: warn
+      springframework: warn
+
+  pattern:
+    console: '%clr([%date{HH:mm:ss.SSS}]){faint} %clr(%2p) %clr(%-40.40logger{36}){cyan} %m%n%wex'
