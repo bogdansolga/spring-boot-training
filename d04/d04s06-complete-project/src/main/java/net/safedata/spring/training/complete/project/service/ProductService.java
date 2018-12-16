@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import javax.annotation.PostConstruct;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.BiFunction;
@@ -34,12 +33,6 @@ public class ProductService {
     @Autowired
     public ProductService(final ProductRepository productRepository) {
         this.productRepository = productRepository;
-    }
-
-    @PostConstruct
-    public void init() {
-        save(new ProductDTO(1, "Tablet"));
-        save(new ProductDTO(2, "Phone"));
     }
 
     @Transactional(
@@ -90,10 +83,6 @@ public class ProductService {
     private Product getByIdOrThrow(int id) {
         return productRepository.findById(id)
                                 .orElseThrow(() -> new IllegalArgumentException("There is no product with the id " + id));
-    }
-
-    private Function<ProductDTO, Product> getDTOConverter() {
-        return dto -> new Product(dto.getProductName());
     }
 
     private Function<Product, ProductDTO> getProductConverter() {

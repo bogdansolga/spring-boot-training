@@ -3,8 +3,7 @@ package net.safedata.spring.training.complete.project;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
-import net.safedata.spring.training.complete.project.dto.ProductDTO;
-import net.safedata.spring.training.complete.project.service.ProductService;
+import net.safedata.spring.training.complete.project.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -32,7 +31,7 @@ public class ProductControllerTest extends AbstractTransactionalTestNGSpringCont
     private int port;
 
     @Autowired
-    private ProductService productService;
+    private SectionService sectionService;
 
     @BeforeMethod
     public void init() {
@@ -42,7 +41,8 @@ public class ProductControllerTest extends AbstractTransactionalTestNGSpringCont
 
     @BeforeClass
     public void initializeProduct() {
-        productService.save(new ProductDTO(1, PRODUCT_NAME));
+        // the saved section will contain 10 products
+        sectionService.createGoodiesSectionAndProducts();
     }
 
     @Test
@@ -64,7 +64,7 @@ public class ProductControllerTest extends AbstractTransactionalTestNGSpringCont
                 .get("/product").
         then()
                 .statusCode(HttpStatus.OK.value())
-                .body("$.size", is(10))
+                .body("$.size", is(10)) // the response array size is 10
                 .body("[0].productName", is(PRODUCT_NAME));
     }
 

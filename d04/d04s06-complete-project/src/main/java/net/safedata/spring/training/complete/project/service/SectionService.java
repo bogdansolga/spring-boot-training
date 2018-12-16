@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import java.util.LinkedHashSet;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -22,9 +21,8 @@ public class SectionService {
         this.sectionRepository = sectionRepository;
     }
 
-    @PostConstruct
     @Transactional
-    public void init() {
+    public void createGoodiesSectionAndProducts() {
         final Section section = new Section();
         section.setName("Goodies");
 
