@@ -1,5 +1,7 @@
 package net.safedata.springboot.training.d01.s05.service;
 
+import net.safedata.spring.training.domain.bootstrap.ProductsSetup;
+import net.safedata.spring.training.domain.model.Product;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -16,11 +18,13 @@ import java.util.stream.Collectors;
  */
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE) // = stateful applications
+@SuppressWarnings("unused")
 public class ProductPrototypeService {
+
+    private List<Product> products = ProductsSetup.getRandomProducts();
 
     private Set<String> values;
 
-    @SuppressWarnings("unused")
     public List<Integer> processProducts() {
         //...
 
@@ -33,8 +37,9 @@ public class ProductPrototypeService {
                      .collect(Collectors.toList());
     }
 
-    public void processProduct(final int productId) {
-        System.out.println("[" + hashCode() + "] Processing the product with the ID " + productId + "...");
+    void processProduct(final int productId) {
+        System.out.println("[" + hashCode() + "] Processing the product with the ID " + productId + ": " +
+                products.get(productId));
     }
 
     public void displayHashCode() {

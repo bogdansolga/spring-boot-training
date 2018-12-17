@@ -37,8 +37,8 @@ public class BeanScopesDemo {
         // using a prototype scoped bean
         final ProductService productService = applicationContext.getBean(ProductService.class);
 
-        IntStream.range(1, 5)
-                 .forEach(value -> productService.processUsingPrototypeService((value)));
+        IntStream.rangeClosed(0, 2)
+                 .forEach(productService::processUsingPrototypeService);
 
     }
 }
