@@ -74,6 +74,6 @@ public class Product extends AbstractEntity {
 
     @Override
     public String toString() {
-        return id + ", " + name + ": " + price;
+        return id + ". " + name + ": " + price;
     }
 }
