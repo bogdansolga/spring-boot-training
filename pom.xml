@@ -17,6 +17,19 @@
         <version>2.1.1.RELEASE</version>
     </parent>
 
+    <inceptionYear>2017</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>Copyright 2013-2015 the original author or authors. Licensed under the Apache License, Version 2.0
+                (the "License"); you may not use this file except in compliance with the License.
+                You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0</comments>
+        </license>
+    </licenses>
+
     <developers>
         <developer>
             <id>bogdan.solga</id>
@@ -25,7 +38,7 @@
             <organization>SafeData Net</organization>
 
             <email>bogdan.solga@gmail.com</email>
-            <url>https://learnspring.eu</url>
+            <url>https://learnspring.eu/en</url>
         </developer>
     </developers>
 
