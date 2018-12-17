@@ -1,5 +1,6 @@
 package net.safedata.springboot.training.d01.s01.config;
 
+import net.safedata.spring.training.domain.model.Product;
 import net.safedata.springboot.training.d01.s01.beans.HelloSpring;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,11 @@ public class MultipleBeansConfig {
     //@Bean
     public HelloSpring otherHelloSpring() {
         return new HelloSpring();
+    }
+
+    @Bean
+    public Product product() {
+        return new Product(1, "Tablet", 200d);
     }
 
     @Bean

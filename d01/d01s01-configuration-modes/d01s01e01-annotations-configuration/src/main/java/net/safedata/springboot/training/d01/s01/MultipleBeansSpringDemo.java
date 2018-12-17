@@ -26,9 +26,9 @@ public class MultipleBeansSpringDemo {
         final HelloSpring helloSpring = applicationContext.getBean(HelloSpring.class);
         helloSpring.displayWelcomeMessage();
 
-        // 'give me the bean (object) of type String from the application context'
-        //final String stringBean = applicationContext.getBean(String.class);
-        //System.out.println(stringBean);
+        // 'give me the bean (object) of type Product from the application context'
+        //final Product product = applicationContext.Product(String.class);
+        //System.out.println(product);
     }
 
     private static void retrievingBeansByTypeAndID(final ApplicationContext applicationContext) {

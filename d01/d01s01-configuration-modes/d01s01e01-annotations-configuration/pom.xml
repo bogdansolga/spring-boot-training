@@ -11,4 +11,11 @@
     </parent>
 
     <artifactId>d01s01e01-annotations-configuration</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.safedata</groupId>
+            <artifactId>domain-model</artifactId>
+        </dependency>
+    </dependencies>
 </project>
