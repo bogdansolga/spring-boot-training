@@ -1,9 +1,12 @@
 package net.safedata.spring.training.domain.model;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 import java.util.Optional;
 
 public class Product extends AbstractEntity {
+
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("####.##");
 
     private final int id;
     private final String name;
@@ -61,7 +64,7 @@ public class Product extends AbstractEntity {
 
         sb.append("id: ").append(id);
         sb.append(", name: '").append(name).append('\'');
-        sb.append(", \tprice: ").append(price);
+        sb.append(", \tprice: ").append(DECIMAL_FORMAT.format(price));
         Optional.ofNullable(discount)
                 .ifPresent(value -> sb.append(", discount: ")
                                       .append(value.getValue())

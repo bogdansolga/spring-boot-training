@@ -5,8 +5,11 @@ import net.safedata.spring.training.domain.model.Product;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public final class ProductsSetup {
+
+    private static final Random RANDOM = new Random(1000);
 
     private static List<Product> tablets;
     private static List<Product> monitors;
@@ -45,25 +48,30 @@ public final class ProductsSetup {
 
     private static List<Product> buildTablets() {
         return Arrays.asList(
-                new Product(1, "Google Nexus 7", 200, new Discount(50, Discount.Type.Value)),
-                new Product(2, "Apple iPad Pro", 300, new Discount(10, Discount.Type.Percent)),
-                new Product(3, "Samsung Galaxy Tab", 350),
-                new Product(4, "Microsoft Surface Pro", 400)
+                new Product(1, "Google Nexus 7", getRandomPrice(150), new Discount(50, Discount.Type.Value)),
+                new Product(2, "Apple iPad Pro", getRandomPrice(300), new Discount(10, Discount.Type.Percent)),
+                new Product(3, "Samsung Galaxy Tab", getRandomPrice(200)),
+                new Product(4, "Microsoft Surface Pro", getRandomPrice(230))
         );
     }
 
     private static List<Product> buildMonitors() {
         return Arrays.asList(
-                new Product(5, "Samsung CF791", 500),
-                new Product(6, "Dell UP3218K", 550),
-                new Product(7, "Samsung CH711", 600)
+                new Product(5, "Samsung CF791", getRandomPrice(700)),
+                new Product(6, "Dell UP3218K", getRandomPrice(600)),
+                new Product(7, "Samsung CH711", getRandomPrice(900))
         );
     }
 
     private static List<Product> buildLaptops() {
         return Arrays.asList(
-                new Product(8, "Lenovo Carbon X11", 1500),
-                new Product(9, "Apple MacBookPro", 2000)
+                new Product(8, "Lenovo Carbon X11", getRandomPrice(1000)),
+                new Product(9, "Apple MacBookPro", getRandomPrice(1500)),
+                new Product(10, "Razer Blade Black", getRandomPrice(2000))
         );
+    }
+
+    private static double getRandomPrice(final int multiplier) {
+        return RANDOM.nextDouble() * multiplier;
     }
 }
