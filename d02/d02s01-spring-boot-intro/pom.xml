@@ -13,6 +13,7 @@
     </parent>
 
     <dependencies>
+        <!-- an example of how we can switch from using Tomcat to using Undertow, without any code changes -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
