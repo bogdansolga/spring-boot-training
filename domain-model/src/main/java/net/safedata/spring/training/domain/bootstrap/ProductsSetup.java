@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+@SuppressWarnings("unused")
 public final class ProductsSetup {
 
     private static final Random RANDOM = new Random(1000);
