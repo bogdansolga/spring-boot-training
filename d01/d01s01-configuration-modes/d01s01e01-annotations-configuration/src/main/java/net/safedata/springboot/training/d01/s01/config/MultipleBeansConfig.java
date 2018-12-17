@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Sample Spring configuration, which exposes two simple {@link Bean}s
+ * Sample Spring configuration, which exposes several simple {@link Bean}s
  *
  * @author bogdan.solga
  */
