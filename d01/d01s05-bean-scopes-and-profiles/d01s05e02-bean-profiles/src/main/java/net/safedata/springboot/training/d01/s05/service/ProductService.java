@@ -8,6 +8,7 @@ import org.springframework.core.env.Profiles;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * A simple {@link ProductService}, which uses the {@link ProductRepository} as a manually wired collaborator
@@ -20,6 +21,9 @@ public class ProductService {
     private Environment environment;
 
     private final ProductRepository productRepository;
+
+    @Autowired(required = false)
+    private Optional<FileSavingService> fileSavingService;
 
     public ProductService(final ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -37,5 +41,7 @@ public class ProductService {
         }
 
         productRepository.displayProducts();
+
+        fileSavingService.ifPresent(service -> service.saveFile("The important file"));
     }
 }
