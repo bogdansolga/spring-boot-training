@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import static net.safedata.springboot.training.d01.s04.config.BeanQualifyingConfig.MY_SQL_REPO_BEAN_NAME;
+import static net.safedata.springboot.training.d01.s04.repository.ProductRepository.*;
 
 /**
  * A simple product service, which uses a {@link ProductRepository} as a collaborator
@@ -20,7 +20,7 @@ public class ProductService {
 
     @Autowired
     public ProductService(@Qualifier(MY_SQL_REPO_BEAN_NAME) final ProductRepository repository,
-                          @Qualifier("oracleProductRepository") final ProductRepository oracleProductRepository) {
+                          @Qualifier(ORACLE_REPO_BEAN_NAME) final ProductRepository oracleProductRepository) {
         this.mySQLProductRepository = repository;
         this.oracleProductRepository = oracleProductRepository;
     }
