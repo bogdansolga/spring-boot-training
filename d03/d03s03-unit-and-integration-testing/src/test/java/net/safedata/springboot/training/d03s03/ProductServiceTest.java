@@ -40,7 +40,7 @@ class ProductServiceTest {
     private ProductService productService;
 
     @Test
-    @DisplayName("Given there are available products, when retrieving products then products are retrieved correctly")
+    @DisplayName("Given there are available products, when retrieving the products then products are retrieved correctly")
     void givenThereAreAvailableProducts_whenRetrievingProducts_thenProductsAreRetrievedCorrectly() {
         // arrange, including mocking behavior setup    --> given
         final List<Product> products = Arrays.asList(
@@ -59,7 +59,8 @@ class ProductServiceTest {
     }
 
     @Test
-    void givenThereAreNoAvailableProducts_whenGettingProducts_thenNoProductsAreReturned() {
+    @DisplayName("Given there are no available products, when retrieving the products then no products are retrieved")
+    void givenThereAreNoAvailableProducts_whenRetrievingProducts_thenNoProductsAreReturned() {
         when(productRepository.findAll()).thenReturn(new ArrayList<>());
 
         final List<ProductDTO> allProducts = productService.getAll();
@@ -69,6 +70,7 @@ class ProductServiceTest {
     }
 
     @Test
+    @DisplayName("Given there are available products, when retrieving a product by ID then the product is retrieved")
     void givenThereAreAvailableProducts_whenRetrievingAProductById_thenTheProductIsCorrectlyRetrieved() {
         final int productId = 20;
 
@@ -88,11 +90,14 @@ class ProductServiceTest {
     }
 
     @Test
-    void givenThereAreNoAvailableProducts_whenGettingAProductById_thenAnIllegalArgumentExceptionIsThrown() {
+    @DisplayName("Given there are no available products, when retrieving a product by ID then an IAE is thrown")
+    void givenThereAreNoAvailableProducts_whenRetrievingAProductById_thenAnIllegalArgumentExceptionIsThrown() {
         assertThrows(IllegalArgumentException.class, () -> productService.get(13));
     }
 
     @Test
+    @DisplayName("Given a product is saved, when saving the product then save is called one time and the response is not " +
+            "null or empty")
     void givenAProductIsSaved_whenSavingTheProduct_thenSaveIsCalledOneTimesAndTheResponseShouldNotBeEmptyOrNull () {
         final ProductDTO product = mock(ProductDTO.class);
 
