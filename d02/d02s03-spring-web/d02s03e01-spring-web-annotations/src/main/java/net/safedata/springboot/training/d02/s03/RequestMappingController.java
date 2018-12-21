@@ -1,6 +1,11 @@
 package net.safedata.springboot.training.d02.s03;
 
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.CacheControl;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,12 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A Spring {@link RestController} used to showcase the usages of the {@link RequestMapping} and of the {@link PathVariable}
@@ -23,6 +35,8 @@ import java.util.Optional;
  */
 @RestController
 public class RequestMappingController {
+
+    private static final LocalDateTime NOW = LocalDateTime.now();
 
     @RequestMapping(
             method = RequestMethod.GET,
@@ -41,9 +55,8 @@ public class RequestMappingController {
             path = "/requestParams"
     )
     public String requestParamsIntro(@RequestParam(name = "color") String color,
-                                     @RequestParam(required = false) String weight) {
-        return "The color is '" + color + "', the weight is '" + Optional.ofNullable(weight)
-                                                                         .orElse("N/A") + "'";
+                                     @RequestParam(required = false) Optional<String> weight) {
+        return "The color is '" + color + "', the weight is '" + weight.orElse("N/A") + "'";
     }
 
     @RequestMapping(
@@ -66,13 +79,53 @@ public class RequestMappingController {
         return "We can pass the HttpServletRequest and HttpServletResponse objects to any RequestMapping annotated method";
     }
 
-    @RequestMapping(
-            method = RequestMethod.GET,
+    @GetMapping(
+            path = "/stream",
             produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
     )
-    public void streamSomething(final HttpServletResponse response) throws IOException {
-        response.getOutputStream().write(new byte[]{});
-        response.setHeader("Content-Disposition", "file-name");
+    public void stream(final HttpServletResponse response) throws IOException {
+        final ClassPathResource classPathResource = new ClassPathResource("spring-boot.png");
+        readAndWrite(classPathResource.getInputStream(), response.getOutputStream());
+    }
+
+    @GetMapping(
+            path = "/download",
+            produces = MediaType.APPLICATION_PDF_VALUE
+    )
+    public ResponseEntity<StreamingResponseBody> download() throws IOException {
+        final ClassPathResource classPathResource = new ClassPathResource("spring-boot.png");
+        return ResponseEntity.ok()
+                             .headers(buildHttpHeaders(classPathResource))
+                             .body(outputStream -> readAndWrite(classPathResource.getInputStream(), outputStream));
+    }
+
+    private HttpHeaders buildHttpHeaders(final ClassPathResource trainingInfoFile) throws IOException {
+        final HttpHeaders headers = new HttpHeaders();
+
+        final ContentDisposition contentDisposition = buildContentDisposition(trainingInfoFile);
+        headers.setContentDisposition(contentDisposition);
+        headers.setContentLength(trainingInfoFile.getFile().length());
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setCacheControl(CacheControl.maxAge(7, TimeUnit.DAYS));
+
+        return headers;
+    }
+
+    private ContentDisposition buildContentDisposition(final ClassPathResource trainingInfoFile) throws IOException {
+        return ContentDisposition.builder("attachment")
+                                 .filename(trainingInfoFile.getFilename(), Charset.forName("UTF-8"))
+                                 .creationDate(NOW.atZone(ZoneId.of("Europe/Bucharest")))
+                                 .size(trainingInfoFile.getFile().length())
+                                 .build();
+    }
+
+    private void readAndWrite(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+        final byte[] data = new byte[1024000];
+        int read;
+        while ((read = inputStream.read(data)) > 0) {
+            outputStream.write(data, 0, read);
+        }
+        outputStream.flush();
     }
 
     @GetMapping("/simpleGETMapping")
