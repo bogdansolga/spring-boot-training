@@ -16,6 +16,7 @@ logging:
       undertow: error
     org:
       apache: warn
+      eclipse: warn
       springframework: warn
       xnio: error
   pattern:
