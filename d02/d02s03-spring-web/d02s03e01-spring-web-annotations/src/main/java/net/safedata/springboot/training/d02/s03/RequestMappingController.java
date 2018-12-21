@@ -6,6 +6,8 @@ import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.unit.DataSize;
+import org.springframework.util.unit.DataUnit;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -120,7 +122,7 @@ public class RequestMappingController {
     }
 
     private void readAndWrite(final InputStream inputStream, final OutputStream outputStream) throws IOException {
-        final byte[] data = new byte[1024000];
+        final byte[] data = new byte[(int) DataSize.of(1, DataUnit.MEGABYTES).toBytes()];
         int read;
         while ((read = inputStream.read(data)) > 0) {
             outputStream.write(data, 0, read);
