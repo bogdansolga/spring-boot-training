@@ -13,7 +13,7 @@ import static net.safedata.springboot.training.d01.s04.repository.ProductReposit
  * @author bogdan.solga
  */
 @Configuration
-@ComponentScan(basePackages = "net.safedata.springboot.training.d01.s04.repository")
+@ComponentScan(basePackages = "net.safedata.springboot.training.d01.s04")
 public class BeanQualifyingConfig {
 
     @Bean(name = MY_SQL_REPO_BEAN_NAME)
