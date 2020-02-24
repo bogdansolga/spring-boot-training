@@ -9,14 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ExecutorService;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -31,10 +30,6 @@ class ProductServiceTest {
     @Mock
     private ProductRepository productRepository; // the collaborator (productRepository) is mocked
 
-    @Spy
-    @SuppressWarnings("unused")
-    private ExecutorService executorService;
-
     // the tested service; also called 'system under test' // SUT
     @InjectMocks
     private ProductService productService;
@@ -44,8 +39,8 @@ class ProductServiceTest {
     void givenThereAreAvailableProducts_whenRetrievingProducts_thenProductsAreRetrievedCorrectly() {
         // arrange, including mocking behavior setup    --> given
         final List<Product> products = Arrays.asList(
-                new Product( "Asus"),
-                new Product( "Dell")
+                new Product(2, "Asus"),
+                new Product(5, "Dell")
         );
         when(productRepository.findAll()).thenReturn(products); // simple mocking example
 
@@ -56,6 +51,10 @@ class ProductServiceTest {
         assertNotNull(allProducts);
         assertThat(allProducts.size(), is(products.size()));
         assertThat(allProducts.iterator().hasNext(), is(true));
+        allProducts.forEach(productDTO -> {
+        	assertThat(productDTO.getId(), not(0));
+			assertThat("The name must not be null or empty", !StringUtils.isEmpty(productDTO.getProductName()));
+        });
     }
 
     @Test

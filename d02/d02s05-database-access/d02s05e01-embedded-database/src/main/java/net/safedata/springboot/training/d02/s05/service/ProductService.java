@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 public class ProductService {
@@ -47,6 +48,10 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public Stream<Product> findAllByName() {
+        return productRepository.findAllByName("The product");
+    }
+
     public Page<Product> getPage(final int pageNumber, final int resultsNumber, final String sortMode) {
         return productRepository.findAll(PageRequest.of(pageNumber, resultsNumber,
                 Sort.Direction.valueOf(sortMode.toUpperCase()), "name"));
@@ -75,7 +80,7 @@ public class ProductService {
     }
 
     private Integer getCountOrThrow() {
-        return productRepository.findByPriceOrderByNameAsc(20, PageRequest.of(0, 30, new Sort(Sort.Direction.DESC)))
+        return productRepository.findByPriceOrderByNameAsc(20, PageRequest.of(0, 30, Sort.by(Sort.Direction.DESC)))
                                 .map(List::size)
                                 .orElseThrow(()
                    -> new IllegalArgumentException("No products are available"));

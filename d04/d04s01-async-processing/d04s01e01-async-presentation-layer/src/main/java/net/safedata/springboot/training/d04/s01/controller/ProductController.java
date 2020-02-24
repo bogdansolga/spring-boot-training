@@ -3,6 +3,7 @@ package net.safedata.springboot.training.d04.s01.controller;
 import net.safedata.springboot.training.d04.s01.model.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 @RestController
 @RequestMapping(
@@ -21,6 +23,9 @@ import java.util.concurrent.CompletableFuture;
 public class ProductController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
+
+    @Autowired
+    private Executor executor;
 
     @RequestMapping(
             path = "/sync/{id}"
@@ -40,16 +45,15 @@ public class ProductController {
 
         LOGGER.info("Getting the product with the ID {}...", id);
 
-        CompletableFuture
-                .supplyAsync(() -> {
+        CompletableFuture.supplyAsync(() -> {
                     LOGGER.info("Performing the long running operation...");
                     longRunningOperation();
                     return new Product(id, "Tablet");
-                })
+                }, executor)
                 .whenCompleteAsync((response, error) -> {
                     LOGGER.info("Setting the deferred result");
                     processAsyncResponse(deferredResult, response, error);
-                });
+                }, executor);
 
         LOGGER.info("Returning the deferred result");
 
@@ -71,7 +75,7 @@ public class ProductController {
         if (exception == null) {
             deferred.setResult(ResponseEntity.ok(product));
         } else {
-            deferred.setErrorResult(new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST));
+            deferred.setErrorResult(new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
         }
     }
 }

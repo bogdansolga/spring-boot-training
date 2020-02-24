@@ -4,6 +4,8 @@ import net.safedata.spring.training.jpa.model.Product;
 import net.safedata.springboot.training.d02.s05.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductService {
@@ -15,6 +17,14 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
+    @Transactional(
+            readOnly = false,
+            propagation = Propagation.REQUIRED,
+            rollbackFor = {
+                  IllegalArgumentException.class,
+                  UnsupportedOperationException.class
+            }
+    )
     public void create(final Product product) {
         productRepository.save(product);
     }

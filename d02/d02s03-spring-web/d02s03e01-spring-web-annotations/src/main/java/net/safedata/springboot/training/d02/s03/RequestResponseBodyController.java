@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class RequestResponseBodyController {
 
     @RequestMapping(
-            method = RequestMethod.POST,
+            method = {
+                    RequestMethod.POST,
+                    RequestMethod.PATCH
+            },
             path = "/requestBody"
     )
     public @ResponseBody String requestBody(@RequestBody String request) {

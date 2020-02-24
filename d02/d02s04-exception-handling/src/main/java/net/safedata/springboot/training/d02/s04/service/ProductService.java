@@ -30,7 +30,7 @@ public class ProductService {
     }
 
     public ProductDTO get(final int id) {
-        final Product product = getOrThrow(id);
+        final Product product = getOrThrow(id); // short-circuit
         return getProductConverter().apply(product);
     }
 

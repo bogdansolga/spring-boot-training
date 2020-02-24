@@ -28,7 +28,7 @@
 
                     <configuration>
                         <executable>true</executable>
-                        <mainClass>net.safedata.springboot.training.d03.s05.ProjectPackagingDemo</mainClass>
+                        <mainClass>net.safedata.springboot.training.d03.s05.JarPackagingDemo</mainClass>
 
                         <jvmArguments>-server -Xms128m -Xmx128m</jvmArguments>
 

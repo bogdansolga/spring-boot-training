@@ -12,7 +12,9 @@ public class AppInitMonitorService {
     private static final Logger LOGGER = LoggerFactory.getLogger(AppInitMonitorService.class);
 
     @EventListener(ApplicationReadyEvent.class)
-    public void onAppInit() {
-        LOGGER.info("The app has successfully started!");
+    public void onAppInit(final ApplicationReadyEvent applicationReadyEvent) {
+        LOGGER.info("The app has successfully started - {}", applicationReadyEvent.getApplicationContext()
+                                                                                  .getApplicationName()
+        );
     }
 }

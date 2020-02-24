@@ -16,9 +16,9 @@ public class MultipleBeansSpringDemo {
     public static void main(String[] args) {
         final ApplicationContext applicationContext = new AnnotationConfigApplicationContext(MultipleBeansConfig.class);
 
-        retrievingBeansByType(applicationContext);
+        //retrievingBeansByType(applicationContext);
 
-        //retrievingBeansByTypeAndID(applicationContext);
+        retrievingBeansByTypeAndID(applicationContext);
     }
 
     private static void retrievingBeansByType(final ApplicationContext applicationContext) {

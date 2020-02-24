@@ -14,11 +14,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>net.safedata</groupId>
             <artifactId>jpa-domain-model</artifactId>
         </dependency>

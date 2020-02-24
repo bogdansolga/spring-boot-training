@@ -13,10 +13,12 @@ import org.springframework.stereotype.Service;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductProcessor productProcessor;
 
     @Autowired
-    public ProductService(final ProductRepository productRepository) {
+    public ProductService(final ProductRepository productRepository, final ProductProcessor productProcessor) {
         this.productRepository = productRepository;
+        this.productProcessor = productProcessor;
     }
 
     // read

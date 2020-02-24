@@ -146,7 +146,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 Collections.singleton(new SimpleGrantedAuthority(Roles.ADMIN_ROLE)));
         authentication.setAuthenticated(true);
 
-        Map<String, Integer> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("userId", 25);
         authentication.setDetails(map);
 

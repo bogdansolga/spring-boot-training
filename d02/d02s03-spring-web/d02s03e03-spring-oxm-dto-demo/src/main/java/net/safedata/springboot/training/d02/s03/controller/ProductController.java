@@ -6,10 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -33,18 +39,13 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @RequestMapping(
-            method = RequestMethod.POST,
-            path = "",
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity create(@RequestBody @Valid ProductDTO productDTO) {
         productService.create(productDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @RequestMapping(
-            method = RequestMethod.GET,
+    @GetMapping(
             path = "/{id}",
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
@@ -52,36 +53,27 @@ public class ProductController {
         return productService.get(id);
     }
 
-    @RequestMapping(
-            method = RequestMethod.GET,
+    @GetMapping(
             path = "/{id}",
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public ResponseEntity<ProductDTO> getProductUsingResponseEntity(@PathVariable final int id) {
-        return new ResponseEntity<>(productService.get(id), HttpStatus.EXPECTATION_FAILED);
+        return new ResponseEntity<>(productService.get(id), HttpStatus.I_AM_A_TEAPOT);
     }
 
-    @RequestMapping(
-            method = RequestMethod.GET,
-            path = ""
-    )
+    @GetMapping
+    @ResponseStatus(HttpStatus.PARTIAL_CONTENT)
     public List<ProductDTO> getAll() {
         return productService.getAll();
     }
 
-    @RequestMapping(
-            method = RequestMethod.PUT,
-            path = "/{id}"
-    )
+    @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable final int id, @RequestBody ProductDTO productDTO) {
         productService.update(id, productDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @RequestMapping(
-            method = RequestMethod.DELETE,
-            path = "/{id}"
-    )
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable final int id) {
         productService.delete(id);
         return ResponseEntity.ok(HttpStatus.OK);

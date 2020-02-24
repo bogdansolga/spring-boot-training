@@ -11,7 +11,10 @@ import org.springframework.context.annotation.Profile;
  * @author bogdan.solga
  */
 @Configuration
-@Profile(RunProfiles.PROD)
+@Profile({
+        RunProfiles.PROD,
+        RunProfiles.TOMCAT
+})
 public class ProfileEnabledConfig {
 
     @Bean

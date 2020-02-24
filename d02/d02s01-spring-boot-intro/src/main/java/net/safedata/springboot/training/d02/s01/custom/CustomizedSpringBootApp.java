@@ -19,7 +19,7 @@ public class CustomizedSpringBootApp {
                 .run(args);
     }
 
-    @Bean
+    //@Bean
     ApplicationRunner applicationRunner() {
         return args -> {
             System.out.println();

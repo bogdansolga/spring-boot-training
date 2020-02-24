@@ -11,11 +11,10 @@ import java.time.LocalTime;
  * @author bogdan.solga
  */
 @RestController
+@RequestMapping("/first")
 public class SimpleRestController {
 
-    @RequestMapping(
-            path = "/hello"
-    )
+    @RequestMapping("/hello")
     public String hello() {
         return "Hello, Spring Boot! The current time is " + LocalTime.now();
     }

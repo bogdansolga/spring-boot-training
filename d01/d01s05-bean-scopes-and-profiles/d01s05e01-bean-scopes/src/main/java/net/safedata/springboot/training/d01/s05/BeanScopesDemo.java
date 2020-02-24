@@ -20,17 +20,17 @@ public class BeanScopesDemo {
 
         displayingTheBeanHashCode(applicationContext);
 
-        System.out.println();
+        //System.out.println();
 
-        usingThePrototypeBean(applicationContext);
+        //usingThePrototypeBean(applicationContext);
     }
 
     private static void displayingTheBeanHashCode(ApplicationContext applicationContext) {
-        final ProductPrototypeService prototypeService = applicationContext.getBean(ProductPrototypeService.class);
-        prototypeService.displayHashCode();
+        final ProductPrototypeService firstInstance = applicationContext.getBean(ProductPrototypeService.class);
+        firstInstance.displayHashCode();
 
-        final ProductPrototypeService anotherInstance = applicationContext.getBean(ProductPrototypeService.class);
-        anotherInstance.displayHashCode();
+        final ProductPrototypeService secondInstance = applicationContext.getBean(ProductPrototypeService.class);
+        secondInstance.displayHashCode();
     }
 
     private static void usingThePrototypeBean(ApplicationContext applicationContext) {

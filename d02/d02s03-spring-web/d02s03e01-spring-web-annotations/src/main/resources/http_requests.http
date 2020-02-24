@@ -3,7 +3,7 @@ GET http://localhost:8080/hello
 ###
 POST http://localhost:8080/requestBody
 
-A request body
+Cisco is crazy
 
 ###
 POST http://localhost:8080/responseBody

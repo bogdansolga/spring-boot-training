@@ -22,6 +22,12 @@ public class AsyncComponent {
     }
 
     @Async
+    public String justString() {
+        displayCurrentThreadName("justString");
+        return "Is it working?";
+    }
+
+    @Async
     public Future<String> asyncMethodReturningAFuture() {
         displayCurrentThreadName("asyncMethodReturningAFuture");
         try {

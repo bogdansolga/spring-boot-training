@@ -16,7 +16,7 @@ public class CustomAsyncUncaughtExceptionHandler implements AsyncUncaughtExcepti
                                         final Object... params) {
         LOGGER.warn("'{}' in '{}' with the params '{}'", throwable.getClass().getSimpleName(),
                 method.getName(), Arrays.asList(params));
-        LOGGER.warn(throwable.getMessage(), throwable);
+        LOGGER.warn(throwable.getMessage());
 
         // may include additional exception reporting actions - email sending, ELK stack notification
     }

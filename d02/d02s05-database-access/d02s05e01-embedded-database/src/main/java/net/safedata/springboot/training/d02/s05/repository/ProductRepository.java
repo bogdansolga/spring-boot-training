@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Future;
+import java.util.stream.Stream;
 
 /**
  * A simple Spring Data {@link CrudRepository} for the {@link Product} entity
@@ -29,12 +30,15 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, I
 
     Optional<List<Product>> findByPriceOrderByNameAsc(final double price, final Pageable pageable);
 
+    Stream<Product> findAllByName(@Param(value = "name") final String name);
+
     @Async
     Future<Product> findProductById(int id);
 
     @Query(value =  "SELECT product " +
                     "FROM Product product " +
-                    "WHERE product.name LIKE :name"
+                    "WHERE product.name LIKE :name",
+            nativeQuery = false
     )
     List<Product> findProductsWhichIncludeName(final @Param(value = "name") String name);
 }

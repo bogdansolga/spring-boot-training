@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Random;
 import java.util.stream.IntStream;
 
 /**
@@ -18,6 +19,8 @@ import java.util.stream.IntStream;
  */
 @SpringBootApplication
 public class EmbeddedDatabaseUsageDemo {
+
+    private static final Random RANDOM = new Random(1000);
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmbeddedDatabaseUsageDemo.class);
 
@@ -29,7 +32,7 @@ public class EmbeddedDatabaseUsageDemo {
     ApplicationRunner applicationRunner(final ProductService productService) {
         return args -> {
             IntStream.range(0, 50)
-                     .forEach(id ->  productService.create(new Product("The product #" + id)));
+                     .forEach(id ->  productService.create(new Product("The product #" + id, RANDOM.nextDouble() * 100)));
             LOGGER.info("The default products were successfully created!");
         };
     }

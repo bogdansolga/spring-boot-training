@@ -31,7 +31,7 @@ public class AsyncComponent {
 
         LOGGER.info("Displaying a value asynchronously");
 
-        //throw new IllegalArgumentException("An exception thrown from an async call");
+        throw new IllegalArgumentException("An exception thrown from an async call");
     }
 
     @Async("defaultExecutor")

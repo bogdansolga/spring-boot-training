@@ -28,6 +28,9 @@ public class ProductService {
         LOGGER.info("Invoking an async method which doesn't have a return object...");
         asyncComponent.voidReturningAsyncCall();
 
+        final String justString = asyncComponent.justString();
+        System.out.println("Got the string " + justString);
+
         LOGGER.info("Invoking an async method which returns a Future object...");
         final Future<String> future = asyncComponent.asyncMethodReturningAFuture();
 

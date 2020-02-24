@@ -1,6 +1,7 @@
 package net.safedata.springboot.training.d03.s04.service;
 
 import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Metrics;
 import net.safedata.springboot.training.d03.s04.model.Product;
@@ -10,17 +11,23 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class ProductService {
 
     private final ProductRepository productRepository;
 
+    private Gauge gauge;
+
     @Autowired
     public ProductService(final ProductRepository productRepository, final MeterRegistry meterRegistry) {
         this.productRepository = productRepository;
         Counter.builder("products.updatedProducts")
                .register(meterRegistry);
+
+        gauge = Gauge.builder("products.gauge", () -> new AtomicInteger(0))
+                     .register(meterRegistry);
     }
 
     public void create(final Product product) {
@@ -41,6 +48,8 @@ public class ProductService {
 
         final Counter counter = Metrics.counter("products.updatedProducts", "today", LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
         counter.increment();
+
+        gauge.value();
 
         existingProduct.setName(product.getName());
 

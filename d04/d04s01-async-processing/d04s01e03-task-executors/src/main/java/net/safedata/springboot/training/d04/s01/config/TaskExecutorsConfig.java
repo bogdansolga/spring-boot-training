@@ -16,7 +16,7 @@ public class TaskExecutorsConfig {
 
     @Primary
     @Bean
-    public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
+    public ThreadPoolTaskExecutor longLivedTaskExecutor() {
         final ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
 
         threadPoolTaskExecutor.setCorePoolSize(PROCESSORS_COUNT);

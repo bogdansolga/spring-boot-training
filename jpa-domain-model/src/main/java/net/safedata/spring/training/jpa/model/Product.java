@@ -70,8 +70,13 @@ public class Product extends AbstractEntity {
     private Section section;
 
     protected Product() {}
-
+    
     public Product(final String name) {
+        this.name = name;
+    }
+
+    public Product(final int id, final String name) {
+    	this.id = id;
         this.name = name;
     }
 

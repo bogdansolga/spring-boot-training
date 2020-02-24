@@ -24,7 +24,7 @@ public class AsyncComponent {
         this.shortLivedTaskExecutor = shortLivedTaskExecutor;
     }
 
-    @Async("shortLivedTasksExecutor")
+    @Async("longLivedTaskExecutor")
     void voidAsyncCall() {
         displayCurrentThread();
         LOGGER.info("Displaying a value asynchronously");

@@ -22,7 +22,7 @@ public class ProductService {
     @Value("${connection.timeout}")
     private int connectionTimeout;
 
-    @Value("${version.number:2.5}")
+    @Value("${version.number:2.5}") //:2.5 = the default value
     private double versionNumber;
 
     @Value("${external.property}")
@@ -30,6 +30,9 @@ public class ProductService {
 
     @Value("${array.of.strings}")
     private String[] arrayOfStrings;
+
+    @Value("${a.value.on.more.than.one.line}")
+    private String aValueOnMultipleLines;
 
     public void displayLoadedProperties() {
         System.out.println("The remote endpoint is '" + remoteEndpointURL + "'");
@@ -41,5 +44,7 @@ public class ProductService {
 
         System.out.println();
         System.out.println("The external property is '" + externalProperty + "'");
+
+        System.out.println("The value on multiple lines is '" + aValueOnMultipleLines + "'");
     }
 }
