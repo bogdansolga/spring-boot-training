@@ -10,6 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.safedata.springboot.training.d03.s01.model.Product;
@@ -31,7 +32,10 @@ public class ProductController {
             "AND authentication.details.userId == 25 " + // an equality check
             "AND hasAuthority('WRITE')"
     )
-    public void addProduct(final Authentication authentication) {
+    @GetMapping("/product")
+    public void addProduct(final Authentication authentication, @RequestBody Product product) {
+        UserDetails userDetails  = (UserDetails) authentication.getPrincipal();
+        System.out.println("The user details: " + userDetails);
         // further use the Authentication object, if needed
     }
 
