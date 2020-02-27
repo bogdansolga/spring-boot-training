@@ -46,7 +46,7 @@ public class ProductControllerTest extends AbstractTransactionalTestNGSpringCont
     }
 
     @Test
-    public void givenTheContentTypeIsCorrect_WhenGettingAProduct_ThenAllGood() {
+    public void givenTheContentTypeIsCorrect_WhenGettingAProduct_ThenTheStatusAndTheNameAreCorrect() {
         given()
                 .accept(ContentType.JSON).
         when()
