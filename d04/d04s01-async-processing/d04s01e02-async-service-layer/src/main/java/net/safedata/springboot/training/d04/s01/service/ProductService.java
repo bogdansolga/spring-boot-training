@@ -9,6 +9,7 @@ import org.springframework.util.concurrent.ListenableFuture;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @SuppressWarnings("unused")
@@ -28,9 +29,6 @@ public class ProductService {
         LOGGER.info("Invoking an async method which doesn't have a return object...");
         asyncComponent.voidReturningAsyncCall();
 
-        final String justString = asyncComponent.justString();
-        System.out.println("Got the string " + justString);
-
         LOGGER.info("Invoking an async method which returns a Future object...");
         final Future<String> future = asyncComponent.asyncMethodReturningAFuture();
 
@@ -41,17 +39,15 @@ public class ProductService {
         final CompletableFuture<String> completableFuture = asyncComponent.asyncMethodReturningACompletableFuture();
 
         // 2nd stage - getting the returned values
-        if (future.isDone()) {
-            try {
-                final String value = future.get();
-                LOGGER.info("The returned future value is '{}'", value);
-            } catch (final ExecutionException | InterruptedException e) {
-                handleException(e);
-            }
+        try {
+            final String value = future.get(4000, TimeUnit.MILLISECONDS);
+            LOGGER.info("The returned future value is '{}'", value);
+        } catch (final Exception e) {
+            handleException(e);
         }
 
         completableFuture.whenCompleteAsync((value, error) -> LOGGER.debug("{}", value));
-        completableFuture.join();
+        final String result = completableFuture.join();
     }
 
     public void asyncMethodReturningAFuture() {
