@@ -1,0 +1,13 @@
+GET http://localhost:8080/product
+
+###
+
+POST http://localhost:8080/product
+Content-Type: application/json
+
+{
+  "id": 25,
+  "name": "A lot of chocolate"
+}
+
+###
