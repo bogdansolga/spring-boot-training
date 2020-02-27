@@ -1,6 +1,7 @@
 package net.safedata.springboot.training.d04.s01.controller;
 
 import net.safedata.springboot.training.d04.s01.model.Product;
+import net.safedata.springboot.training.d04.s01.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,19 @@ public class ProductController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
 
+    private final Executor executor;
+    private final ProductService productService;
+
     @Autowired
-    private Executor executor;
+    public ProductController(Executor executor, ProductService productService) {
+        this.executor = executor;
+        this.productService = productService;
+    }
 
     @RequestMapping(
             path = "/sync/{id}"
     )
     public Product getProduct(@PathVariable final int id) {
-        longRunningOperation();
         return new Product(id, "Tablet");
     }
 
@@ -43,31 +49,10 @@ public class ProductController {
         deferredResult.onTimeout(() -> deferredResult.setResult(
                 new ResponseEntity<>("The request has timed-out", HttpStatus.REQUEST_TIMEOUT)));
 
-        LOGGER.info("Getting the product with the ID {}...", id);
-
-        CompletableFuture.supplyAsync(() -> {
-                    LOGGER.info("Performing the long running operation...");
-                    longRunningOperation();
-                    return new Product(id, "Tablet");
-                }, executor)
-                .whenCompleteAsync((response, error) -> {
-                    LOGGER.info("Setting the deferred result");
-                    processAsyncResponse(deferredResult, response, error);
-                }, executor);
-
-        LOGGER.info("Returning the deferred result");
+        CompletableFuture.supplyAsync(() -> productService.getById(id), executor)
+                         .whenCompleteAsync((response, error) -> processAsyncResponse(deferredResult, response, error), executor);
 
         return deferredResult;
-    }
-
-    private void longRunningOperation() {
-        try {
-            LOGGER.info("Running a long running operation...");
-            Thread.sleep(3000);
-            // throw new IllegalArgumentException("Oops :)");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     private void processAsyncResponse(final DeferredResult<ResponseEntity<?>> deferred, final Product product,

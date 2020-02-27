@@ -1,0 +1,7 @@
+GET http://localhost:8080/product/sync/1
+
+###
+
+GET http://localhost:8080/product/async/1
+
+###
