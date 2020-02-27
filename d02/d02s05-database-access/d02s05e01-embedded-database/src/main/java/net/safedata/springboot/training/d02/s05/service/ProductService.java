@@ -26,7 +26,7 @@ public class ProductService {
     @Transactional(
             readOnly = false,
             propagation = Propagation.REQUIRED,
-            rollbackFor = {
+            rollbackFor = { // just as an example
                     IllegalArgumentException.class,
                     IllegalAccessException.class
             }
@@ -44,6 +44,7 @@ public class ProductService {
                                 .orElseThrow(() -> new IllegalArgumentException("Not found"));
     }
 
+    @Transactional(readOnly = true)
     public Iterable<Product> getAll() {
         return productRepository.findAll();
     }
