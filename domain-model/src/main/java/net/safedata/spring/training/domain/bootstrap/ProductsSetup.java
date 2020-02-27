@@ -12,9 +12,9 @@ public final class ProductsSetup {
 
     private static final Random RANDOM = new Random(1000);
 
-    private static List<Product> tablets;
-    private static List<Product> monitors;
-    private static List<Product> laptops;
+    private static final List<Product> tablets;
+    private static final List<Product> monitors;
+    private static final List<Product> laptops;
 
     static {
         tablets = buildTablets();
