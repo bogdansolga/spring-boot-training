@@ -19,38 +19,6 @@ import javax.persistence.UniqueConstraint;
 import java.util.Objects;
 
 @Entity(name = "Product")
-@Table(
-        name = "Product",
-        //schema = "spring_training",
-        uniqueConstraints = {
-                @UniqueConstraint(name = "uniqueName", columnNames = "name")
-        },
-        indexes = {
-                @Index(name = "nameIndex", columnList = "name")
-        }
-)
-@NamedQueries({
-        @NamedQuery(
-                name = "Product.byStore",
-                query = "SELECT product " +
-                        "FROM Product product " +
-                        "WHERE product.section.store.id = :storeId"
-        ),
-
-        @NamedQuery(
-                name = "Product.getAll",
-                query = "SELECT product " +
-                        "FROM Product product"
-        )
-})
-@NamedNativeQueries({
-        @NamedNativeQuery(
-                name = "Product.productById",
-                query = "SELECT * " +
-                        "FROM Product p " +
-                        "WHERE p.id = :productId"
-        )
-})
 public class Product extends AbstractEntity {
 
     @Id
