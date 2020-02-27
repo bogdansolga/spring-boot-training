@@ -1,6 +1,6 @@
 package net.safedata.springboot.training.d02.s03.repository;
 
-import net.safedata.springboot.training.d02.s03.model.Product;
+import net.safedata.spring.training.domain.model.Product;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
