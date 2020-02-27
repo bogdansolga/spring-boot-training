@@ -20,7 +20,7 @@ public class AsyncComponent {
     private final Executor shortLivedTaskExecutor;
 
     @Autowired
-    public AsyncComponent(@Qualifier("shortLivedTasksExecutor") final Executor shortLivedTaskExecutor) {
+    public AsyncComponent(final Executor shortLivedTaskExecutor) {
         this.shortLivedTaskExecutor = shortLivedTaskExecutor;
     }
 
@@ -30,13 +30,13 @@ public class AsyncComponent {
         LOGGER.info("Displaying a value asynchronously");
     }
 
-    @Async("threadPoolTaskExecutor")
+    @Async("shortLivedTasksExecutor")
     Future<String> getFuture() {
         displayCurrentThread();
         return new AsyncResult<>("Returning a Future async value");
     }
 
-    @Async
+    @Async // the default executor is used
     CompletableFuture<String> getCompletableFuture() {
         displayCurrentThread();
         return CompletableFuture.supplyAsync(() -> "Returned by the CompletableFuture", shortLivedTaskExecutor);
