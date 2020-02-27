@@ -40,7 +40,7 @@ public class ProductController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity create(@RequestBody @Valid ProductDTO productDTO) {
+    public ResponseEntity<?> create(@RequestBody @Valid ProductDTO productDTO) {
         productService.create(productDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
@@ -55,7 +55,7 @@ public class ProductController {
 
     @GetMapping(
             path = "/{id}",
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<ProductDTO> getProductUsingResponseEntity(@PathVariable final int id) {
         return new ResponseEntity<>(productService.get(id), HttpStatus.I_AM_A_TEAPOT);
