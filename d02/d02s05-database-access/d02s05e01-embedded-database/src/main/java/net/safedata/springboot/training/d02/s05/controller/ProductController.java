@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * A Spring {@link RestController} used to showcase the modeling of a REST controller for CRUD operations
@@ -59,9 +61,10 @@ public class ProductController {
         return deferredResult;
     }
 
-    @GetMapping("/stream")
-    public Stream<Product> getAll() {
-        return productService.findAllByName();
+    @GetMapping
+    public List<Product> getAll() {
+        return StreamSupport.stream(productService.getAll().spliterator(), false)
+                             .collect(Collectors.toList());
     }
 
     @GetMapping(
