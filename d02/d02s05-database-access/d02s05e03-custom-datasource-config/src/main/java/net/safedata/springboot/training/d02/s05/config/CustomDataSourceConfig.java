@@ -79,7 +79,7 @@ public class CustomDataSourceConfig {
         hikariConfig.setIdleTimeout(600000);
         hikariConfig.setMaxLifetime(120000);
         hikariConfig.setJdbcUrl(url);
-        hikariConfig.setUsername(userName + "x");
+        hikariConfig.setUsername(userName);
         hikariConfig.setPassword(password);
         hikariConfig.setDriverClassName(driverClassName);
 
