@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody @Valid ProductDTO productDTO) {
+    public ResponseEntity<?> create(@RequestBody ProductDTO productDTO) {
         productService.save(productDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
