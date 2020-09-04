@@ -9,16 +9,15 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jdbc.repository.config.AbstractJdbcConfiguration;
 import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
-import org.springframework.data.jdbc.repository.config.JdbcConfiguration;
 import org.springframework.data.relational.core.mapping.event.BeforeSaveEvent;
 
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Configuration
 @EnableJdbcRepositories(basePackages = "net.safedata.spring.data.jdbc.domain.repository")
-public class PersistenceConfig extends JdbcConfiguration {
+public class PersistenceConfig extends AbstractJdbcConfiguration {
 
     private static final AtomicInteger PK_GENERATOR = new AtomicInteger(0);
 
