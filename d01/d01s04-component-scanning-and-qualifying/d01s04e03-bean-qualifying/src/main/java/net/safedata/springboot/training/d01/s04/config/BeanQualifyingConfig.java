@@ -13,10 +13,10 @@ import static net.safedata.springboot.training.d01.s04.repository.ProductReposit
  * @author bogdan.solga
  */
 @Configuration
-@ComponentScan(basePackages = "net.safedata.springboot.training.d01.s04")
+@ComponentScan(basePackages = "net.safedata.springboot.training.d01.s04") // --> implicit config
 public class BeanQualifyingConfig {
 
-    @Bean(name = MY_SQL_REPO_BEAN_NAME)
+    @Bean(name = MY_SQL_REPO_BEAN_NAME) // --> explicit config
     public ProductRepository productRepository() {
         return new ProductRepository("MySQL");
     }
