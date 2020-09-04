@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @author bogdan.solga
  */
 @Component
-@Endpoint(id = "custom")
+@Endpoint(id = "memory")
 public class MemoryEndpoint {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MemoryEndpoint.class);
