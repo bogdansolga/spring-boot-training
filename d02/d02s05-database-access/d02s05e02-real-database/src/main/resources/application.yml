@@ -10,7 +10,7 @@ spring:
     password: postgres
     platform: postgresql
     username: postgres
-    url: jdbc:postgresql://localhost:5432/spring_boot
+    url: jdbc:postgresql://localhost:5432/${spring.datasource.name}
 
   # JPA properties - JpaProperties
   jpa:

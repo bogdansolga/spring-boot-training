@@ -2,6 +2,7 @@
 logging:
   level:
     root: info
+    com: warn
     org:
       apache: warn
       hibernate: warn
@@ -22,3 +23,6 @@ spring:
     url: jdbc:h2:mem:test
     username: sa
     password: aVeryComplexPassword
+
+  jpa:
+    open-in-view: false

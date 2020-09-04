@@ -14,7 +14,7 @@ spring:
     password: postgres
     platform: postgresql
     username: postgres
-    url: jdbc:postgresql://localhost:5432/spring_boot
+    url: jdbc:postgresql://localhost:5432/${spring.datasource.name}
     type: com.zaxxer.hikari.HikariDataSource
 
     # the properties for the Hikari connection pool
@@ -28,7 +28,7 @@ spring:
     hibernate:
       # be VERY careful with it's usage
       # DO NOT use it for 'prod' | 'staging' environments
-      ddl-auto: create-drop
+      ddl-auto: none
 
     open-in-view: false
     properties:
