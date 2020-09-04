@@ -10,6 +10,6 @@ public class ProdFileSavingService implements FileSavingService {
 
     @Override
     public void saveFile(String fileName) {
-        System.out.println("Saving the file on an SFTP server...");
+        System.out.println("Saving the file on an NFS filesystem...");
     }
 }
