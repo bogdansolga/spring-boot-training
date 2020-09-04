@@ -12,9 +12,8 @@ public class ProductRepository {
     // an in-memory list of products
     private List<Product> products = ProductsSetup.getRandomProducts();
 
-    @SuppressWarnings("unused")
     public Product get(int id) {
-        return products.get(0);
+        return products.get(id);
     }
 
     public List<Product> getAll() {
