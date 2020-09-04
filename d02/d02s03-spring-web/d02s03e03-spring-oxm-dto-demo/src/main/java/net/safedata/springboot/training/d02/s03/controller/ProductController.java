@@ -54,7 +54,7 @@ public class ProductController {
     }
 
     @GetMapping(
-            path = "/{id}",
+            path = "/byId/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<ProductDTO> getProductUsingResponseEntity(@PathVariable final int id) {
