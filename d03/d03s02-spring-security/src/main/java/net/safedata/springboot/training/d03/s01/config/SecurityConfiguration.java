@@ -47,6 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
             .passwordEncoder(passwordEncoder())
             .withUser("user")
+            .authorities("WRITE")
             // the unencrypted password is 'password'
             .password("$2a$10$4xnpk2a5jLr1mf6VWle6Vuv4q7DBsW2rqQcg6N1Ms/y4g98Ry4D4C")
             .roles(Roles.ADMIN_ROLE);
