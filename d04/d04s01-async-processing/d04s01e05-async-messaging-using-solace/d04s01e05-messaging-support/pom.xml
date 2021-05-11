@@ -10,20 +10,10 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>product-listener</artifactId>
+    <artifactId>d04s01e05-messaging-support</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
-        <dependency>
-            <groupId>net.safedata</groupId>
-            <artifactId>messaging-support</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.solace.spring.cloud</groupId>
-            <artifactId>spring-cloud-starter-stream-solace</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-stream</artifactId>

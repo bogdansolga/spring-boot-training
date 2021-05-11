@@ -10,13 +10,13 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>product-publisher</artifactId>
+    <artifactId>d04s01e05-product-listener</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
             <groupId>net.safedata</groupId>
-            <artifactId>messaging-support</artifactId>
+            <artifactId>d04s01e05-messaging-support</artifactId>
         </dependency>
 
         <dependency>

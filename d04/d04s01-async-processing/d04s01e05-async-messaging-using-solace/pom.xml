@@ -22,9 +22,9 @@
     </properties>
 
     <modules>
-        <module>messaging-support</module>
-        <module>product-publisher</module>
-        <module>product-listener</module>
+        <module>d04s01e05-messaging-support</module>
+        <module>d04s01e05-product-publisher</module>
+        <module>d04s01e05-product-listener</module>
     </modules>
 
     <dependencyManagement>
@@ -53,7 +53,7 @@
 
             <dependency>
                 <groupId>net.safedata</groupId>
-                <artifactId>messaging-support</artifactId>
+                <artifactId>d04s01e05-messaging-support</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
