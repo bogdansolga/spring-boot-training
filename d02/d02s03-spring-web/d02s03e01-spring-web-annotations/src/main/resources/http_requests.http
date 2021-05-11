@@ -1,32 +1,15 @@
 GET http://localhost:8080/hello
 
 ###
-POST http://localhost:8080/requestBody
-
-Cisco is crazy
-
-###
 POST http://localhost:8080/responseBody
 
+A text example
+
 ###
-POST http://localhost:8080/product
+POST http://localhost:8080/requestBody
 Content-Type: application/json
 
 {
-  "id": 2,
-  "name": "Another one"
+  "id": 3,
+  "name": "Something"
 }
-
-###
-GET http://localhost:8080/product/1
-
-###
-POST http://localhost:8080/product
-
-###
-POST http://localhost:8080/matches/2/score
-
-###
-GET http://localhost:8080/product/6
-
-###
