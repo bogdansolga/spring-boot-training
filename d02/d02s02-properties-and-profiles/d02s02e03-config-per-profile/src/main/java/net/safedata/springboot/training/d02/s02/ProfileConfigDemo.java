@@ -4,7 +4,6 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.EmbeddedDataSourceConfiguration;
 
 /**
  * A simple Spring Boot app which demos the usage of several Spring {@link org.springframework.context.annotation.Profile}s
@@ -12,7 +11,7 @@ import org.springframework.boot.autoconfigure.jdbc.EmbeddedDataSourceConfigurati
  *
  * @author bogdan.solga
  */
-@SpringBootApplication(exclude = EmbeddedDataSourceConfiguration.class)
+@SpringBootApplication
 public class ProfileConfigDemo {
 
     public static void main(String[] args) {
