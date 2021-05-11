@@ -84,9 +84,7 @@ public class RequestMappingController {
         final String color = request.getParameter("color");
         final String requestHeader = request.getHeader("Content-Type");
 
-        final String catsNumber = request.getHeader("Cats-Number");
         response.addHeader("Content-Type", "application/json");
-        response.addCookie(new Cookie("ciscoCrazyness", "7"));
 
         return "We can pass the HttpServletRequest and HttpServletResponse objects to any RequestMapping annotated method";
     }
