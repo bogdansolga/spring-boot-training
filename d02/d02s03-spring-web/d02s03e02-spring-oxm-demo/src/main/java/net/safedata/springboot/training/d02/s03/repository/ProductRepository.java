@@ -10,7 +10,7 @@ import java.util.List;
 public class ProductRepository {
 
     // an in-memory list of products
-    private List<Product> products = ProductsSetup.getRandomProducts();
+    private final List<Product> products = ProductsSetup.getRandomProducts();
 
     public Product get(int id) {
         return products.get(id);
