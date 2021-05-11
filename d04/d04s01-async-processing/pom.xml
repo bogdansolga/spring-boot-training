@@ -18,6 +18,7 @@
         <module>d04s01e02-async-service-layer</module>
         <module>d04s01e03-task-executors</module>
         <module>d04s01e04-async-exception-handling</module>
+        <module>d04s01e05-async-messaging-using-solace</module>
     </modules>
 
     <dependencies>
