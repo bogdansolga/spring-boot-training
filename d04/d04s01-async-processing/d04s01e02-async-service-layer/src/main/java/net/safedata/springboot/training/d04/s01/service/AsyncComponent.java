@@ -27,7 +27,7 @@ public class AsyncComponent {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return new AsyncResult<>("Returning a Future async value");
     }
@@ -49,7 +49,7 @@ public class AsyncComponent {
         try {
             Thread.sleep(1500);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 }
