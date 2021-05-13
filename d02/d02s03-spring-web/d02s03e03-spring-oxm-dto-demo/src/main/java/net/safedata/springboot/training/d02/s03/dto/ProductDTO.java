@@ -8,13 +8,11 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * A DTO (Data Transfer Object) used to serialize / deserialize {@link net.safedata.springboot.training.d02.s03.model.Product} objects
+ * A DTO (Data Transfer Object) used to serialize / deserialize {@link net.safedata.spring.training.domain.model.Product} objects
  *
  * @author bogdan.solga
  */
 public class ProductDTO implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
 
     private int id;
 
@@ -25,8 +23,7 @@ public class ProductDTO implements Serializable {
     @Size(min = 10, max = 50, message = "Nope")
     private String productName;
 
-    public ProductDTO() {
-    }
+    public ProductDTO() {}
 
     public ProductDTO(final int id, final String productName) {
         this.id = id; this.productName = productName;
