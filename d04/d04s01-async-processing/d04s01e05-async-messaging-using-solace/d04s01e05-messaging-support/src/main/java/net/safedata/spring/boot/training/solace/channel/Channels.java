@@ -15,6 +15,7 @@ public final class Channels {
         public static final String CUSTOMER_UPDATED = "customer_updated";
         public static final String ORDER_CHARGED = "order_charged";
         public static final String ORDER_CREATED = "order_created";
+        public static final String ORDER_UPDATED = "solace-example/event/order_updated";
         public static final String ORDER_NOT_CHARGED = "order_not_charged";
         public static final String ORDER_SHIPPED = "order_shipped";
     }

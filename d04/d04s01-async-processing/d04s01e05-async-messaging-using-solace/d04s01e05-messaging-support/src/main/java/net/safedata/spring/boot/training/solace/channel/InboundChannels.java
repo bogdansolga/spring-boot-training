@@ -6,4 +6,7 @@ import org.springframework.messaging.MessageChannel;
 public interface InboundChannels {
     @Input(Channels.Commands.ADD_PRODUCT_TO_ORDER)
     MessageChannel addProductToOrder();
+
+    @Input(Channels.Events.ORDER_UPDATED)
+    MessageChannel orderUpdated();
 }

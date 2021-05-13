@@ -2,6 +2,7 @@ package net.safedata.spring.boot.training.solace.publisher;
 
 import net.safedata.spring.boot.training.solace.channel.OutboundChannels;
 import net.safedata.spring.boot.training.solace.event.AddProductToOrderCommand;
+import net.safedata.spring.boot.training.solace.event.OrderUpdatedEvent;
 import net.safedata.spring.boot.training.solace.message.MessageCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
@@ -21,5 +22,10 @@ public class MessagePublisher {
     public void publishAddProductToOrderEvent(final AddProductToOrderCommand addProductToOrderCommand) {
         outboundChannels.addProductToOrder()
                         .send(MessageCreator.create(addProductToOrderCommand));
+    }
+
+    public void publishOrderUpdatedEvent(final OrderUpdatedEvent orderUpdatedEvent) {
+        outboundChannels.orderUpdated()
+                .send(MessageCreator.create(orderUpdatedEvent));
     }
 }

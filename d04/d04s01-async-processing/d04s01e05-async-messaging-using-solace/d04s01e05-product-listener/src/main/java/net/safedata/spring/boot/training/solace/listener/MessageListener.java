@@ -3,6 +3,7 @@ package net.safedata.spring.boot.training.solace.listener;
 import net.safedata.spring.boot.training.solace.channel.Channels;
 import net.safedata.spring.boot.training.solace.channel.InboundChannels;
 import net.safedata.spring.boot.training.solace.event.AddProductToOrderCommand;
+import net.safedata.spring.boot.training.solace.event.OrderUpdatedEvent;
 import net.safedata.spring.boot.training.solace.service.ProductListenerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
@@ -23,5 +24,10 @@ public class MessageListener {
     @StreamListener(Channels.Commands.ADD_PRODUCT_TO_ORDER)
     public void addProductToOrder(final AddProductToOrderCommand addProductToOrderCommand) {
         productListenerService.addProductToOrder(addProductToOrderCommand);
+    }
+
+    @StreamListener(Channels.Events.ORDER_UPDATED)
+    public void handleOrderUpdatedEvent(final OrderUpdatedEvent orderUpdatedEvent) {
+        productListenerService.handleOrderUpdatedEvent(orderUpdatedEvent);
     }
 }

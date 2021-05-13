@@ -11,6 +11,7 @@ public enum Channel {
     FIND_ORDER(Channels.Queries.FIND_ORDER),
     ORDER_CHARGED(Channels.Events.ORDER_CHARGED),
     ORDER_CREATED(Channels.Events.ORDER_CREATED),
+    ORDER_UPDATED(Channels.Events.ORDER_UPDATED),
     ORDER_SHIPPED(Channels.Events.ORDER_SHIPPED),
     ORDER_NOT_CHARGED(Channels.Events.ORDER_NOT_CHARGED),
     SHIP_ORDER(Channels.Commands.SHIP_ORDER)
