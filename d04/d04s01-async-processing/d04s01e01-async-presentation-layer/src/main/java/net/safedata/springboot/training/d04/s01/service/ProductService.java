@@ -12,7 +12,7 @@ public class ProductService {
 
     public Product getById(int id) {
         longRunningOperation();
-        return new Product(id, "Mărțișor");
+        return new Product(id, "Coffee");
     }
 
     private void longRunningOperation() {
