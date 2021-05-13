@@ -50,7 +50,8 @@ public class ProductController {
                 new ResponseEntity<>("The request has timed-out", HttpStatus.REQUEST_TIMEOUT)));
 
         CompletableFuture.supplyAsync(() -> productService.getById(id), executor)
-                         .whenCompleteAsync((response, error) -> processAsyncResponse(deferredResult, response, error), executor);
+                         .whenCompleteAsync((response, error) ->
+                                 processAsyncResponse(deferredResult, response, error), executor);
 
         return deferredResult;
     }
