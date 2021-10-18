@@ -32,7 +32,7 @@ public class MultipleBeansSpringDemo {
     }
 
     private static void retrievingBeansByTypeAndID(final ApplicationContext applicationContext) {
-        // retrieving a bean by it's type and ID
+        // retrieving a bean by its type and ID
         final HelloSpring helloSpring = applicationContext.getBean("helloSpring", HelloSpring.class);
         helloSpring.displayWelcomeMessage();
     }

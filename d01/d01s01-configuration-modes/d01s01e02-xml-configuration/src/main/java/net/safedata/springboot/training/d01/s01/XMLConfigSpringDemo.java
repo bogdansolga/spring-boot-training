@@ -14,11 +14,11 @@ public class XMLConfigSpringDemo {
     public static void main(String[] args) {
         final ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-        // retrieving a Spring bean by it's class and using it
+        // retrieving a Spring bean by its class and using it
         final HelloSpring helloSpring = applicationContext.getBean(HelloSpring.class);
         helloSpring.displayWelcomeMessage();
 
-        // retrieving a bean by it's ID
+        // retrieving a bean by its ID
         //System.out.println(applicationContext.getBean("helloSpringAsString"));
     }
 }
