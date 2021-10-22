@@ -1,21 +1,20 @@
 # the name of the current app
 spring:
   application:
-    name: spring-boot-web-demo
+    name: spring-boot-real-database-connection-demo
 
   # DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
   datasource:
     driver-class-name: org.postgresql.Driver
     name: spring_boot
-    password: postgres
-    platform: postgresql
-    username: postgres
+    password: spring_boot_admin
+    username: spring_boot_admin
     url: jdbc:postgresql://localhost:5432/${spring.datasource.name}
 
   # JPA properties - JpaProperties
   jpa:
     hibernate:
-      ddl-auto: none # use it carefully, for development only
+      ddl-auto: create # use it carefully, for development only
 
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
 
@@ -31,6 +30,11 @@ spring:
   jackson:
     serialization:
       INDENT_OUTPUT: true
+
+  # the database type
+  sql:
+    init:
+      platform: postgresql
 
 # logging settings
 logging:
