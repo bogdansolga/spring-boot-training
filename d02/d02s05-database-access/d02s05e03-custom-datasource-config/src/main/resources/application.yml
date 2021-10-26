@@ -11,9 +11,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     name: spring_boot
-    password: postgres
-    platform: postgresql
-    username: postgres
+    password: spring_boot_admin
+    username: spring_boot_admin
     url: jdbc:postgresql://localhost:5432/${spring.datasource.name}
     type: com.zaxxer.hikari.HikariDataSource
 
@@ -40,6 +39,9 @@ spring:
   jackson:
     serialization:
       INDENT_OUTPUT: true
+  sql:
+    init:
+      platform: postgresql
 
 # logging settings
 logging:

@@ -9,8 +9,6 @@ spring:
       INDENT_OUTPUT: true
 
   datasource:
-    platform: h2
-
     # in-memory database
     url: jdbc:h2:mem:test
 
@@ -26,6 +24,10 @@ spring:
       hibernate:
       show_sql: false
       format_sql: true
+
+  sql:
+    init:
+      platform: h2
 
 # logging settings
 logging:
