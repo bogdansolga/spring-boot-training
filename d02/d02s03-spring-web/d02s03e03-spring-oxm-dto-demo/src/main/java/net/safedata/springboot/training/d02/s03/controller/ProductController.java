@@ -58,7 +58,7 @@ public class ProductController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<ProductDTO> getProductUsingResponseEntity(@PathVariable final int id) {
-        return new ResponseEntity<>(productService.get(id), HttpStatus.I_AM_A_TEAPOT);
+        return ResponseEntity.ok(productService.get(id));
     }
 
     @GetMapping
