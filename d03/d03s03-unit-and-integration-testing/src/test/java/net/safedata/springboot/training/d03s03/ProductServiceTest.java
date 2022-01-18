@@ -20,9 +20,15 @@ import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 class ProductServiceTest {
@@ -48,12 +54,12 @@ class ProductServiceTest {
         final List<ProductDTO> allProducts = productService.getAll();
 
         // assert --> verifying the response of the tested method is correct (by the requirements)  --> then
-        assertNotNull(allProducts);
-        assertThat(allProducts.size(), is(products.size()));
-        assertThat(allProducts.iterator().hasNext(), is(true));
+        assertNotNull(allProducts, "The products are null");
+        assertEquals(allProducts.size(), products.size(), "Not all the products were returned");
+        assertTrue(allProducts.iterator().hasNext(), "There is just a single product");
         allProducts.forEach(productDTO -> {
         	assertThat(productDTO.getId(), not(0));
-			assertThat("The name must not be null or empty", !StringUtils.isEmpty(productDTO.getProductName()));
+			assertThat("The name must not be null or empty", StringUtils.hasLength(productDTO.getProductName()));
         });
     }
 
