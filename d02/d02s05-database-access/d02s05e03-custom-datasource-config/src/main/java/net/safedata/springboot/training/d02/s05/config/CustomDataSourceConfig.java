@@ -65,14 +65,14 @@ public class CustomDataSourceConfig {
         hikariConfig.setPassword(password);
         hikariConfig.setDriverClassName(driverClassName);
 
-        return new HikariDataSource(hikariConfig);
+        return getHikariDataSource(hikariConfig);
     }
 
     @Bean
     public javax.sql.DataSource anotherConnectionPool() {
         final HikariConfig hikariConfig = new HikariConfig();
 
-        hikariConfig.setPoolName("hikari-first-connection-pool");
+        hikariConfig.setPoolName("hikari-second-connection-pool");
         hikariConfig.setMaximumPoolSize(AVAILABLE_PROCESSORS * 2);
         hikariConfig.setMinimumIdle(AVAILABLE_PROCESSORS / 2);
         hikariConfig.setConnectionTimeout(30000);
@@ -87,6 +87,11 @@ public class CustomDataSourceConfig {
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL95Dialect");
         hikariConfig.setDataSourceProperties(properties);
 
+        return getHikariDataSource(hikariConfig);
+    }
+
+    @Bean(destroyMethod = "close")
+    public HikariDataSource getHikariDataSource(HikariConfig hikariConfig) {
         return new HikariDataSource(hikariConfig);
     }
 
@@ -109,7 +114,7 @@ public class CustomDataSourceConfig {
         entityManagerFactoryBean.setJpaVendorAdapter(vendorAdaptor());
         entityManagerFactoryBean.setDataSource(dataSource);
         entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-        entityManagerFactoryBean.setPackagesToScan("");
+        entityManagerFactoryBean.setPackagesToScan("net.safedata.springboot.training.d02.s05.repository");
         entityManagerFactoryBean.setJpaProperties(jpaHibernateProperties());
 
         return entityManagerFactoryBean;
