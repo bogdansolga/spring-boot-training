@@ -67,7 +67,7 @@ public class ProductService {
     }
 
     private Product getOrThrow(final int id) {
-        // a short circuiting operation
+        // a short-circuiting operation
         return Optional.ofNullable(productRepository.get(id))
                        .orElseThrow(() -> new NotFoundException("There is no product with the ID " + id));
     }
