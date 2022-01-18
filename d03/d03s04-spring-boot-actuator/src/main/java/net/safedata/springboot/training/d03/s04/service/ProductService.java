@@ -18,7 +18,8 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    private Gauge gauge;
+    private final Gauge gauge;
+    private final Counter counter;
 
     @Autowired
     public ProductService(final ProductRepository productRepository, final MeterRegistry meterRegistry) {
@@ -28,6 +29,8 @@ public class ProductService {
 
         gauge = Gauge.builder("products.gauge", () -> new AtomicInteger(0))
                      .register(meterRegistry);
+        counter = Counter.builder("counter.name")
+                         .register(meterRegistry);
     }
 
     public void create(final Product product) {
@@ -35,6 +38,7 @@ public class ProductService {
     }
 
     public Product get(final int id) {
+        counter.increment();
         return productRepository.findById(id)
                                 .orElseThrow(() -> new IllegalArgumentException("Not found"));
     }
@@ -46,9 +50,7 @@ public class ProductService {
     public void update(final int id, final Product product) {
         final Product existingProduct = get(id);
 
-        final Counter counter = Metrics.counter("products.updatedProducts", "today", LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
         counter.increment();
-
         gauge.value();
 
         existingProduct.setName(product.getName());
