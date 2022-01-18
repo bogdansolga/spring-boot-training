@@ -26,7 +26,7 @@ public class PropertiesLoadingConfig {
     @Value("${product.price}")
     private double productPrice;
 
-    @Value("${external.property}")
+    @Value("${external.property:default}")
     private String externalProperty;
 
     @PostConstruct
