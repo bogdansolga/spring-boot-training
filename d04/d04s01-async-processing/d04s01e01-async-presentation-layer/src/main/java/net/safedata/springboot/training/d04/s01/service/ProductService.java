@@ -17,7 +17,7 @@ public class ProductService {
 
     private void longRunningOperation() {
         try {
-            LOGGER.info("Running a long running operation...");
+            LOGGER.info("[{}] Running a long running operation...", Thread.currentThread().getName());
             Thread.sleep(3000);
             //throw new IllegalArgumentException("Oops :)");
         } catch (InterruptedException e) {
