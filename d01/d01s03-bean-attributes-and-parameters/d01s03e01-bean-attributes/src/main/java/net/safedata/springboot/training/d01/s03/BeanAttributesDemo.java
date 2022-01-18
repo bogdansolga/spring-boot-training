@@ -22,7 +22,7 @@ public class BeanAttributesDemo {
         final ProductService productService = applicationContext.getBean(ProductService.class);
         productService.displayProducts();
 
-        System.out.println();
+        System.out.println("-------------------------------------------------------------");
 
         // retrieving and using the lazy initialized product service
         final ProductService theLazyProductService = applicationContext.getBean("lazyProductService", ProductService.class);
