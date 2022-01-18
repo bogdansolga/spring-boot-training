@@ -5,7 +5,8 @@ spring:
 
   autoconfigure:
     exclude:
-      # - org.springframework.boot.autoconfigure.web.WebClientAutoConfiguration
+      - org.springframework.boot.autoconfigure.context.ConfigurationPropertiesAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 
 # logging settings
 logging:
