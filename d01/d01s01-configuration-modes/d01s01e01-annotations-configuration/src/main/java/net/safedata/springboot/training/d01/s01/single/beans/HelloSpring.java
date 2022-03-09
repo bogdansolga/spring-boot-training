@@ -1,4 +1,4 @@
-package net.safedata.springboot.training.d01.s01.beans;
+package net.safedata.springboot.training.d01.s01.single.beans;
 
 import org.springframework.context.annotation.Bean;
 

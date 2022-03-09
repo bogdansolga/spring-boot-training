@@ -1,7 +1,7 @@
-package net.safedata.springboot.training.d01.s01;
+package net.safedata.springboot.training.d01.s01.multi;
 
-import net.safedata.springboot.training.d01.s01.beans.HelloSpring;
-import net.safedata.springboot.training.d01.s01.config.MultipleBeansConfig;
+import net.safedata.springboot.training.d01.s01.multi.beans.HelloSpring;
+import net.safedata.springboot.training.d01.s01.multi.config.MultipleBeansConfig;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -11,6 +11,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  *
  * @author bogdan.solga
  */
+@SuppressWarnings("unused")
 public class MultipleBeansSpringDemo {
 
     public static void main(String[] args) {

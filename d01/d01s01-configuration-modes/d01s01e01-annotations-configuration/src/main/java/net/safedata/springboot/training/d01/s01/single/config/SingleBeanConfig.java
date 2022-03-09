@@ -1,6 +1,6 @@
-package net.safedata.springboot.training.d01.s01.config;
+package net.safedata.springboot.training.d01.s01.single.config;
 
-import net.safedata.springboot.training.d01.s01.beans.HelloSpring;
+import net.safedata.springboot.training.d01.s01.single.beans.HelloSpring;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
