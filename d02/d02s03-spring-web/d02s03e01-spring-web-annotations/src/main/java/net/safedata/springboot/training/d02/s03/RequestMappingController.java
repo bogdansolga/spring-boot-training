@@ -6,6 +6,7 @@ import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
 import org.springframework.util.unit.DataSize;
 import org.springframework.util.unit.DataUnit;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,6 +40,7 @@ import java.util.concurrent.TimeUnit;
  * @author bogdan.solga
  */
 @RestController
+@RequestMapping("/examples")
 public class RequestMappingController {
 
     private static final LocalDateTime NOW = LocalDateTime.now();
@@ -93,14 +96,20 @@ public class RequestMappingController {
             path = "/stream",
             produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
     )
-    public void stream(final HttpServletResponse response) throws IOException {
+    public void stream(final HttpServletResponse response) {
         final ClassPathResource classPathResource = new ClassPathResource("spring-boot.png");
-        readAndWrite(classPathResource.getInputStream(), response.getOutputStream());
+
+        try (final InputStream inputStream = classPathResource.getInputStream();
+             final ServletOutputStream outputStream = response.getOutputStream()) {
+            readAndWrite(inputStream, outputStream);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @GetMapping(
             path = "/download",
-            produces = MediaType.APPLICATION_PDF_VALUE
+            produces = MediaType.IMAGE_PNG_VALUE
     )
     public ResponseEntity<StreamingResponseBody> download() throws IOException {
         final ClassPathResource classPathResource = new ClassPathResource("spring-boot.png");
@@ -115,7 +124,7 @@ public class RequestMappingController {
         final ContentDisposition contentDisposition = buildContentDisposition(trainingInfoFile);
         headers.setContentDisposition(contentDisposition);
         headers.setContentLength(trainingInfoFile.getFile().length());
-        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentType(MediaType.IMAGE_PNG);
         headers.setCacheControl(CacheControl.maxAge(7, TimeUnit.DAYS));
 
         return headers;
@@ -130,12 +139,7 @@ public class RequestMappingController {
     }
 
     private void readAndWrite(final InputStream inputStream, final OutputStream outputStream) throws IOException {
-        final byte[] data = new byte[(int) DataSize.of(1, DataUnit.MEGABYTES).toBytes()];
-        int read;
-        while ((read = inputStream.read(data)) > 0) {
-            outputStream.write(data, 0, read);
-        }
-        outputStream.flush();
+        StreamUtils.copy(inputStream, outputStream);
     }
 
     @GetMapping("/simpleGETMapping")
