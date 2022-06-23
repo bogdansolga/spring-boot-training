@@ -63,7 +63,7 @@
 
         <restassured.version>3.2.0</restassured.version>
 
-        <spring-boot.version>2.6.2</spring-boot.version>
+        <spring-boot.version>2.6.6</spring-boot.version>
 
         <testng.version>7.1.0</testng.version>
     </properties>
