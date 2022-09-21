@@ -13,14 +13,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.hamcrest.Matchers.hasSize;
 
-@SpringBootTest
+//@SpringBootTest
 @AutoConfigureMockMvc
 class ProductRESTControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
+    //@Test
     void given_thereAreTabletsInTheDatabase_andANewTabletIsCreated_whenRetrievingTablets_thenTheirNumberIsCorrect()
             throws Exception {
         MockHttpServletRequestBuilder builder =
