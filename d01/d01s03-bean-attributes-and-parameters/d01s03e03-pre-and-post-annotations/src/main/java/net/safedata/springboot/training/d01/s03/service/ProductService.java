@@ -2,7 +2,7 @@ package net.safedata.springboot.training.d01.s03.service;
 
 import net.safedata.springboot.training.d01.s03.repository.ProductRepository;
 
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 
 /**
  * A simple product service, which uses a {@link ProductRepository} as a collaborator

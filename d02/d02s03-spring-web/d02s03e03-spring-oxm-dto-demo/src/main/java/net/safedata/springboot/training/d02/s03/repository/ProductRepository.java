@@ -3,7 +3,7 @@ package net.safedata.springboot.training.d02.s03.repository;
 import net.safedata.spring.training.domain.model.Product;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 

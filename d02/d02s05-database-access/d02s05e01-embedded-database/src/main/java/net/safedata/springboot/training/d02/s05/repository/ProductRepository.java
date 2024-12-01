@@ -21,7 +21,7 @@ import java.util.stream.Stream;
  */
 @Repository
 @SuppressWarnings("unused")
-public interface ProductRepository extends PagingAndSortingRepository<Product, Integer> {
+public interface ProductRepository extends CrudRepository<Product, Integer>, PagingAndSortingRepository<Product, Integer> {
 
     Optional<List<Product>> findByName(final String name);
 

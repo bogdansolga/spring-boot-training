@@ -1,11 +1,13 @@
 logging:
   level:
-    root: debug
+    root: info
     org:
       apache: warn
       hibernate: warn
+      javax: warn
       jboss: warn
       springframework: warn
+    sun: warn
 
   pattern:
     console: '%clr([%date{HH:mm:ss.SSS}]){faint} %clr(%2p) %clr(%-40.40logger{36}){cyan} %m%n%wex'

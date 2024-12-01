@@ -15,11 +15,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.util.List;
 
+import static net.safedata.spring.training.complete.project.controller.ProductController.API_PREFIX;
 import static net.safedata.spring.training.complete.project.security.auth.Roles.ADMIN_ROLE;
 
 /**
@@ -29,9 +30,11 @@ import static net.safedata.spring.training.complete.project.security.auth.Roles.
  */
 @RestController
 @RequestMapping(
-        path = "/product"
+        path = API_PREFIX + "/product"
 )
 public class ProductController {
+
+    public static final String API_PREFIX = "/v1/api";
 
     private final ProductService productService;
 

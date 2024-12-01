@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 /**
- * A simple Spring {@link Configuration} which demos the usage of configuration files per activated
+ * A simple Spring {@link Configuration} which demos the usage of configuration files per activated profile
  *
  * @author bogdan.solga
  */

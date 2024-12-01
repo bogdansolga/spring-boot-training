@@ -11,7 +11,7 @@
     </parent>
 
     <name>d04s03-events-pub-sub</name>
-    <artifactId>d04s03</artifactId>
+    <artifactId>d04s03-events-pub-sub</artifactId>
 
     <dependencies>
         <dependency>

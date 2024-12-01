@@ -1,15 +1,15 @@
 package net.safedata.springboot.training.d03.s01.filter;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import java.io.IOException;
 
 /**
- * A sample of a security {@link javax.servlet.Filter}
+ * A sample of a security {@link jakarta.servlet.Filter}
  *
  * @author bogdan.solga
  */

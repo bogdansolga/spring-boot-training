@@ -3,7 +3,7 @@ package net.safedata.springboot.training.d03.s05.repository;
 import net.safedata.spring.training.jpa.model.Product;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -15,7 +15,7 @@ public class ProductRepository {
     private static final Random RANDOM = new Random(100);
 
     // an in-memory list of products
-    private List<Product> products = new ArrayList<>(10);
+    private final List<Product> products = new ArrayList<>(10);
 
     @PostConstruct
     public void init() {

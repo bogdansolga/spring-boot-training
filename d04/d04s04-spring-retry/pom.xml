@@ -11,7 +11,7 @@
     </parent>
 
     <name>d04s04-spring-retry</name>
-    <artifactId>d04s04</artifactId>
+    <artifactId>d04s04-spring-retry</artifactId>
 
     <dependencies>
         <dependency>

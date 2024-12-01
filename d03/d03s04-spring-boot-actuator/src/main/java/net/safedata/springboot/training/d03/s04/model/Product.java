@@ -1,10 +1,10 @@
 package net.safedata.springboot.training.d03.s04.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -14,7 +14,7 @@ import java.util.Objects;
  * @author bogdan.solga
  */
 @Entity
-@Table(name = "Product")
+@Table(name = "product")
 public class Product implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

@@ -3,7 +3,7 @@ package net.safedata.springboot.training.d01.s03.repository;
 import net.safedata.spring.training.domain.bootstrap.ProductsSetup;
 import net.safedata.spring.training.domain.model.Product;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import java.util.List;
 
 /**
@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class ProductRepository {
 
-    private List<Product> products = ProductsSetup.getRandomProducts();
+    private final List<Product> products = ProductsSetup.getRandomProducts();
 
     @PostConstruct
     public void init() {
