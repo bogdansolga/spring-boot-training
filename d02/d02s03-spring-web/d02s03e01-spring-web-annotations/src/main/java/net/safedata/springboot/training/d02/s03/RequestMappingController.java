@@ -39,7 +39,7 @@ import java.util.concurrent.TimeUnit;
  * @author bogdan.solga
  */
 @RestController
-@RequestMapping("/examples")
+@RequestMapping
 public class RequestMappingController {
 
     private static final LocalDateTime NOW = LocalDateTime.now();
@@ -59,7 +59,7 @@ public class RequestMappingController {
     @RequestMapping(
             method = RequestMethod.GET,
             path = "/requestParams"
-    )
+    ) // http://localhost:8080/requestParams?color=blue&weight=light
     public String requestParamsIntro(@RequestParam(name = "color") String color,
                                      @RequestParam(required = false) Optional<String> weight) {
         return "The color is '" + color + "', the weight is '" + weight.orElse("N/A") + "'";
@@ -71,7 +71,7 @@ public class RequestMappingController {
                     "/pathVariable/{first}",
                     "/pathVariable/{first}/{second}"
             }
-    )
+    ) // http://localhost:8080/pathVariable/green/blue
     public String pathVariableIntro(@PathVariable String first,
                                     @PathVariable(required = false) Optional<String> second) {
         return "The first path variable value is '" + first + "', the second is '" + second.orElse("N/A") + "'";
@@ -120,8 +120,7 @@ public class RequestMappingController {
     private HttpHeaders buildHttpHeaders(final ClassPathResource trainingInfoFile) throws IOException {
         final HttpHeaders headers = new HttpHeaders();
 
-        final ContentDisposition contentDisposition = buildContentDisposition(trainingInfoFile);
-        headers.setContentDisposition(contentDisposition);
+        headers.setContentDisposition(buildContentDisposition(trainingInfoFile));
         headers.setContentLength(trainingInfoFile.getFile().length());
         headers.setContentType(MediaType.IMAGE_PNG);
         headers.setCacheControl(CacheControl.maxAge(7, TimeUnit.DAYS));

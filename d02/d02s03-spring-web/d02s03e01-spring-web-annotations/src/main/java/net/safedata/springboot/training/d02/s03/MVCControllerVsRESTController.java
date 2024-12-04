@@ -11,11 +11,11 @@ public class MVCControllerVsRESTController {
 
     @RequestMapping("/mvc")
     public String getPage() {
-        return "index"; // will return the name of a page, not a response body
+        return "/index.html"; // will return the name of a page, not a response body
     }
 
     @RequestMapping("/rest")
     public @ResponseBody String getResponseBody() {
-        return "index";   // will return the response as a response body [because of the @ResponseBody annotation]
+        return "/index.html";   // will return the response as a response body [because of the @ResponseBody annotation]
     }
 }
