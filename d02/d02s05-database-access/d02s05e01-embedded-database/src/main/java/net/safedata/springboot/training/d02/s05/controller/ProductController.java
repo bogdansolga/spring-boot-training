@@ -28,9 +28,7 @@ import java.util.stream.StreamSupport;
  * @author bogdan.solga
  */
 @RestController
-@RequestMapping(
-        path = "/product"
-)
+@RequestMapping("/product")
 public class ProductController {
 
     private final ProductService productService; // database? web service? eMag? file?

@@ -45,6 +45,8 @@ public class ProductController {
             path = "/async/{id}"
     )
     public DeferredResult<ResponseEntity<?>> getAsyncProduct(@PathVariable final int id) {
+        LOGGER.info("Returning the product with the ID {}...", id);
+
         final DeferredResult<ResponseEntity<?>> deferredResult = new DeferredResult<>();
         deferredResult.onTimeout(() -> deferredResult.setResult(
                 new ResponseEntity<>("The request has timed-out", HttpStatus.REQUEST_TIMEOUT)));
@@ -53,6 +55,7 @@ public class ProductController {
                          .whenCompleteAsync((response, error) ->
                                  processAsyncResponse(deferredResult, response, error), executor);
 
+        LOGGER.info("Returning the result");
         return deferredResult;
     }
 

@@ -4,7 +4,10 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnJava;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.system.JavaVersion;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -68,6 +71,11 @@ public class CustomDataSourceConfig {
         return getHikariDataSource(hikariConfig);
     }
 
+    @ConditionalOnProperty(name = "use.second.cp", havingValue = "true")
+    @ConditionalOnJava(
+            range = ConditionalOnJava.Range.EQUAL_OR_NEWER,
+            value = JavaVersion.SEVENTEEN
+    )
     @Bean
     public javax.sql.DataSource anotherConnectionPool() {
         final HikariConfig hikariConfig = new HikariConfig();
@@ -84,7 +92,7 @@ public class CustomDataSourceConfig {
         hikariConfig.setDriverClassName(driverClassName);
 
         Properties properties = new Properties();
-        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL95Dialect");
+        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         hikariConfig.setDataSourceProperties(properties);
 
         return getHikariDataSource(hikariConfig);
@@ -109,12 +117,12 @@ public class CustomDataSourceConfig {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(final DataSource dataSource) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(final DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setJpaVendorAdapter(vendorAdaptor());
         entityManagerFactoryBean.setDataSource(dataSource);
         entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-        entityManagerFactoryBean.setPackagesToScan("net.safedata.springboot.training.d02.s05.repository");
+        entityManagerFactoryBean.setPackagesToScan("net.safedata.spring.training.jpa.model");
         entityManagerFactoryBean.setJpaProperties(jpaHibernateProperties());
 
         return entityManagerFactoryBean;

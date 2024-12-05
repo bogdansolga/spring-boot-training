@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class ProductRepository {
 
-    private List<Product> products = ProductsSetup.getRandomProducts();
+    private final List<Product> products = ProductsSetup.getRandomProducts();
 
     public void initialize() {
         System.out.println("Initializing the repository...");

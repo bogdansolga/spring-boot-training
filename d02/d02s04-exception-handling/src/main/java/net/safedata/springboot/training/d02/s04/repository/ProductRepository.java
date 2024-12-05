@@ -11,7 +11,7 @@ import java.util.List;
 public class ProductRepository {
 
     // an in-memory list of products
-    private List<Product> products = new ArrayList<>(1);
+    private final List<Product> products = new ArrayList<>(1);
 
     @PostConstruct
     public void init() {

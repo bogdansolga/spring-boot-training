@@ -1,5 +1,6 @@
 package net.safedata.springboot.training.d02.s01;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,10 +12,10 @@ import java.time.LocalTime;
  * @author bogdan.solga
  */
 @RestController
-@RequestMapping("/first")
+@RequestMapping
 public class SimpleRestController {
 
-    @RequestMapping("/hello")
+    @GetMapping("/hello")
     public String hello() {
         return "Hello, Spring Boot! The current time is " + LocalTime.now();
     }

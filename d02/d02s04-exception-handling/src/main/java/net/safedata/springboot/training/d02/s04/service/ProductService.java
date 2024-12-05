@@ -24,6 +24,7 @@ public class ProductService {
     }
 
     public void create(final ProductDTO productDTO) {
+        // short-circuiting
         validateRequest(productDTO);
 
         productRepository.create(getDTOConverter().apply(productDTO));
@@ -64,6 +65,7 @@ public class ProductService {
     private void validateRequest(final ProductDTO productDTO) {
         // throws an IllegalArgumentException
         Assert.notNull(productDTO, "Cannot process a null product");
+        Assert.hasLength(productDTO.getProductName(), "Cannot process a null product name");
     }
 
     private Product getOrThrow(final int id) {

@@ -17,11 +17,11 @@ public class ProductService {
 
     private void longRunningOperation() {
         try {
-            LOGGER.info("[{}] Running a long running operation...", Thread.currentThread().getName());
+            LOGGER.info("Running a long running operation...");
             Thread.sleep(3000);
-            //throw new IllegalArgumentException("Oops :)");
+            throw new IllegalArgumentException("Oops :)");
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 }

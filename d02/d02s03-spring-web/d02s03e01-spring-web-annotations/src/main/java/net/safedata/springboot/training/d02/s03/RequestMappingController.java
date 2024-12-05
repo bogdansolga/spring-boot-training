@@ -1,5 +1,7 @@
 package net.safedata.springboot.training.d02.s03;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.CacheControl;
 import org.springframework.http.ContentDisposition;
@@ -7,8 +9,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
-import org.springframework.util.unit.DataSize;
-import org.springframework.util.unit.DataUnit;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,9 +25,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.charset.Charset;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -42,7 +40,7 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping
 public class RequestMappingController {
 
-    private static final LocalDateTime NOW = LocalDateTime.now();
+    private static final Logger LOGGER = LoggerFactory.getLogger(RequestMappingController.class);
 
     @RequestMapping(
             method = RequestMethod.GET,
@@ -102,7 +100,7 @@ public class RequestMappingController {
              final ServletOutputStream outputStream = response.getOutputStream()) {
             readAndWrite(inputStream, outputStream);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.error(ex.getMessage(), ex);
         }
     }
 
@@ -128,11 +126,9 @@ public class RequestMappingController {
         return headers;
     }
 
-    private ContentDisposition buildContentDisposition(final ClassPathResource trainingInfoFile) throws IOException {
+    private ContentDisposition buildContentDisposition(final ClassPathResource trainingInfoFile) {
         return ContentDisposition.builder("attachment")
-                                 .filename(trainingInfoFile.getFilename(), Charset.forName("UTF-8"))
-                                 .creationDate(NOW.atZone(ZoneId.of("Europe/Bucharest")))
-                                 .size(trainingInfoFile.getFile().length())
+                                 .filename(trainingInfoFile.getFilename(), StandardCharsets.UTF_8)
                                  .build();
     }
 
@@ -145,7 +141,10 @@ public class RequestMappingController {
         return "A simple GetMapping";
     }
 
-    @PostMapping("/simplePOSTMapping")
+    @PostMapping(
+            value = "/simplePOSTMapping",
+            consumes = MediaType.APPLICATION_JSON_VALUE
+    )
     public String simplePostMapping() {
         return "A simple PostMapping";
     }

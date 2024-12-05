@@ -7,7 +7,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 /**
  * A simple demo for the usage of a Spring {@link org.springframework.context.annotation.Bean}s with configured
- * {@link javax.annotation.PostConstruct} and {@link javax.annotation.PreDestroy} annotations
+ * {@link jakarta.annotation.PostConstruct} and {@link jakarta.annotation.PreDestroy} annotations
  *
  * @author bogdan.solga
  */

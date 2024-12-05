@@ -46,8 +46,9 @@ public class ProductService {
             handleException(e);
         }
 
-        completableFuture.whenCompleteAsync((value, error) -> LOGGER.debug("{}", value));
+        completableFuture.whenCompleteAsync((value, error) -> LOGGER.info("{}", value));
         final String result = completableFuture.join();
+        LOGGER.info("The CompletableFuture result: {}", result);
     }
 
     public void asyncMethodReturningAFuture() {

@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public class ProductRepository {
 
-    private List<Product> products = ProductsSetup.getRandomProducts();
+    private final List<Product> products = ProductsSetup.getRandomProducts();
 
     public void displayProducts() {
         System.out.println("Displaying all the available products:");

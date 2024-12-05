@@ -25,7 +25,7 @@ spring:
   # JPA properties - JpaProperties
   jpa:
     hibernate:
-      # be VERY careful with it's usage
+      # be VERY careful with its usage
       # DO NOT use it for 'prod' | 'staging' environments
       ddl-auto: none
 

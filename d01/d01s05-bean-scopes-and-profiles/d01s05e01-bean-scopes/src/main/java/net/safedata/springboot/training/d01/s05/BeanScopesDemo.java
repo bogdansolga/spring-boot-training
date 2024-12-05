@@ -18,6 +18,12 @@ public class BeanScopesDemo {
     public static void main(String[] args) {
         final ApplicationContext applicationContext = new AnnotationConfigApplicationContext(BeanScopesConfig.class);
 
+        final ProductService productService = applicationContext.getBean(ProductService.class);
+        //System.out.println(productService.hashCode());
+
+        final ProductService secondProductService = applicationContext.getBean(ProductService.class);
+        //System.out.println(secondProductService.hashCode());
+
         displayingTheBeanHashCode(applicationContext);
 
         //System.out.println();
@@ -39,6 +45,5 @@ public class BeanScopesDemo {
 
         IntStream.rangeClosed(0, 2)
                  .forEach(productService::processUsingPrototypeService);
-
     }
 }

@@ -20,7 +20,7 @@ public class BeanAttributesConfig {
         return new ProductRepository();
     }
 
-    @Primary
+    @Primary // makes the bean the default bean
     @Bean
     public ProductService productService() {
         return new ProductService(productRepository(), "productService");

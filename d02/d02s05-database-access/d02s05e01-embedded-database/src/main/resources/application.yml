@@ -24,10 +24,14 @@ spring:
       hibernate:
       show_sql: false
       format_sql: true
+    hibernate:
+      ddl-auto: create
 
   sql:
     init:
       platform: h2
+      #schema-locations: 'schema.sql'
+      #data-locations: 'data.sql'
 
 # logging settings
 logging:

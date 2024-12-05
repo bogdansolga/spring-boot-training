@@ -10,11 +10,9 @@ spring:
 
   datasource:
     driver-class-name: org.h2.Driver
-    platform: h2
     url: jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=FALSE
     username: sa
     password: aVeryComplexPassword
-    initialization-mode: never
 
   jpa:
     hibernate:
@@ -25,6 +23,10 @@ spring:
         format_sql: true
 
     open-in-view: false
+  sql:
+    init:
+      platform: h2
+      mode: embedded
 
 # logging settings
 logging:

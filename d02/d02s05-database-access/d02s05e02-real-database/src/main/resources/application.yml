@@ -16,14 +16,10 @@ spring:
     hibernate:
       ddl-auto: create # use it carefully, for development only
 
-    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
-
     properties:
       hibernate:
         show_sql: false
         format_sql: false
-        temp:
-          use_jdbc_metadata_defaults: false
     open-in-view: false
 
   # indent the returned JSON responses

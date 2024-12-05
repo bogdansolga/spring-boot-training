@@ -34,7 +34,7 @@ public class Product extends AbstractEntity {
     private double price;
 
     @ManyToOne(targetEntity = Section.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "sectionId")
+    @JoinColumn(name = "section_id")
     private Section section;
 
     protected Product() {}

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * @author bogdan.solga
  */
 @Configuration
-public class BeanParametersConfig {
+public class BeanParametersConfig { // explicit config
 
     @Bean(initMethod = "initialize")
     public ProductRepository productRepository() {

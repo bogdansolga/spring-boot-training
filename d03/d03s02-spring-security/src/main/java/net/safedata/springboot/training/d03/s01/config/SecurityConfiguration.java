@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,9 +33,14 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfiguration {
 
     @Bean
-    public SecurityFilterChain webHttpSecurity(HttpSecurity http) throws Exception {
+    public SecurityFilterChain webHttpSecurity(HttpSecurity http,
+                                               SuccessfulAuthHandler successfulAuthHandler,
+                                               FailedAuthHandler failedAuthHandler,
+                                               PostLogoutHandler logoutHandler) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
             .cors(AbstractHttpConfigurer::disable)
+            .formLogin(form -> configureFormHandlers(form, successfulAuthHandler, failedAuthHandler))
+            .logout(logout -> logout.addLogoutHandler(logoutHandler))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers(HttpMethod.POST, API_PREFIX +"/auth/**").permitAll()
@@ -42,6 +48,13 @@ public class SecurityConfiguration {
                     .anyRequest().authenticated())
             .httpBasic(withDefaults());
         return http.build();
+    }
+
+    private void configureFormHandlers(FormLoginConfigurer<HttpSecurity> form,
+                                       SuccessfulAuthHandler successfulAuthHandler,
+                                       FailedAuthHandler failedAuthHandler) {
+        form.successHandler(successfulAuthHandler);
+        form.failureHandler(failedAuthHandler);
     }
 
     @Bean
