@@ -52,6 +52,8 @@
         <module>d02</module>
         <module>d03</module>
         <module>d04</module>
+
+        <module>your-own-self-built-project</module>
     </modules>
 
     <properties>
