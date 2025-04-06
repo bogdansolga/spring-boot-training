@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.concurrent.ListenableFuture;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -32,9 +31,6 @@ public class ProductService {
         LOGGER.info("Invoking an async method which returns a Future object...");
         final Future<String> future = asyncComponent.asyncMethodReturningAFuture();
 
-        LOGGER.info("Invoking an async method which returns a ListenableFuture object...");
-        final ListenableFuture<String> listenableFuture = asyncComponent.asyncMethodReturningAListenableFuture();
-
         LOGGER.info("Invoking an async method which returns a CompletableFuture object...");
         final CompletableFuture<String> completableFuture = asyncComponent.asyncMethodReturningACompletableFuture();
 
@@ -56,16 +52,6 @@ public class ProductService {
 
         try {
             getAndDisplayValue(future);
-        } catch (final ExecutionException | InterruptedException e) {
-            handleException(e);
-        }
-    }
-
-    public void asyncMethodReturningAListenableFuture() {
-        final ListenableFuture<String> listenableFuture = asyncComponent.asyncMethodReturningAListenableFuture();
-
-        try {
-            getAndDisplayValue(listenableFuture);
         } catch (final ExecutionException | InterruptedException e) {
             handleException(e);
         }

@@ -3,9 +3,7 @@ package net.safedata.springboot.training.d04.s01.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
-import org.springframework.util.concurrent.ListenableFuture;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
@@ -29,13 +27,7 @@ public class AsyncComponent {
         } catch (InterruptedException e) {
             LOGGER.error(e.getMessage(), e);
         }
-        return new AsyncResult<>("Returning a Future async value");
-    }
-
-    @Async
-    public ListenableFuture<String> asyncMethodReturningAListenableFuture() {
-        displayCurrentThreadName("asyncMethodReturningAListenableFuture");
-        return new AsyncResult<>("Returning a ListenableFuture async value");
+        return CompletableFuture.completedFuture("Returning a Future async value");
     }
 
     @Async
