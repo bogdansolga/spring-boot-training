@@ -18,5 +18,10 @@
             <groupId>net.safedata</groupId>
             <artifactId>jpa-domain-model</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
     </dependencies>
 </project>
