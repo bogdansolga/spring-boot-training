@@ -1,5 +1,6 @@
 package net.safedata.springboot.training.d01.s01.multi;
 
+import net.safedata.spring.training.domain.model.Product;
 import net.safedata.springboot.training.d01.s01.multi.beans.HelloSpring;
 import net.safedata.springboot.training.d01.s01.multi.config.MultipleBeansConfig;
 import org.springframework.context.ApplicationContext;
@@ -28,8 +29,8 @@ public class MultipleBeansSpringDemo {
         helloSpring.displayWelcomeMessage();
 
         // 'give me the bean (object) of type Product from the application context'
-        //final Product product = applicationContext.Product(String.class);
-        //System.out.println(product);
+        final Product product = applicationContext.getBean(Product.class);
+        System.out.println(product);
     }
 
     private static void retrievingBeansByTypeAndID(final ApplicationContext applicationContext) {

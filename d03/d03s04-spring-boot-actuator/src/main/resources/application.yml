@@ -9,7 +9,6 @@ spring:
       INDENT_OUTPUT: true
 
   datasource:
-    platform: h2
     url: jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=FALSE
     username: sa
     password: aVeryComplexPassword
@@ -21,6 +20,9 @@ spring:
         format_sql: true
 
     open-in-view: false
+  sql:
+    init:
+      platform: h2
 
 # logging settings
 logging:
@@ -41,8 +43,8 @@ logging:
 info:
   app:
     java:
-      source: 1.8
-      target: 1.8
+      source: 21
+      target: 21
   owner: someone
   key: value
 
@@ -50,13 +52,14 @@ management:
   endpoint:
     health:
       show-details: always
+    shutdown:
+      access: unrestricted
 
   health:
     defaults:
       enabled: true
 
   endpoints:
-    enabled-by-default: true
     web:
       exposure:
         include: '*'

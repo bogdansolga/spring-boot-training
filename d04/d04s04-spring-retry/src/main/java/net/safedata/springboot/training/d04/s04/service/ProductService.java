@@ -18,6 +18,7 @@ import org.springframework.retry.policy.SimpleRetryPolicy;
 import org.springframework.retry.support.RetryTemplate;
 import org.springframework.stereotype.Service;
 
+import java.net.http.HttpClient;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -35,8 +36,11 @@ public class ProductService {
     }
 
     @Retryable(
-            include = NotFoundException.class,
-            backoff = @Backoff(delay = 2000),
+            retryFor = NotFoundException.class,
+            backoff = @Backoff(
+                    delay = 100,
+                    multiplier = 1.1
+            ),
             maxAttempts = 5
     )
     public ProductDTO get(final int id) {
@@ -71,7 +75,7 @@ public class ProductService {
         return product -> new ProductDTO(product.getId(), product.getName());
     }
 
-    private class SimpleRetryListener implements RetryListener {
+    private static class SimpleRetryListener implements RetryListener {
         @Override
         public <T, E extends Throwable> boolean open(RetryContext context, RetryCallback<T, E> callback) {
             return false;

@@ -14,7 +14,7 @@ public class EnvironmentUsageDemo {
     private static final String PROFILES_ACTIVATION_PROPERTY = "spring.profiles.active";
 
     public static void main(String[] args) {
-        System.setProperty(PROFILES_ACTIVATION_PROPERTY, RunProfiles.DEV);
+        System.setProperty(PROFILES_ACTIVATION_PROPERTY, RunProfiles.PROD);
 
         final ApplicationContext applicationContext =
                 new AnnotationConfigApplicationContext(BeanProfilesDevConfig.class, BeanProfilesProdConfig.class);

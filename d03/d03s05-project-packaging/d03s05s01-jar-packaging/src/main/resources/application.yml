@@ -9,11 +9,9 @@ spring:
       INDENT_OUTPUT: true
 
   datasource:
-    platform: h2
     url: jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=TRUE
     username: sa
     password: aVeryComplexPassword
-    initialization-mode: never
 
   jpa:
     hibernate:
@@ -24,6 +22,10 @@ spring:
         format_sql: true
 
     open-in-view: false
+  sql:
+    init:
+      mode:
+      platform: h2
 
 # logging settings
 logging:

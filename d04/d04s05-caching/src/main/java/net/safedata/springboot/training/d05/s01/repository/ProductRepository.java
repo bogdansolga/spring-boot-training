@@ -25,7 +25,7 @@ public class ProductRepository {
 
     public Product get(int id) {
         try {
-            Thread.sleep(5000); // simulating a long running query
+            Thread.sleep(3000); // simulating a long running query
         } catch (final InterruptedException e) {
             e.printStackTrace();
         }

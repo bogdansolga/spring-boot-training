@@ -15,8 +15,8 @@ public class BeanAliasingConfig {
     // the specified name[s] will become the bean ID[s]
     @Bean(name = { // --> AKA
             "productRepository",
-            "repository",
-            "prodRepo"
+            "productRepo",
+            "repository"
     })
     public ProductRepository productRepository() {
         return new ProductRepository();

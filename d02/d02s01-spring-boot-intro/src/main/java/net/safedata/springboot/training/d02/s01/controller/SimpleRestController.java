@@ -1,4 +1,4 @@
-package net.safedata.springboot.training.d02.s01;
+package net.safedata.springboot.training.d02.s01.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

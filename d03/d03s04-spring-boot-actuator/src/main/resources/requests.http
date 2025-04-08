@@ -19,10 +19,10 @@ GET {{host}}:{{port}}//{{actuatorURI}}/threaddump
 ### ------------------------------------------------
 
 ### send a GET request on the custom endpoint
-GET {{host}}:{{port}}//{{actuatorURI}}/custom
+GET {{host}}:{{port}}//{{actuatorURI}}/memory
 
 ### send a POST request on the custom endpoint
-POST {{host}}:{{port}}//{{actuatorURI}}/custom
+POST {{host}}:{{port}}//{{actuatorURI}}/memory
 Content-Type: application/json
 
 {

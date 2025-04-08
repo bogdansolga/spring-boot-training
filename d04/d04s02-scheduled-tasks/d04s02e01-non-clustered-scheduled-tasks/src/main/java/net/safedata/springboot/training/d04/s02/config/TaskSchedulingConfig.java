@@ -19,7 +19,7 @@ public class TaskSchedulingConfig {
     public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
         final ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
 
-        threadPoolTaskScheduler.setPoolSize(PROCESSORS_COUNT);
+        threadPoolTaskScheduler.setPoolSize(PROCESSORS_COUNT / 2);
         threadPoolTaskScheduler.setThreadGroupName("scheduled-thread-pool-");
         threadPoolTaskScheduler.setThreadNamePrefix("scheduled-thread-");
         threadPoolTaskScheduler.setWaitForTasksToCompleteOnShutdown(true);

@@ -19,10 +19,10 @@ public class BeanScopesDemo {
         final ApplicationContext applicationContext = new AnnotationConfigApplicationContext(BeanScopesConfig.class);
 
         final ProductService productService = applicationContext.getBean(ProductService.class);
-        //System.out.println(productService.hashCode());
+        System.out.println(productService.hashCode());
 
         final ProductService secondProductService = applicationContext.getBean(ProductService.class);
-        //System.out.println(secondProductService.hashCode());
+        System.out.println(secondProductService.hashCode());
 
         displayingTheBeanHashCode(applicationContext);
 
