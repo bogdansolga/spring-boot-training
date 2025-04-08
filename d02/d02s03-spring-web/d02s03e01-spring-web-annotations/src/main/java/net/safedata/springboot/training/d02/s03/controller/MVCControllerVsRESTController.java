@@ -1,4 +1,4 @@
-package net.safedata.springboot.training.d02.s03;
+package net.safedata.springboot.training.d02.s03.controller;
 
 import org.springframework.context.annotation.Description;
 import org.springframework.stereotype.Controller;

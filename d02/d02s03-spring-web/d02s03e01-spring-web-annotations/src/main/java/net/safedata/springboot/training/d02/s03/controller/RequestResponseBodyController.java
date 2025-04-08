@@ -1,10 +1,7 @@
-package net.safedata.springboot.training.d02.s03;
+package net.safedata.springboot.training.d02.s03.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * A Spring {@link Controller} used to showcase the usages of the {@link RequestMapping} Spring web annotation
@@ -25,10 +22,7 @@ public class RequestResponseBodyController {
         return "Getting the body of a POST request using the @RequestBody annotation - " + request;
     }
 
-    @RequestMapping(
-            method = RequestMethod.POST,
-            path = "/responseBody"
-    )
+    @PostMapping("/responseBody")
     public @ResponseBody String responseBody() {
         return "Returning a response as a @ResponseBody";
     }

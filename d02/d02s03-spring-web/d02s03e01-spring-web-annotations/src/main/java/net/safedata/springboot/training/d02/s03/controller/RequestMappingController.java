@@ -1,4 +1,4 @@
-package net.safedata.springboot.training.d02.s03;
+package net.safedata.springboot.training.d02.s03.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
-import jakarta.servlet .ServletOutputStream;
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -75,9 +75,7 @@ public class RequestMappingController {
         return "The first path variable value is '" + first + "', the second is '" + second.orElse("N/A") + "'";
     }
 
-    @RequestMapping(
-            method = RequestMethod.GET
-    )
+    @GetMapping
     @SuppressWarnings("unused")
     public String requestAndResponseUsage(final HttpServletRequest request, final HttpServletResponse response,
                                           @RequestHeader("something") String header) {
