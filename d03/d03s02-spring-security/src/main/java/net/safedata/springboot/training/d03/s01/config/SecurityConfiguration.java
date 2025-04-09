@@ -41,7 +41,7 @@ public class SecurityConfiguration {
             .cors(AbstractHttpConfigurer::disable)
             .formLogin(form -> configureFormHandlers(form, successfulAuthHandler, failedAuthHandler))
             .logout(logout -> logout.addLogoutHandler(logoutHandler))
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers(HttpMethod.POST, API_PREFIX +"/auth/**").permitAll()
                     .requestMatchers(HttpMethod.POST, API_PREFIX +"/login", "/register").permitAll()
@@ -55,6 +55,7 @@ public class SecurityConfiguration {
                                        FailedAuthHandler failedAuthHandler) {
         form.successHandler(successfulAuthHandler);
         form.failureHandler(failedAuthHandler);
+        form.defaultSuccessUrl("/", true);
     }
 
     @Bean
