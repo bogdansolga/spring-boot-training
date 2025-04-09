@@ -58,20 +58,6 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3000"); // Your frontend URL
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-
-        return source;
-    }
-
-    @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http, UserDetailsManager userDetailsManager)
             throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
@@ -81,6 +67,7 @@ public class SecurityConfiguration {
                    .build();
     }
 
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
     }
@@ -104,12 +91,12 @@ public class SecurityConfiguration {
     public UserDetailsService userDetailsService() {
         UserDetails user = User.builder()
                                .username("user")
-                               .password("{bcrypt}$2a$10$GRLdNijSQMUvl/au9ofL.eDwmoohzzS7.rmNSJZ.0FxO/BTk76klW") // password
+                               .password("$2a$10$D5XLRx5LcWBmaMJhL76sLeVkqVHxtQAYdmOGjlhxptlC85KW6smOq") // password
                                .roles("USER")
                                .build();
         UserDetails admin = User.builder()
                                 .username("admin")
-                                .password("{bcrypt}$2a$10$GRLdNijSQMUvl/au9ofL.eDwmoohzzS7.rmNSJZ.0FxO/BTk76klW") // password
+                                .password("$2a$10$D5XLRx5LcWBmaMJhL76sLeVkqVHxtQAYdmOGjlhxptlC85KW6smOq") // password
                                 .roles("USER", "ADMIN")
                                 .build();
         return new InMemoryUserDetailsManager(user, admin);

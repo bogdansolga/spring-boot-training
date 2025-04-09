@@ -4,6 +4,7 @@ import net.safedata.spring.training.jpa.model.Product;
 import net.safedata.springboot.training.d02.s05.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,7 @@ public class ProductService {
     @Transactional(
             readOnly = false,
             propagation = Propagation.REQUIRED,
+            isolation = Isolation.READ_COMMITTED,
             rollbackFor = {
                   IllegalArgumentException.class,
                   UnsupportedOperationException.class
@@ -29,6 +31,7 @@ public class ProductService {
         productRepository.save(product);
     }
 
+    @Transactional(readOnly = true)
     public Product get(final int id) {
         return productRepository.findById(id)
                                 .orElseThrow(() -> new IllegalArgumentException("Not found"));

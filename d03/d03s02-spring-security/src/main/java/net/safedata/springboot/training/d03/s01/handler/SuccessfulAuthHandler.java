@@ -25,6 +25,6 @@ public class SuccessfulAuthHandler implements AuthenticationSuccessHandler {
             loggedInUser = (String) authenticationPrincipal;
         }
 
-        LOGGER.trace("The current authenticated user is '{}'", loggedInUser);
+        LOGGER.info("The current authenticated user is '{}'", loggedInUser);
     }
 }

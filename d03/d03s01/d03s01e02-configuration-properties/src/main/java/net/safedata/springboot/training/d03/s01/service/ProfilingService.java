@@ -28,12 +28,13 @@ public class ProfilingService {
 
     @PostConstruct
     public void displayProperties() {
-        System.out.println("Profiling environment - " + profilingEnvironment);
-        System.out.println("Profiling connection timeout - " + profilingConnectionTimeout);
-        System.out.println("Connection socket timeout - " + connectionSocketTimeout);
+        System.out.println("Profiling environment: " + profilingEnvironment);
+        System.out.println("Profiling connection timeout: " + profilingConnectionTimeout);
+        System.out.println("Connection socket timeout: " + connectionSocketTimeout);
 
         System.out.println(profilingConfiguration.getEnvironment());
-        System.out.println(profilingConfiguration.getConnection().getSocketTimeout());
-        System.out.println(profilingConfiguration.getConnection().getIps());
+        ProfilingConfiguration.Connection connection = profilingConfiguration.getConnection();
+        System.out.println(connection.getSocketTimeout());
+        System.out.println(connection.getIps());
     }
 }

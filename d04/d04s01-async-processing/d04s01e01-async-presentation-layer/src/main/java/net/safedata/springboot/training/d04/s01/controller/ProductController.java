@@ -1,5 +1,6 @@
 package net.safedata.springboot.training.d04.s01.controller;
 
+import net.safedata.springboot.training.d04.s01.dto.MessageDTO;
 import net.safedata.springboot.training.d04.s01.model.Product;
 import net.safedata.springboot.training.d04.s01.service.ProductService;
 import org.slf4j.Logger;
@@ -38,7 +39,7 @@ public class ProductController {
             path = "/sync/{id}"
     )
     public Product getProduct(@PathVariable final int id) {
-        return new Product(id, "Tablet");
+        return productService.getById(id);
     }
 
     @RequestMapping(
@@ -64,7 +65,7 @@ public class ProductController {
         if (exception == null) {
             deferred.setResult(ResponseEntity.ok(product));
         } else {
-            deferred.setErrorResult(new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
+            deferred.setErrorResult(new ResponseEntity<>(new MessageDTO(exception.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR));
         }
     }
 }

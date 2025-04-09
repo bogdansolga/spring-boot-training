@@ -12,8 +12,6 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,7 +42,7 @@ class ProductServiceTest {
     @DisplayName("Given there are available products, when retrieving the products then products are retrieved correctly")
     void givenThereAreAvailableProducts_whenRetrievingProducts_thenProductsAreRetrievedCorrectly() {
         // arrange, including mocking behavior setup    --> given
-        final List<Product> products = Arrays.asList(
+        final List<Product> products = List.of(
                 new Product(2, "Asus"),
                 new Product(5, "Dell")
         );
@@ -66,7 +64,7 @@ class ProductServiceTest {
     @Test
     @DisplayName("Given there are no available products, when retrieving the products then no products are retrieved")
     void givenThereAreNoAvailableProducts_whenRetrievingProducts_thenNoProductsAreReturned() {
-        when(productRepository.findAll()).thenReturn(new ArrayList<>());
+        when(productRepository.findAll()).thenReturn(List.of());
 
         final List<ProductDTO> allProducts = productService.getAll();
 
@@ -75,7 +73,7 @@ class ProductServiceTest {
     }
 
     @Test
-    @DisplayName("Given there are available products, when retrieving a product by ID then the product is retrieved")
+    @DisplayName("Given there are available products, when retrieving a product by ID then the product is correctly retrieved")
     void givenThereAreAvailableProducts_whenRetrievingAProductById_thenTheProductIsCorrectlyRetrieved() {
         final int productId = 20;
 
