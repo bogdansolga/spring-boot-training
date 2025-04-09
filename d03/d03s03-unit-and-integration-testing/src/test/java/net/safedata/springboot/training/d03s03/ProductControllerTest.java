@@ -64,7 +64,7 @@ public class ProductControllerTest extends AbstractTransactionalTestNGSpringCont
                 .get("/product").
         then()
                 .statusCode(HttpStatus.OK.value())
-                .body("$.size", is(1)) // the response array size is 1
+                .body("size()", is(1))
                 .body("[0].productName", is(PRODUCT_NAME));
     }
 
