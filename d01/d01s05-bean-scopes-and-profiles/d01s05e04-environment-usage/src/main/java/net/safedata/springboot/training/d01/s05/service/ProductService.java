@@ -22,7 +22,7 @@ public class ProductService {
     // the current environment can be easily autowired
     private final Environment environment;
 
-    private List<Product> products = ProductsSetup.getRandomProducts();
+    private final List<Product> products = ProductsSetup.getRandomProducts();
 
     @Autowired
     public ProductService(final Environment environment) {
@@ -30,6 +30,9 @@ public class ProductService {
     }
 
     public void displayProducts() {
+        System.getProperties().forEach((key, value) -> System.out.println(key + " : " + value));
+        System.out.println("--------------------------");
+
         if (environment.acceptsProfiles(Profiles.of(RunProfiles.PROD))) {
             System.out.println("Running with the '" + RunProfiles.PROD + "' profile...");
         }

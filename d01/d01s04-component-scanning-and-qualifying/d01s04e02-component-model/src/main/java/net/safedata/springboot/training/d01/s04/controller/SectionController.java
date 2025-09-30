@@ -1,5 +1,7 @@
 package net.safedata.springboot.training.d01.s04.controller;
 
-// TODO add the needed annotation
+import org.springframework.stereotype.Controller;
+
+@Controller
 public class SectionController {
 }

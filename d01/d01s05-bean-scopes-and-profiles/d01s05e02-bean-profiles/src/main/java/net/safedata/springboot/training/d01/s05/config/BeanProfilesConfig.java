@@ -40,7 +40,10 @@ public class BeanProfilesConfig {
     }
 
     @Bean
-    @Profile(RunProfiles.DEV)
+    @Profile({
+            RunProfiles.DEV,
+            RunProfiles.TOMCAT
+    })
     public FileSavingServiceExample devFileSavingServiceExample() {
         return new FileSavingServiceExample(new DevFileSavingService());
     }

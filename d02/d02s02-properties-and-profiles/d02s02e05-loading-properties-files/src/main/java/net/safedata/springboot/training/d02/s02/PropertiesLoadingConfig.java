@@ -15,7 +15,7 @@ import jakarta.annotation.PostConstruct;
  */
 @Configuration
 @PropertySource("classpath:product.properties")
-@PropertySource("file:${user.dir}/d02/d02s02/d02s02e05-loading-properties-files/src/main/an-external-file.properties")
+@PropertySource("file:${user.dir}/d02/d02s02-properties-and-profiles/d02s02e05-loading-properties-files/src/main/an-external-file.properties")
 public class PropertiesLoadingConfig {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PropertiesLoadingConfig.class);
@@ -29,9 +29,13 @@ public class PropertiesLoadingConfig {
     @Value("${external.property:default}")
     private String externalProperty;
 
+    @Value("${config.entry}")
+    private String configEntry;
+
     @PostConstruct
     public void init() {
         LOGGER.info("The product name is '{}', the product price is {}", productName, productPrice);
         LOGGER.info("The external property is '{}'", externalProperty);
+        LOGGER.info("The duplicated config entry is '{}'", configEntry);
     }
 }

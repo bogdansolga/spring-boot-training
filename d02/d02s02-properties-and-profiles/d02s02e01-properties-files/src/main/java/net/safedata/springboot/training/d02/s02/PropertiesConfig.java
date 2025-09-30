@@ -21,7 +21,7 @@ public class PropertiesConfig {
 
     private final ApplicationContext applicationContext;
 
-    @Value("${connection.timeout}")
+    @Value("${connection.timeout:}")
     private int connectionTimeout;
 
     @Autowired

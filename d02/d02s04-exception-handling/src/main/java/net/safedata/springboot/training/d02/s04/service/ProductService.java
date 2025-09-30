@@ -1,8 +1,8 @@
 package net.safedata.springboot.training.d02.s04.service;
 
+import net.safedata.spring.training.jpa.model.Product;
 import net.safedata.springboot.training.d02.s04.dto.ProductDTO;
 import net.safedata.springboot.training.d02.s04.exceptions.NotFoundException;
-import net.safedata.springboot.training.d02.s04.model.Product;
 import net.safedata.springboot.training.d02.s04.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,17 +55,17 @@ public class ProductService {
     }
 
     private Function<ProductDTO, Product> getDTOConverter() {
-        return dto -> new Product(dto.getId(), dto.getProductName());
+        return dto -> new Product(dto.id(), dto.name(), dto.price());
     }
 
     private Function<Product, ProductDTO> getProductConverter() {
-        return product -> new ProductDTO(product.getId(), product.getName());
+        return product -> new ProductDTO(product.getId(), product.getName(), product.getPrice());
     }
 
     private void validateRequest(final ProductDTO productDTO) {
         // throws an IllegalArgumentException
         Assert.notNull(productDTO, "Cannot process a null product");
-        Assert.hasLength(productDTO.getProductName(), "Cannot process a null product name");
+        Assert.hasLength(productDTO.name(), "Cannot process a null product name");
     }
 
     private Product getOrThrow(final int id) {

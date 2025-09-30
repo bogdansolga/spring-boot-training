@@ -1,6 +1,6 @@
 package net.safedata.springboot.training.d02.s04.repository;
 
-import net.safedata.springboot.training.d02.s04.model.Product;
+import net.safedata.spring.training.jpa.model.Product;
 import org.springframework.stereotype.Repository;
 
 import jakarta.annotation.PostConstruct;
@@ -41,10 +41,6 @@ public class ProductRepository {
     }
 
     private Product getDefaultProduct() {
-        final Product product = new Product();
-        product.setId(24);
-        product.setName("Dell XPS 9360");
-
-        return product;
+        return new Product(24, "Dell XPS 9360");
     }
 }

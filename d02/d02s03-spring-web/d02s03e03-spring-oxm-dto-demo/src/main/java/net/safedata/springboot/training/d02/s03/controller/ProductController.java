@@ -43,18 +43,12 @@ public class ProductController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @GetMapping(
-            path = "/{id}",
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @GetMapping("/{id}")
     public ProductDTO getProduct(@PathVariable final int id) {
         return productService.get(id);
     }
 
-    @GetMapping(
-            path = "/byId/{id}",
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @GetMapping("/byId/{id}")
     public ResponseEntity<ProductDTO> getProductUsingResponseEntity(@PathVariable final int id) {
         return ResponseEntity.ok(productService.get(id));
     }
@@ -72,8 +66,8 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable final int id) {
+    public ResponseEntity<String> delete(@PathVariable final int id) {
         productService.delete(id);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok("Deleted");
     }
 }

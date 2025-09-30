@@ -16,7 +16,7 @@ public class ProductRepository {
 
     public static final String ORACLE_REPO_BEAN_NAME = "oracleProductRepository";
 
-    private List<Product> products = ProductsSetup.getRandomProducts();
+    private final List<Product> products = ProductsSetup.getRandomProducts();
 
     private final String databaseType;
 

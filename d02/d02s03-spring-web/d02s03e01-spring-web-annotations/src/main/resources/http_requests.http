@@ -13,3 +13,7 @@ Content-Type: application/json
   "id": 3,
   "name": "Something"
 }
+
+###
+GET http://localhost:8080/product/1
+Content-Type: application/json

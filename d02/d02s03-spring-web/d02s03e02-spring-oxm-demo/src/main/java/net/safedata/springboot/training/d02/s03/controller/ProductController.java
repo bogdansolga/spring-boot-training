@@ -4,6 +4,7 @@ import net.safedata.spring.training.domain.model.Product;
 import net.safedata.springboot.training.d02.s03.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -39,7 +39,10 @@ public class ProductController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(
+            path = "/{id}",
+            consumes = MediaType.APPLICATION_XML_VALUE
+    )
     public Product get(@PathVariable final int id) {
         return productService.get(id);
     }
@@ -56,8 +59,9 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable final int id) {
+    public ResponseEntity<String> delete(@PathVariable final int id) {
         productService.delete(id);
-        return ResponseEntity.ok(HttpStatus.OK);
+        //return ResponseEntity.ok("Deleted the product with the ID: " + id);
+        return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
     }
 }

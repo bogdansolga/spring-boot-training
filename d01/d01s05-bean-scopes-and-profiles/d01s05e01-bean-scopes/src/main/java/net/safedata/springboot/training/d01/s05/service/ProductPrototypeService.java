@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unused")
 public class ProductPrototypeService {
 
-    private List<Product> products = ProductsSetup.getRandomProducts();
+    private final List<Product> products = ProductsSetup.getRandomProducts();
 
     private Set<String> values;
 
