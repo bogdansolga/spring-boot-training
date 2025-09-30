@@ -84,7 +84,7 @@
 
                 <configuration>
                     <executable>true</executable>
-                    <mainClass>net.safedata.springboot.training.complete.project.CompleteProductsProject</mainClass>
+                    <mainClass>net.safedata.spring.training.complete.project.CompleteProductsProject</mainClass>
 
                     <jvmArguments>-server -Xms128m -Xmx128m</jvmArguments>
 
