@@ -20,7 +20,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import static net.safedata.springboot.training.d03.s01.controller.ProductController.API_PREFIX;
@@ -57,10 +56,10 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(UserDetailsManager userDetailsManager,
+    public AuthenticationManager authenticationManager(UserDetailsService userDetailsService,
                                                        PasswordEncoder passwordEncoder) {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(passwordEncoder);
-        authProvider.setUserDetailsService(userDetailsManager);
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder);
         return new ProviderManager(authProvider);
     }
 
@@ -90,11 +89,13 @@ public class SecurityConfiguration {
                                .username("user")
                                .password("$2a$10$D5XLRx5LcWBmaMJhL76sLeVkqVHxtQAYdmOGjlhxptlC85KW6smOq") // password
                                .roles("USER")
+                               .authorities("CAN_READ")
                                .build();
         UserDetails admin = User.builder()
                                 .username("admin")
                                 .password("$2a$10$D5XLRx5LcWBmaMJhL76sLeVkqVHxtQAYdmOGjlhxptlC85KW6smOq") // password
                                 .roles("USER", "ADMIN")
+                                .authorities("CAN_READ", "CAN_WRITE", "CAN_DELETE")
                                 .build();
         return new InMemoryUserDetailsManager(user, admin);
     }

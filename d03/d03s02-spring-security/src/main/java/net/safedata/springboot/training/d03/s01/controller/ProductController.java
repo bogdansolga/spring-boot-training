@@ -3,6 +3,7 @@ package net.safedata.springboot.training.d03.s01.controller;
 import net.safedata.springboot.training.d03.s01.config.HasManagerRole;
 import net.safedata.springboot.training.d03.s01.config.Roles;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.security.core.Authentication;
@@ -34,24 +35,23 @@ public class ProductController {
             "AND hasAuthority('WRITE')"
     )
     @GetMapping("/product")
+    @PostAuthorize("returnObject.userId == authentication.details.userId")
     public void addProduct(final Authentication authentication, @RequestBody Product product) {
         UserDetails userDetails  = (UserDetails) authentication.getPrincipal();
         System.out.println("The user details: " + userDetails);
         // further use the Authentication object, if needed
     }
 
-    @PreFilter("filterObject.id == authentication.details.userId")
+    @PreFilter("filterObject.userId == authentication.details.userId")
     public void filterProducts(final List<Product> products) {
         // using the filtered products, afterwards
     }
     
-    @GetMapping(
-    		path = "/product/{id}"
-	)
+    @GetMapping("/product/{id}")
     public Product getProduct(@PathVariable final int id, final @AuthenticationPrincipal UserDetails userDetails) {
         final String username = userDetails.getUsername();
         System.out.println("The current user is '" + username + "'");
-        return new Product(20, "Tablet");
+        return new Product(20, 10, "Tablet");
     }
 
     // dynamically retrieving the authenticated user details
