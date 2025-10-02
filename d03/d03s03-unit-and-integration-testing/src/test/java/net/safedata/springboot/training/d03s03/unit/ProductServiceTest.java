@@ -1,4 +1,4 @@
-package net.safedata.springboot.training.d03s03;
+package net.safedata.springboot.training.d03s03.unit;
 
 import net.safedata.spring.training.jpa.model.Product;
 import net.safedata.springboot.training.d03s03.dto.ProductDTO;
@@ -102,9 +102,9 @@ class ProductServiceTest {
     @DisplayName("Given a product is saved, when saving the product then save is called one time and the response is not " +
             "null or empty")
     void givenAProductIsSaved_whenSavingTheProduct_thenSaveIsCalledOneTimesAndTheResponseShouldNotBeEmptyOrNull () {
-        final ProductDTO product = mock(ProductDTO.class);
+        final ProductDTO productDTO = mock(ProductDTO.class);
 
-        final String response = productService.save(product);
+        final String response = productService.save(productDTO);
 
         // it verifies that the .save method (from the productRepository collaborator) was called exactly 1 times
         verify(productRepository, times(1)).save(any(Product.class));

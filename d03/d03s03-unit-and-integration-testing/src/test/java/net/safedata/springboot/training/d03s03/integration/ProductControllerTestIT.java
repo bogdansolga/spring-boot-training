@@ -1,8 +1,10 @@
-package net.safedata.springboot.training.d03s03;
+package net.safedata.springboot.training.d03s03.integration;
 
 import io.restassured.RestAssured;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
+import net.safedata.springboot.training.d03s03.ProductServiceDemo;
+import net.safedata.springboot.training.d03s03.Profiles;
 import net.safedata.springboot.training.d03s03.dto.ProductDTO;
 import net.safedata.springboot.training.d03s03.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ import static org.hamcrest.core.Is.is;
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
 @ActiveProfiles(Profiles.IN_MEMORY)
-public class ProductControllerTest extends AbstractTransactionalTestNGSpringContextTests {
+public class ProductControllerTestIT extends AbstractTransactionalTestNGSpringContextTests {
 
     private static final String PRODUCT_NAME = "The product with the ID 1";
 

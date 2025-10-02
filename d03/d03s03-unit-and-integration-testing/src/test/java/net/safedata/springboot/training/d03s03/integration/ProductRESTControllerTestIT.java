@@ -1,4 +1,4 @@
-package net.safedata.springboot.training.d03s03;
+package net.safedata.springboot.training.d03s03.integration;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.hasSize;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class ProductRESTControllerTest {
+class ProductRESTControllerTestIT {
 
     @Autowired
     private MockMvc mockMvc;

@@ -12,6 +12,31 @@
 
     <artifactId>d03s03-unit-and-integration-testing</artifactId>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+
+                <configuration>
+                    <includes>
+                        <include>**/**IT.java</include>
+                    </includes>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -26,16 +51,6 @@
         <dependency>
             <groupId>net.safedata</groupId>
             <artifactId>jpa-domain-model</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
         </dependency>
 
         <dependency>
@@ -65,4 +80,5 @@
             <artifactId>testng</artifactId>
         </dependency>
     </dependencies>
+
 </project>
