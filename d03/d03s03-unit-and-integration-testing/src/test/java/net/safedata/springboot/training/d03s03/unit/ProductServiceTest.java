@@ -112,4 +112,226 @@ class ProductServiceTest {
         assertNotNull(response);
         assertThat("The displayed error message", response.length(), not(0));
     }
+
+    // ========================================
+    // UPDATE tests
+    // ========================================
+
+    @Test
+    @DisplayName("Given a product exists, when updating the product then the product is updated correctly")
+    void givenAProductExists_whenUpdatingTheProduct_thenTheProductIsUpdatedCorrectly() {
+        final int productId = 10;
+        final String newProductName = "Updated Product";
+
+        final Product existingProduct = new Product(productId, "Old Product");
+        final ProductDTO productDTO = new ProductDTO(productId, newProductName);
+
+        when(productRepository.findById(productId)).thenReturn(Optional.of(existingProduct));
+        when(productRepository.save(any(Product.class))).thenReturn(existingProduct);
+
+        productService.update(productId, productDTO);
+
+        verify(productRepository, times(1)).findById(productId);
+        verify(productRepository, times(1)).save(any(Product.class));
+    }
+
+    @Test
+    @DisplayName("Given a product does not exist, when updating the product then an IAE is thrown")
+    void givenAProductDoesNotExist_whenUpdatingTheProduct_thenAnIllegalArgumentExceptionIsThrown() {
+        final int productId = 999;
+        final ProductDTO productDTO = new ProductDTO(productId, "Product Name");
+
+        when(productRepository.findById(productId)).thenReturn(Optional.empty());
+
+        assertThrows(IllegalArgumentException.class, () -> productService.update(productId, productDTO));
+        verify(productRepository, times(1)).findById(productId);
+        verify(productRepository, times(0)).save(any(Product.class));
+    }
+
+    @Test
+    @DisplayName("Given a null ProductDTO, when updating the product then an NPE is thrown")
+    void givenANullProductDTO_whenUpdatingTheProduct_thenANullPointerExceptionIsThrown() {
+        final int productId = 10;
+        final Product existingProduct = new Product(productId, "Old Product");
+
+        when(productRepository.findById(productId)).thenReturn(Optional.of(existingProduct));
+
+        assertThrows(NullPointerException.class, () -> productService.update(productId, null));
+    }
+
+    @Test
+    @DisplayName("Given a negative product ID, when updating the product then an IAE is thrown")
+    void givenANegativeProductId_whenUpdatingTheProduct_thenAnIllegalArgumentExceptionIsThrown() {
+        final int negativeId = -5;
+        final ProductDTO productDTO = new ProductDTO(negativeId, "Product Name");
+
+        when(productRepository.findById(negativeId)).thenReturn(Optional.empty());
+
+        assertThrows(IllegalArgumentException.class, () -> productService.update(negativeId, productDTO));
+    }
+
+    // ========================================
+    // DELETE tests
+    // ========================================
+
+    @Test
+    @DisplayName("Given a product exists, when deleting the product then the product is deleted correctly")
+    void givenAProductExists_whenDeletingTheProduct_thenTheProductIsDeletedCorrectly() {
+        final int productId = 15;
+        final Product product = new Product(productId, "Product to Delete");
+
+        when(productRepository.findById(productId)).thenReturn(Optional.of(product));
+
+        productService.delete(productId);
+
+        verify(productRepository, times(1)).findById(productId);
+        verify(productRepository, times(1)).delete(product);
+    }
+
+    @Test
+    @DisplayName("Given a product does not exist, when deleting the product then an IAE is thrown")
+    void givenAProductDoesNotExist_whenDeletingTheProduct_thenAnIllegalArgumentExceptionIsThrown() {
+        final int productId = 999;
+
+        when(productRepository.findById(productId)).thenReturn(Optional.empty());
+
+        assertThrows(IllegalArgumentException.class, () -> productService.delete(productId));
+        verify(productRepository, times(1)).findById(productId);
+        verify(productRepository, times(0)).delete(any(Product.class));
+    }
+
+    @Test
+    @DisplayName("Given a negative product ID, when deleting the product then an IAE is thrown")
+    void givenANegativeProductId_whenDeletingTheProduct_thenAnIllegalArgumentExceptionIsThrown() {
+        final int negativeId = -10;
+
+        when(productRepository.findById(negativeId)).thenReturn(Optional.empty());
+
+        assertThrows(IllegalArgumentException.class, () -> productService.delete(negativeId));
+        verify(productRepository, times(0)).delete(any(Product.class));
+    }
+
+    @Test
+    @DisplayName("Given a zero product ID, when deleting the product then an IAE is thrown")
+    void givenAZeroProductId_whenDeletingTheProduct_thenAnIllegalArgumentExceptionIsThrown() {
+        final int zeroId = 0;
+
+        when(productRepository.findById(zeroId)).thenReturn(Optional.empty());
+
+        assertThrows(IllegalArgumentException.class, () -> productService.delete(zeroId));
+    }
+
+    // ========================================
+    // Additional edge cases for GET
+    // ========================================
+
+    @Test
+    @DisplayName("Given a negative product ID, when retrieving a product then an IAE is thrown")
+    void givenANegativeProductId_whenRetrievingAProduct_thenAnIllegalArgumentExceptionIsThrown() {
+        final int negativeId = -1;
+
+        when(productRepository.findById(negativeId)).thenReturn(Optional.empty());
+
+        assertThrows(IllegalArgumentException.class, () -> productService.get(negativeId));
+    }
+
+    @Test
+    @DisplayName("Given a zero product ID, when retrieving a product then an IAE is thrown")
+    void givenAZeroProductId_whenRetrievingAProduct_thenAnIllegalArgumentExceptionIsThrown() {
+        final int zeroId = 0;
+
+        when(productRepository.findById(zeroId)).thenReturn(Optional.empty());
+
+        assertThrows(IllegalArgumentException.class, () -> productService.get(zeroId));
+    }
+
+    @Test
+    @DisplayName("Given the special throwing ID 13, when retrieving a product then an IAE is thrown with specific message")
+    void givenTheSpecialThrowingId_whenRetrievingAProduct_thenAnIllegalArgumentExceptionIsThrownWithSpecificMessage() {
+        final int throwingId = 13;
+
+        final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> productService.get(throwingId));
+
+        assertThat(exception.getMessage(), is("There is no product with the ID 13"));
+    }
+
+    // ========================================
+    // Additional edge cases for SAVE
+    // ========================================
+
+    @Test
+    @DisplayName("Given a null ProductDTO, when saving the product then an NPE is thrown")
+    void givenANullProductDTO_whenSavingTheProduct_thenANullPointerExceptionIsThrown() {
+        assertThrows(NullPointerException.class, () -> productService.save(null));
+        verify(productRepository, times(0)).save(any(Product.class));
+    }
+
+    @Test
+    @DisplayName("Given a ProductDTO with null product name, when saving the product then save is still called")
+    void givenAProductDTOWithNullProductName_whenSavingTheProduct_thenSaveIsStillCalled() {
+        final ProductDTO productDTO = new ProductDTO(1, null);
+
+        final String response = productService.save(productDTO);
+
+        verify(productRepository, times(1)).save(any(Product.class));
+        assertNotNull(response);
+    }
+
+    @Test
+    @DisplayName("Given a ProductDTO with empty product name, when saving the product then save is called")
+    void givenAProductDTOWithEmptyProductName_whenSavingTheProduct_thenSaveIsCalled() {
+        final ProductDTO productDTO = new ProductDTO(1, "");
+
+        final String response = productService.save(productDTO);
+
+        verify(productRepository, times(1)).save(any(Product.class));
+        assertNotNull(response);
+        assertThat(response, is("OK"));
+    }
+
+    // ========================================
+    // Additional edge cases for GETALL
+    // ========================================
+
+    @Test
+    @DisplayName("Given products with filtering criteria, when retrieving all products then filtering is applied correctly")
+    void givenProductsWithFilteringCriteria_whenRetrievingAllProducts_thenFilteringIsAppliedCorrectly() {
+        final List<Product> products = List.of(
+                new Product(1, "Apple"),
+                new Product(25, ""), // should be filtered out (empty name and id >= 20)
+                new Product(5, "Banana"),
+                new Product(30, "Cherry") // id >= 20 but has a name, should pass filter
+        );
+        when(productRepository.findAll()).thenReturn(products);
+
+        final List<ProductDTO> allProducts = productService.getAll();
+
+        assertNotNull(allProducts);
+        // Based on filterItem() predicate: !product.getName().isEmpty() || product.getId() < 20
+        // Product(1, "Apple") -> passes (id < 20)
+        // Product(25, "") -> fails (name is empty AND id >= 20)
+        // Product(5, "Banana") -> passes (id < 20)
+        // Product(30, "Cherry") -> passes (name not empty)
+        assertThat(allProducts.size(), is(3));
+    }
+
+    @Test
+    @DisplayName("Given products in random order, when retrieving all products then products are sorted by name")
+    void givenProductsInRandomOrder_whenRetrievingAllProducts_thenProductsAreSortedByName() {
+        final List<Product> products = List.of(
+                new Product(1, "Zebra"),
+                new Product(2, "Apple"),
+                new Product(3, "Mango")
+        );
+        when(productRepository.findAll()).thenReturn(products);
+
+        final List<ProductDTO> allProducts = productService.getAll();
+
+        assertNotNull(allProducts);
+        assertThat(allProducts.size(), is(3));
+        assertThat(allProducts.get(0).getProductName(), is("Apple"));
+        assertThat(allProducts.get(1).getProductName(), is("Mango"));
+        assertThat(allProducts.get(2).getProductName(), is("Zebra"));
+    }
 }
