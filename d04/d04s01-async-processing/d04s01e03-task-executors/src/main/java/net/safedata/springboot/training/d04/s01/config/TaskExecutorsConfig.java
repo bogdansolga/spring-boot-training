@@ -19,16 +19,22 @@ public class TaskExecutorsConfig {
     public ThreadPoolTaskExecutor longLivedTaskExecutor() {
         final ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
 
-        threadPoolTaskExecutor.setCorePoolSize(PROCESSORS_COUNT);
+        threadPoolTaskExecutor.setCorePoolSize(PROCESSORS_COUNT / 2);
         threadPoolTaskExecutor.setMaxPoolSize(PROCESSORS_COUNT * 2);
         threadPoolTaskExecutor.setKeepAliveSeconds(60);
+
+        // how many tasks can be queued before being rejected
         threadPoolTaskExecutor.setQueueCapacity(1000);
+
+        // the rejection policy for the executor
+        threadPoolTaskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+
         threadPoolTaskExecutor.setThreadGroupName("executor-thread-pool-");
-        threadPoolTaskExecutor.setThreadNamePrefix("exec-thread-");
+        threadPoolTaskExecutor.setThreadNamePrefix("long-lived-exec-thread-");
         threadPoolTaskExecutor.setWaitForTasksToCompleteOnShutdown(true);
         threadPoolTaskExecutor.setAwaitTerminationSeconds(20);
         threadPoolTaskExecutor.setAllowCoreThreadTimeOut(true);
-        threadPoolTaskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+
         threadPoolTaskExecutor.initialize();
 
         return threadPoolTaskExecutor;
@@ -38,7 +44,7 @@ public class TaskExecutorsConfig {
     public ThreadPoolTaskExecutor shortLivedTasksExecutor() {
         final ThreadPoolTaskExecutor shortLivedTaskExecutor = new ThreadPoolTaskExecutor();
 
-        shortLivedTaskExecutor.setCorePoolSize(PROCESSORS_COUNT);
+        shortLivedTaskExecutor.setCorePoolSize(PROCESSORS_COUNT / 2);
         shortLivedTaskExecutor.setMaxPoolSize(PROCESSORS_COUNT * 2);
         shortLivedTaskExecutor.setKeepAliveSeconds(10);
         shortLivedTaskExecutor.setQueueCapacity(100);

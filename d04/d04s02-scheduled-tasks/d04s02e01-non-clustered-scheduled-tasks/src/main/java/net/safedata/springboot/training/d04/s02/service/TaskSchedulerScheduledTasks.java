@@ -11,7 +11,10 @@ import org.springframework.scheduling.support.SimpleTriggerContext;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;
+
+import java.time.Instant;
 import java.util.Date;
+import java.util.Optional;
 import java.util.TimeZone;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -40,11 +43,11 @@ public class TaskSchedulerScheduledTasks {
         final Runnable task = () -> LOGGER.info("[cronTriggerTask] Processing the latest sold products...");
         final CronTrigger cronTrigger = new CronTrigger("1 * * * * MON-FRI", CURRENT_TIME_ZONE);
 
-        final TriggerContext triggerContext = new SimpleTriggerContext(new Date(), new Date(), new Date());
-        cronTrigger.nextExecutionTime(triggerContext);
+        final TriggerContext triggerContext = new SimpleTriggerContext(Instant.now(), Instant.now(), Instant.now());
+        cronTrigger.nextExecution(triggerContext);
 
-        final ScheduledFuture<?> schedule = taskScheduler.schedule(task, cronTrigger);
-        LOGGER.debug("Is it done? - {}", schedule.isDone());
+        final Optional<ScheduledFuture<?>> futureOptional = Optional.ofNullable(taskScheduler.schedule(task, cronTrigger));
+        futureOptional.ifPresent(optional -> LOGGER.debug("Is it done? - {}", optional.isDone()));
     }
 
     private void periodicTriggerTask() {

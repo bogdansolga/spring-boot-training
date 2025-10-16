@@ -15,6 +15,6 @@ public class AsyncProductEventHandler {
     @Async
     @EventListener(condition = "#productRetrievedEvent.productName.length() > 0")
     public void processAsyncProductEvent(final ProductRetrievedEvent productRetrievedEvent) {
-        LOGGER.info("Processing the product '{}' async...", productRetrievedEvent.getProductName());
+        LOGGER.info("Processing the product '{}' async...", productRetrievedEvent.productName());
     }
 }

@@ -60,6 +60,13 @@ public class ProductController {
         return deferredResult;
     }
 
+    @RequestMapping(
+            path = "/async/cf/{id}"
+    )
+    public CompletableFuture<Product> getAsyncCFProduct(@PathVariable final int id) {
+        return CompletableFuture.supplyAsync(() -> productService.getById(id), executor);
+    }
+
     private void processAsyncResponse(final DeferredResult<ResponseEntity<?>> deferred, final Product product,
                                       final Throwable exception) {
         if (exception == null) {

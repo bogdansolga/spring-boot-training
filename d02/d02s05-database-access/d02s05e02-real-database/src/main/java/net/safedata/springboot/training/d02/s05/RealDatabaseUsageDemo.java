@@ -1,9 +1,7 @@
 package net.safedata.springboot.training.d02.s05;
 
-import jakarta.annotation.PostConstruct;
 import net.safedata.spring.training.jpa.model.Product;
 import net.safedata.springboot.training.d02.s05.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

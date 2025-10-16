@@ -16,7 +16,7 @@ public class SyncProductEventHandler {
 
     @EventListener(ProductRetrievedEvent.class)
     public void processProduct(final ProductRetrievedEvent productRetrievedEvent) {
-        LOGGER.info("The product '{}' was read", productRetrievedEvent.getProductName());
+        LOGGER.info("The product '{}' was read", productRetrievedEvent.productName());
 
         //TODO uncomment the following line, to see the effect of an exception thrown from a sync event handler
         //throw new IllegalArgumentException("What happens when an exception is thrown from a sync event handler?");

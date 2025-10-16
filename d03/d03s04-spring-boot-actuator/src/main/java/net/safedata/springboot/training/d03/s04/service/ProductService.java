@@ -26,7 +26,7 @@ public class ProductService {
 
         gauge = Gauge.builder("products.gauge", () -> new AtomicInteger(0))
                      .register(meterRegistry);
-        counter = Counter.builder("counter.name")
+        counter = Counter.builder("products.counter")
                          .register(meterRegistry);
     }
 

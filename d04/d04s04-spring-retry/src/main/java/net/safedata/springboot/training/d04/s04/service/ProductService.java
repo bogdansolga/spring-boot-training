@@ -38,8 +38,8 @@ public class ProductService {
     @Retryable(
             retryFor = NotFoundException.class,
             backoff = @Backoff(
-                    delay = 100,
-                    multiplier = 1.1
+                    delay = 500,
+                    multiplier = 1.2
             ),
             maxAttempts = 5
     )

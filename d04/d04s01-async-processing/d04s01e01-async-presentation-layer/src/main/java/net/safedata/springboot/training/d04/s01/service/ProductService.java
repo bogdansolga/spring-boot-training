@@ -19,7 +19,7 @@ public class ProductService {
         try {
             LOGGER.info("Running a long running operation...");
             Thread.sleep(3000);
-            throw new IllegalArgumentException("Oops :)");
+            //throw new IllegalArgumentException("Oops :)");
         } catch (InterruptedException e) {
             LOGGER.error(e.getMessage(), e);
         }
