@@ -2,7 +2,6 @@ package net.safedata.springboot.training.d03.s01;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,15 +29,6 @@ public class ConditionalBeansConfig {
     public String conditionalOnProperty() {
         System.out.println("Enabling our important [and experimental] feature...");
         return "Conditional on a property";
-    }
-
-    @Bean
-    @ConditionalOnProperty(
-    		name = "used.webserver",
-    		havingValue = "jetty"
-	)
-    public JettyServletWebServerFactory jetty() {
-        return new JettyServletWebServerFactory(9999);
     }
 
     // a 'feature toggle' sample approach

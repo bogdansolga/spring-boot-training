@@ -4,21 +4,17 @@ import net.safedata.springboot.training.d04.s04.dto.ProductDTO;
 import net.safedata.springboot.training.d04.s04.exceptions.NotFoundException;
 import net.safedata.springboot.training.d04.s04.model.Product;
 import net.safedata.springboot.training.d04.s04.repository.ProductRepository;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.retry.RetryCallback;
-import org.springframework.retry.RetryContext;
-import org.springframework.retry.RetryListener;
-import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.Recover;
-import org.springframework.retry.annotation.Retryable;
-import org.springframework.retry.backoff.ExponentialBackOffPolicy;
-import org.springframework.retry.policy.SimpleRetryPolicy;
-import org.springframework.retry.support.RetryTemplate;
+import org.springframework.core.retry.RetryException;
+import org.springframework.core.retry.RetryListener;
+import org.springframework.core.retry.RetryPolicy;
+import org.springframework.core.retry.RetryTemplate;
+import org.springframework.resilience.annotation.Retryable;
 import org.springframework.stereotype.Service;
 
-import java.net.http.HttpClient;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -36,12 +32,12 @@ public class ProductService {
     }
 
     @Retryable(
-            retryFor = NotFoundException.class,
-            backoff = @Backoff(
-                    delay = 500,
-                    multiplier = 1.2
-            ),
-            maxAttempts = 5
+            includes = NotFoundException.class,
+            maxRetries = 4,
+            delay = 100,
+            jitter = 10,
+            multiplier = 1.2,
+            maxDelay = 1000
     )
     public ProductDTO get(final int id) {
         LOGGER.info("Getting the product with the ID {}...", id);
@@ -53,21 +49,14 @@ public class ProductService {
         return getProductConverter().apply(product);
     }
 
-    @Recover
-    public ProductDTO recover(final NotFoundException nfe, final int productId) {
-        LOGGER.info("Recovering from '{}'...", nfe.getMessage());
-        return new ProductDTO(productId, "Default product");
-    }
-
     private void usingRetryTemplate() {
         final RetryTemplate retryTemplate = new RetryTemplate();
-        retryTemplate.setRetryPolicy(new SimpleRetryPolicy(5));
-        retryTemplate.setBackOffPolicy(new ExponentialBackOffPolicy());
-        retryTemplate.setListeners(new RetryListener[]{new SimpleRetryListener()});
+        retryTemplate.setRetryPolicy(RetryPolicy.withMaxRetries(5));
+        retryTemplate.setRetryListener(new SimpleRetryListener());
         try {
-            retryTemplate.execute((RetryCallback<String, Throwable>) context -> "something");
+            retryTemplate.execute(() -> productRepository.get(1));
         } catch (Throwable throwable) {
-            throwable.printStackTrace();
+            LOGGER.error(throwable.getMessage(), throwable);
         }
     }
 
@@ -77,20 +66,28 @@ public class ProductService {
 
     private static class SimpleRetryListener implements RetryListener {
         @Override
-        public <T, E extends Throwable> boolean open(RetryContext context, RetryCallback<T, E> callback) {
-            return false;
+        public void beforeRetry(RetryPolicy retryPolicy, org.springframework.core.retry.Retryable<?> retryable) {
+            RetryListener.super.beforeRetry(retryPolicy, retryable);
         }
 
         @Override
-        public <T, E extends Throwable> void close(RetryContext context, RetryCallback<T, E> callback,
-                                                   Throwable throwable) {
-            // do stuff in it
+        public void onRetrySuccess(RetryPolicy retryPolicy, org.springframework.core.retry.Retryable<?> retryable, @Nullable Object result) {
+            RetryListener.super.onRetrySuccess(retryPolicy, retryable, result);
         }
 
         @Override
-        public <T, E extends Throwable> void onError(RetryContext context, RetryCallback<T, E> callback,
-                                                     Throwable throwable) {
-            // do stuff in it
+        public void onRetryFailure(RetryPolicy retryPolicy, org.springframework.core.retry.Retryable<?> retryable, Throwable throwable) {
+            RetryListener.super.onRetryFailure(retryPolicy, retryable, throwable);
+        }
+
+        @Override
+        public void onRetryPolicyExhaustion(RetryPolicy retryPolicy, org.springframework.core.retry.Retryable<?> retryable, RetryException exception) {
+            RetryListener.super.onRetryPolicyExhaustion(retryPolicy, retryable, exception);
+        }
+
+        @Override
+        public void onRetryPolicyInterruption(RetryPolicy retryPolicy, org.springframework.core.retry.Retryable<?> retryable, RetryException exception) {
+            RetryListener.super.onRetryPolicyInterruption(retryPolicy, retryable, exception);
         }
     }
 }
