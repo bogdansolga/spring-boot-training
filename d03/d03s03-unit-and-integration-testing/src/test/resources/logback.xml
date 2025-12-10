@@ -10,8 +10,7 @@
 
     <logger name="org.springframework" level="WARN"/>
 
-    <root>
-        <level value="WARN"/>
+    <root level="WARN">
         <appender-ref ref="Console"/>
     </root>
 </configuration>
