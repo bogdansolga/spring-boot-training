@@ -37,9 +37,6 @@ public class ProductService {
     @Value("#{systemProperties['user.home']}")
     private String userHomeDirectory;
 
-    @Value("#{${ENV_PROP}}")
-    private String envProp;
-
     public void displayLoadedProperties() {
         System.out.println("The remote endpoint is '" + remoteEndpointURL + "'");
         System.out.println("The metrics are enabled: " + metricsEnabled);
@@ -54,6 +51,5 @@ public class ProductService {
         System.out.println("The value on multiple lines is '" + aValueOnMultipleLines + "'");
 
         System.out.println("The user home directory is '" + userHomeDirectory + "'");
-        System.out.println("The env property is '" + envProp + "'");
     }
 }

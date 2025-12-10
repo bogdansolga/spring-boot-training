@@ -3,11 +3,6 @@ spring:
   application:
     name: spring-boot-embedded-database-demo
 
-  # indent the returned JSON responses
-  jackson:
-    serialization:
-      INDENT_OUTPUT: true
-
   datasource:
     # in-memory database
     url: jdbc:h2:mem:test
@@ -32,6 +27,11 @@ spring:
       platform: h2
       #schema-locations: 'schema.sql'
       #data-locations: 'data.sql'
+
+  # indent the returned JSON responses
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
 
 # logging settings
 logging:

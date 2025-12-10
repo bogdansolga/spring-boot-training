@@ -28,6 +28,7 @@ public class ProductService {
             }
     )
     public void create(final Product product) {
+        if (productRepository.count() > 1) return;
         productRepository.save(product);
     }
 

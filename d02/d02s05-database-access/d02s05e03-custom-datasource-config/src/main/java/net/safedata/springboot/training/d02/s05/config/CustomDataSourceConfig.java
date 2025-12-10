@@ -61,8 +61,7 @@ public class CustomDataSourceConfig {
         hikariConfig.setMaximumPoolSize(AVAILABLE_PROCESSORS * 2);
         hikariConfig.setMinimumIdle(AVAILABLE_PROCESSORS / 2);
         hikariConfig.setConnectionTimeout(30000);
-        hikariConfig.setIdleTimeout(60000);
-        hikariConfig.setMaxLifetime(120000);
+        hikariConfig.setIdleTimeout(10000);
         hikariConfig.setJdbcUrl(url);
         hikariConfig.setUsername(userName);
         hikariConfig.setPassword(password);
@@ -81,11 +80,10 @@ public class CustomDataSourceConfig {
         final HikariConfig hikariConfig = new HikariConfig();
 
         hikariConfig.setPoolName("hikari-second-connection-pool");
-        hikariConfig.setMaximumPoolSize(AVAILABLE_PROCESSORS * 2);
+        hikariConfig.setMaximumPoolSize(AVAILABLE_PROCESSORS);
         hikariConfig.setMinimumIdle(AVAILABLE_PROCESSORS / 2);
         hikariConfig.setConnectionTimeout(30000);
-        hikariConfig.setIdleTimeout(600000);
-        hikariConfig.setMaxLifetime(120000);
+        hikariConfig.setIdleTimeout(10000);
         hikariConfig.setJdbcUrl(url);
         hikariConfig.setUsername(userName);
         hikariConfig.setPassword(password);

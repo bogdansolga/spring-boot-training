@@ -12,8 +12,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 import java.util.stream.Stream;
 
 @Service
@@ -44,20 +42,6 @@ public class ProductService {
             propagation = Propagation.SUPPORTS
     )
     public Product get(final int id) {
-        Future<Product> productFuture = productRepository.findProductById(id);
-        //productFuture.get();
-
-        // two ugly constructs (pick your poison)
-
-        // the ugly construct 1:
-        try {
-            productFuture.get();
-        } catch (InterruptedException | ExecutionException ex) {
-            ex.printStackTrace();
-        }
-
-        // the ugly construct 2: throws
-
         return productRepository.findById(id)
                                 .orElseThrow(() -> new IllegalArgumentException("Not found"));
     }

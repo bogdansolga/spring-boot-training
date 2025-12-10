@@ -6,6 +6,13 @@ Implement a project that is managing Sections and:
 - uses two development environments:
   - dev
   - pre
+
+Optionally:
+- use the bean parameters (init and destroy methods)
+- use the @PostConstruct and @PreDestroy annotations
+- use a prototype bean scope
+
+Later:
 - loads two configuration files:
   - dev.properties
   - pre.properties

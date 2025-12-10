@@ -5,8 +5,6 @@ import net.safedata.springboot.training.d01.s05.service.ProductService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.util.Properties;
-
 /**
  * An example of how to load and use .properties files
  */

@@ -21,6 +21,7 @@ public class ProductService {
 
     @PostConstruct
     public void init() {
+        if (productRepository.count() > 0) return;
         create(new Product("A nice and useful tablet", 250d));
     }
 

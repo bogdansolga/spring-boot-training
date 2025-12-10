@@ -39,10 +39,7 @@ public class ProductController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @GetMapping(
-            path = "/{id}",
-            consumes = MediaType.APPLICATION_XML_VALUE
-    )
+    @GetMapping("/{id}")
     public Product get(@PathVariable final int id) {
         return productService.get(id);
     }

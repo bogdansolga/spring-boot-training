@@ -4,8 +4,8 @@ spring:
     name: spring-boot-config-per-profile-demo
   autoconfigure:
     exclude: # the recommended auto-configure exclude mode
-      - org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
       - org.springframework.boot.autoconfigure.aop.AopAutoConfiguration
+      - org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration
 
 # logging settings
 logging:
