@@ -1,5 +1,6 @@
 package net.safedata.springboot.training.d03s03.integration;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,12 +16,14 @@ import static org.hamcrest.Matchers.hasSize;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@DisplayName("Product REST Controller Integration Tests")
 class ProductRESTControllerTestIT {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
+    @DisplayName("Given there are tablets in the database and a new tablet is created, when retrieving tablets then their number is correct")
     void given_thereAreTabletsInTheDatabase_andANewTabletIsCreated_whenRetrievingTablets_thenTheirNumberIsCorrect()
             throws Exception {
         MockHttpServletRequestBuilder builder =

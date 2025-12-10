@@ -5,6 +5,7 @@ import net.safedata.springboot.training.d03s03.Profiles;
 import net.safedata.springboot.training.d03s03.dto.ProductDTO;
 import net.safedata.springboot.training.d03s03.service.ProductService;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -31,6 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles(Profiles.IN_MEMORY)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Transactional
+@DisplayName("Product Controller Integration Tests")
 public class ProductControllerTestIT {
 
     private static final String PRODUCT_NAME = "The product with the ID 1";
@@ -47,6 +49,7 @@ public class ProductControllerTestIT {
     }
 
     @Test
+    @DisplayName("Given the content type is correct, when getting a product then the status and the name are correct")
     public void givenTheContentTypeIsCorrect_WhenGettingAProduct_ThenTheStatusAndTheNameAreCorrect() throws Exception {
         mockMvc.perform(get("/product/{id}", 1)
                         .accept(MediaType.APPLICATION_JSON))
@@ -55,6 +58,7 @@ public class ProductControllerTestIT {
     }
 
     @Test
+    @DisplayName("Given the content type is correct, when getting all products then all products are returned")
     public void givenTheContentTypeIsCorrect_WhenGettingAllProducts_ThenAllGood() throws Exception {
         mockMvc.perform(get("/product")
                         .accept(MediaType.APPLICATION_JSON))
@@ -64,8 +68,9 @@ public class ProductControllerTestIT {
     }
 
     // a sample of using a parameterized test (JUnit 5 equivalent of TestNG's @DataProvider)
-    @ParameterizedTest
+    @ParameterizedTest(name = "Product ID {0} should return status {1}")
     @MethodSource("dataProvider")
+    @DisplayName("Given the content type is correct, when using a data provider then the correct status is returned")
     public void givenTheContentTypeIsCorrect_WhenUsingADataProvider_ThenAllGood(final String productId, final int statusCode) throws Exception {
         mockMvc.perform(get("/product/{id}", productId)
                         .accept(MediaType.APPLICATION_JSON))
