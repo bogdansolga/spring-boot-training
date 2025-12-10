@@ -62,7 +62,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <restassured.version>5.5.1</restassured.version>
+        <restassured.version>5.5.6</restassured.version>
 
         <spring-boot.version>4.0.0</spring-boot.version>
 
@@ -74,6 +74,13 @@
             <dependency>
                 <groupId>io.rest-assured</groupId>
                 <artifactId>rest-assured</artifactId>
+                <version>${restassured.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>spring-mock-mvc</artifactId>
                 <version>${restassured.version}</version>
                 <scope>test</scope>
             </dependency>
