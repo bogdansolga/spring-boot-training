@@ -32,7 +32,7 @@ public class ProductController {
     @PreAuthorize(
             "hasRole('" + ADMIN_ROLE + "') " +
             "AND authentication.details.userId == 25 " + // an equality check
-            "AND hasAuthority('WRITE')"
+            "AND hasAuthority('CAN_WRITE')"
     )
     @GetMapping("/product")
     @PostAuthorize("returnObject.userId == authentication.details.userId")
