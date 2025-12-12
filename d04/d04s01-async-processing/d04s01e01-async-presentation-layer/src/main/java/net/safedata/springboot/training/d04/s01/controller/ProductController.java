@@ -8,10 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 
 import java.util.concurrent.CompletableFuture;
@@ -35,16 +32,12 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @RequestMapping(
-            path = "/sync/{id}"
-    )
+    @GetMapping("/sync/{id}")
     public Product getProduct(@PathVariable final int id) {
         return productService.getById(id);
     }
 
-    @RequestMapping(
-            path = "/async/{id}"
-    )
+    @GetMapping("/async/{id}")
     public DeferredResult<ResponseEntity<?>> getAsyncProduct(@PathVariable final int id) {
         LOGGER.info("Returning the product with the ID {}...", id);
 
@@ -60,9 +53,7 @@ public class ProductController {
         return deferredResult;
     }
 
-    @RequestMapping(
-            path = "/async/cf/{id}"
-    )
+    @GetMapping("/async/cf/{id}")
     public CompletableFuture<Product> getAsyncCFProduct(@PathVariable final int id) {
         return CompletableFuture.supplyAsync(() -> productService.getById(id), executor);
     }
@@ -70,6 +61,7 @@ public class ProductController {
     private void processAsyncResponse(final DeferredResult<ResponseEntity<?>> deferred, final Product product,
                                       final Throwable exception) {
         if (exception == null) {
+            LOGGER.info("Returning the product with the ID {}", product.getId());
             deferred.setResult(ResponseEntity.ok(product));
         } else {
             deferred.setErrorResult(new ResponseEntity<>(new MessageDTO(exception.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR));
