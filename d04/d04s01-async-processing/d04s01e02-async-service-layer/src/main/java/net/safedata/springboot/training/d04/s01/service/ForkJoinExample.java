@@ -20,6 +20,7 @@ public class ForkJoinExample {
 
     public static void main(String[] args) {
         long now = System.currentTimeMillis();
+        System.out.println("Max threads: " + Runtime.getRuntime().availableProcessors());
 
         // first stage - forking
         Set<String> tasks = IntStream.rangeClosed(0, 50)
