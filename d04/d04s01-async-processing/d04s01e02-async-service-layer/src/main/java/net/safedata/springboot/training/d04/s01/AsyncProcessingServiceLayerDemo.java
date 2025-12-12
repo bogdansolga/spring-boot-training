@@ -2,6 +2,7 @@ package net.safedata.springboot.training.d04.s01;
 
 import net.safedata.springboot.training.d04.s01.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -28,8 +29,12 @@ public class AsyncProcessingServiceLayerDemo implements CommandLineRunner {
     }
 
     public static void main(String[] args) {
-        final ConfigurableApplicationContext applicationContext =
-                new SpringApplication(AsyncProcessingServiceLayerDemo.class).run(args);
+        final SpringApplication springApplication = new SpringApplication(AsyncProcessingServiceLayerDemo.class);
+        springApplication.setLogStartupInfo(false);
+        springApplication.setBannerMode(Banner.Mode.OFF);
+        springApplication.setWebApplicationType(org.springframework.boot.WebApplicationType.NONE);
+
+        final ConfigurableApplicationContext applicationContext = springApplication.run(args);
         applicationContext.close();
     }
 }
