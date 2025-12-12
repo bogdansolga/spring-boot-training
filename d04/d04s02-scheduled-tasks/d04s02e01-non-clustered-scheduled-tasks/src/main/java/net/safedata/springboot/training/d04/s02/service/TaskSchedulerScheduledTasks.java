@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;
 
+import java.time.Duration;
 import java.time.Instant;
-import java.util.Date;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.TimeZone;
 import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class TaskSchedulerScheduledTasks {
@@ -52,7 +52,7 @@ public class TaskSchedulerScheduledTasks {
 
     private void periodicTriggerTask() {
         final Runnable task = () -> LOGGER.info("[periodicTriggerTask] Processing the latest sold products...");
-        final PeriodicTrigger periodicTrigger = new PeriodicTrigger(5000, TimeUnit.MILLISECONDS);
+        final PeriodicTrigger periodicTrigger = new PeriodicTrigger(Duration.of(5000, ChronoUnit.MILLIS));
 
         taskScheduler.schedule(task, periodicTrigger);
     }
